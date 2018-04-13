@@ -43,3 +43,8 @@
   border: 0.1em solid #d4d4d4;
   padding:.6em;
 }
+
+.st-block [contenteditable="true"]:active,
+.st-block [contenteditable="true"]:focus {
+  background-color: $editable_background;
+}

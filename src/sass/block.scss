@@ -1,17 +1,58 @@
+
+.st-blocks.st--hide-top-controls.st-ready {
+  padding-bottom: 22px;
+}
+
 .st-blocks {
   overflow: hidden;
-  position:relative;
+  position: relative;
+  min-height: 55px;
+  padding-bottom: 6px;
 }
 
 .st-block {
   position: relative;
+  background-color: whitesmoke;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+  margin-left: $left_icon_space;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-right: 3px; // for shadow
+  &.to-delete {
+    background-color: #FFCDD2;
+  }
+}
+
+.st-block:hover {
+  //background-color: yellow;
+}
+
+.st-block__card-inner {
+  height: 100%;
+  &:focus {
+    //background-color: chartreuse;
+    outline: 0;
+  }
+}
+
+.st-block__content {
+  padding-top: .5em;
+  padding-left: 1em;
+  padding-right: 4em;
+  //margin-bottom: -1em;
+}
+
+.st-block__content:focus {
+
 }
 
 .st-block__inner {
   position: relative;
-  margin: 0 110px;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin: 0;
+  padding: 0;
+  //margin: 0 110px;
+  //margin-top: 1em;
+  //margin-bottom: 1em;
 
   .st-block--textable & {
     margin-top: 0;
@@ -47,7 +88,7 @@
 }
 
 .st-block--with-errors .st-block__inner,
-.st-block--delete-active .st-block__inner  {
+.st-block--delete-active .st-block__inner {
   border-color: $error-color;
 }
 
@@ -93,7 +134,7 @@
 
 .with-st-controls:after,
 .with-st-controls:before {
-  display:none
+  display: none
 }
 
 .st-block.st-drag-over:after,
@@ -101,40 +142,40 @@
 .st-top-controls.st-drag-over:before {
   content: "";
   background: transparent;
-  display:block;
-  width:100%;
-  height:3px;
-  position:absolute;
-  bottom:0;
-  left:0;
-  background:$accent-color;
+  display: block;
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: $accent-color;
 }
 
 .st-drag-element {
-  background:#fff;
-  box-shadow: 3px 3px $accent-color inset, -3px -3px $accent-color inset ;
-  position:absolute;
-  width:100%;
-  z-index:-1;
+  background: #fff;
+  box-shadow: 3px 3px $accent-color inset, -3px -3px $accent-color inset;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
 
   .st-block-addition {
-    display:none;
+    display: none;
   }
 }
 
 .st-block--dragging {
-  background:#f6f7f9;
+  background: #f6f7f9;
   & > * {
-    opacity:0;
+    opacity: 0;
   }
   & .st-block-addition {
-    opacity:1;
+    opacity: 1;
   }
 }
 
 .st-drag-over {
   & .st-block-addition {
-    opacity:0;
+    opacity: 0;
   }
 }
 
@@ -143,7 +184,7 @@
   @include st-input-active;
   font-size: $text-block-font-size;
   line-height: 1.45;
-  overflow:visible;
+  overflow: visible;
 
   .st-block--empty & {
     line-height: 55px;
@@ -166,7 +207,7 @@
 }
 
 .st-text-block--heading p {
-  margin:.5em 0;
+  margin: .5em 0;
 }
 
 .st-text-block--quote {
@@ -181,8 +222,12 @@ ul.st-text-block {
 
 .st-list-block__list {
   font-size: $text-block-font-size;
-  margin: 0;
+  //margin: 0;
   padding-left: 1em;
+}
+
+ol .st-list-block__item {
+  padding-left: .25em;
 }
 
 .st-list-block__editor {
@@ -239,7 +284,7 @@ ul.st-text-block {
 }
 
 .st-block__upload-container:hover .st-upload-btn {
-  background:$accent-color;
+  background: $accent-color;
   color: #fff;
 }
 
@@ -263,7 +308,8 @@ ul.st-text-block {
 .st-block__editor--with-sixteen-by-nine-media iframe {
   height: 100%;
   width: 100%;
-  left: 0; top: 0;
+  left: 0;
+  top: 0;
   position: absolute;
 }
 

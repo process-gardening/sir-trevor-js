@@ -5,6 +5,8 @@ $animation-speed: 0.2s;
   min-height: 1.750em;
   position: relative;
   z-index: 2;
+  margin-left: $left_icon_space;
+  margin-bottom: 15px;
 }
 
 .st-block-addition {
@@ -16,7 +18,7 @@ $animation-speed: 0.2s;
   background-color:transparent;
   padding:0;
   z-index: 2;
-  
+
   &::-moz-focus-inner {
     padding:0;
     margin:0;
