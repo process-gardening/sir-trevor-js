@@ -82,7 +82,7 @@ Object.assign(SimpleBlock.prototype, require('./function-bind'), require('./even
   },
 
   _blockPrepare : function() {
-    this._initUI();
+    //this._initUI();
     this._initMessages();
 
     this.checkAndLoadData();
@@ -99,10 +99,23 @@ Object.assign(SimpleBlock.prototype, require('./function-bind'), require('./even
     }
   },
 
+  _withUIDrawerComponent: function(component, className, callback) {
+    this.ui_drawer.appendChild(component.render().el);
+    if (className && callback) {
+      Events.delegate(this.ui_drawer, className, 'click', callback);
+    }
+  },
+
   _initUI : function() {
+    console.log('simple_block::_initUI()');
+    var card_inner = this.el.getElementsByClassName('st-block__card-inner')[0];
     var ui_element = Dom.createElement("div", { 'class': 'st-block__ui' });
-    this.el.appendChild(ui_element);
+    //this.el.appendChild(ui_element);
+    card_inner.appendChild(ui_element);
     this.ui = ui_element;
+    var controls_drawer = Dom.createElement("div", { 'class': 'st-block__controls_drawer' });
+    this.ui.appendChild(controls_drawer);
+    this.ui_drawer = controls_drawer;
     this._initUIComponents();
   },
 
