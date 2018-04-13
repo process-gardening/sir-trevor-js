@@ -1,5 +1,12 @@
 "use strict";
 
+var template = [
+  "<div class='st-block-positioner__inner'>",
+  "<span class='st-block-positioner__selected-value'></span>",
+  "<select class='st-block-positioner__select'></select>",
+  "</div>"
+].join("\n");
+
 var BlockPositioner = function(block, mediator) {
   this.mediator = mediator;
   this.block = block;
@@ -12,12 +19,50 @@ var BlockPositioner = function(block, mediator) {
 
 Object.assign(BlockPositioner.prototype, require('./function-bind'), require('./renderable'), {
 
-  bound: ['toggle', 'show', 'hide'],
+  total_blocks: 0,
+
+  bound: ['onBlockCountChange', 'onSelectChange', 'toggle', 'show', 'hide'],
 
   className: 'st-block-positioner',
   visibleClass: 'active',
 
-  initialize: function(){},
+  initialize: function(){
+    this.el.insertAdjacentHTML("beforeend", template);
+    this.select = this.$('.st-block-positioner__select')[0];
+
+    this.select.addEventListener('change', this.onSelectChange);
+
+    this.mediator.on("block:countUpdate", this.onBlockCountChange);
+  },
+
+  onBlockCountChange: function(new_count) {
+    if (new_count !== this.total_blocks) {
+      this.total_blocks = new_count;
+      this.renderPositionList();
+    }
+  },
+
+  onSelectChange: function() {
+    var val = this.select.value;
+    if (val !== 0) {
+      this.mediator.trigger(
+        "block:changePosition", this.block, val,
+        (val === 1 ? 'before' : 'after'));
+      this.toggle();
+    }
+  },
+
+  renderPositionList: function() {
+    //var pos = this.blockManager.getBlockPosition(this.block);
+    //console.log('renderPositionList() -> ' + pos);
+
+
+    var inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
+    for(var i = 1; i <= this.total_blocks; i++) {
+      inner += "<option value="+i+">"+i+"</option>";
+    }
+    this.select.innerHTML = inner;
+  },
 
   toggle: function() {
     this.mediator.trigger('block-positioner-select:render', this);

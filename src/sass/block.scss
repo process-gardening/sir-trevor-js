@@ -1,17 +1,58 @@
+
+.st-blocks.st--hide-top-controls.st-ready {
+  padding-bottom: 22px;
+}
+
 .st-blocks {
   overflow: hidden;
-  position:relative;
+  position: relative;
+  min-height: 55px;
+  padding-bottom: 6px;
 }
 
 .st-block {
   position: relative;
+  background-color: whitesmoke;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+  margin-left: $left_icon_space;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-right: 3px; // for shadow
+  &.to-delete {
+    background-color: #FFCDD2;
+  }
+}
+
+.st-block:hover {
+  //background-color: yellow;
+}
+
+.st-block__card-inner {
+  height: 100%;
+  &:focus {
+    //background-color: chartreuse;
+    outline: 0;
+  }
+}
+
+.st-block__content {
+  padding-top: .5em;
+  padding-left: 1em;
+  padding-right: 4em;
+  //margin-bottom: -1em;
+}
+
+.st-block__content:focus {
+
 }
 
 .st-block__inner {
   position: relative;
-  margin: 0 110px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 0;
+  padding: 0;
+  //margin: 0 110px;
+  //margin-top: 1em;
+  //margin-bottom: 1em;
 
   .st-block--textable & {
     margin-top: 0;
@@ -47,7 +88,7 @@
 }
 
 .st-block--with-errors .st-block__inner,
-.st-block--delete-active .st-block__inner  {
+.st-block--delete-active .st-block__inner {
   border-color: $error-color;
 }
 
@@ -93,7 +134,7 @@
 
 .with-st-controls:after,
 .with-st-controls:before {
-  display:none
+  display: none
 }
 
 .st-block.st-drag-over:after,
@@ -101,40 +142,40 @@
 .st-top-controls.st-drag-over:before {
   content: "";
   background: transparent;
-  display:block;
-  width:100%;
-  height:3px;
-  position:absolute;
-  bottom:0;
-  left:0;
-  background:$accent-color;
+  display: block;
+  width: 100%;
+  height: 3px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: $accent-color;
 }
 
 .st-drag-element {
-  background:#fff;
-  box-shadow: 3px 3px $accent-color inset, -3px -3px $accent-color inset ;
-  position:absolute;
-  width:100%;
-  z-index:-1;
+  background: #fff;
+  box-shadow: 3px 3px $accent-color inset, -3px -3px $accent-color inset;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
 
   .st-block-addition {
-    display:none;
+    display: none;
   }
 }
 
 .st-block--dragging {
-  background:#f6f7f9;
+  background: #f6f7f9;
   & > * {
-    opacity:0;
+    opacity: 0;
   }
   & .st-block-addition {
-    opacity:1;
+    opacity: 1;
   }
 }
 
 .st-drag-over {
   & .st-block-addition {
-    opacity:0;
+    opacity: 0;
   }
 }
 
@@ -153,53 +194,25 @@
 .st-text-block p {
   // display: inline;
   // margin: 0;
-  margin: 1rem 0;
   vertical-align: 14%;
-}
-
-.st-block[data-type="heading"] .st-block__inner {
-  font-size: $text-block-font-size;
 }
 
 .st-text-block--heading {
   line-height: 1.45;
+  font-size: 1.5em;
   min-height: 1em;
   font-weight: 700;
-  margin: 1rem 0;
+  margin: 0.58em 0;
   overflow: visible;
-
-  .st-block[data-level="1"] & {
-    font-size: 2em;
-  }
-
-  .st-block[data-level="2"] & {
-    font-size: 1.5em;
-  }
-
-  .st-block[data-level="3"] & {
-    font-size: 1.17em;
-  }
-
-  .st-block[data-level="4"] & {
-    font-size: 1em;
-  }
-
-  .st-block[data-level="5"] & {
-    font-size: 0.83em;
-  }
-
-  .st-block[data-level="6"] & {
-    font-size: 0.67em;
-  }
 }
 
 .st-text-block--heading p {
-  margin:.5em 0;
+  margin: .5em 0;
 }
 
 .st-text-block--quote {
   font-size: 1.875em;
-  line-height: 1.45;
+  line-height: 1.3;
   margin-bottom: 1.8em;
 }
 
@@ -209,13 +222,17 @@ ul.st-text-block {
 
 .st-list-block__list {
   font-size: $text-block-font-size;
-  margin: 0;
+  //margin: 0;
   padding-left: 1em;
+}
+
+ol .st-list-block__item {
+  padding-left: .25em;
 }
 
 .st-list-block__editor {
   width: 100%;
-  line-height: 1.45;
+  line-height: 1.8em;
 }
 
 .st-block__inputs {
@@ -255,11 +272,20 @@ ul.st-text-block {
 }
 
 .st-upload-btn {
-  @include st-btn;
+  border: 0;
+  background: $base-ui-color;
+  border-radius: 0.2em;
+  padding: 0.35em 1em;
+  font-size: 1.125em;
+  cursor: pointer;
+  color: #fff;
+  position: relative;
+  z-index: 10;
 }
 
 .st-block__upload-container:hover .st-upload-btn {
-  @include st-btn-hover;
+  background: $accent-color;
+  color: #fff;
 }
 
 .st-block__editor--with-square-media {
@@ -282,7 +308,8 @@ ul.st-text-block {
 .st-block__editor--with-sixteen-by-nine-media iframe {
   height: 100%;
   width: 100%;
-  left: 0; top: 0;
+  left: 0;
+  top: 0;
   position: absolute;
 }
 
@@ -331,17 +358,4 @@ ul.st-text-block {
 
 .st-msg--error {
   color: $error-color;
-}
-
-.st-block--is-selected {
-  &:before {
-    display: block;
-    content: "";
-    background: #ccffcc;
-    position: absolute;
-    top: -6px;
-    left: 100px;
-    right: 20px;
-    bottom: -6px;
-  }
 }

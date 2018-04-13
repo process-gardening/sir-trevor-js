@@ -73,3 +73,8 @@
   background: $accent-color;
   color: #fff;
 }
+
+.st-block [contenteditable="true"]:active,
+.st-block [contenteditable="true"]:focus {
+  background-color: $editable_background;
+}

@@ -12,6 +12,8 @@
 // Block Controls
 @import 'block-addition';
 @import 'block-addition-top';
+@import 'block-addition-full';
+@import 'blocks-menu';
 @import 'block-controls';
 @import 'block-replacer';
 
@@ -19,6 +21,9 @@
 @import 'block';
 @import 'block-positioner';
 @import 'block-ui';
+
+// block specific
+@import 'block-box';
 
 // Format Bar
 @import 'format-bar';

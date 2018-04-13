@@ -5,6 +5,8 @@ $animation-speed: 0.2s;
   min-height: 1.750em;
   position: relative;
   z-index: 2;
+  margin-left: $left_icon_space;
+  margin-bottom: 15px;
 }
 
 .st-block-addition {

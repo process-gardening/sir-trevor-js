@@ -1,7 +1,16 @@
 .st-outer {
   font-size: 16px;
   position: relative;
-  background:#fff;
+  //background:#fff;
+}
+
+.st-outer {
+  box-sizing: border-box;
+}
+.st-outer *,
+.st-outer *:before,
+.st-outer *:after {
+  box-sizing: inherit;
 }
 
 .st-icon {
