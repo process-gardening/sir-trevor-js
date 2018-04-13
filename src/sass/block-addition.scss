@@ -31,7 +31,7 @@ $animation-speed: 0.2s;
 }
 
 .st--hide-top-controls {
-  .st-top-controls .st-block-addition {
+  .st-top-controls, .st-block-addition {
     display: none;
   }
 }

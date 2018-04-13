@@ -1,6 +1,6 @@
 "use strict";
 
-const BLOCK_ADDITION_TEMPLATE = require("./block-addition");
+const BLOCK_ADDITION_TEMPLATE = require("./block-addition-full");
 
 module.exports = () => {
   return `

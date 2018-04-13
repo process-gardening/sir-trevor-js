@@ -56,6 +56,8 @@ module.exports = {
       paste_options: paste_options,
       upload_options: upload_options,
     },
+    editorMode: 'block', // or document
+    //editorMode: 'document', // or document
     blockLimit: 0,
     blockTypeLimits: {},
     required: [],
