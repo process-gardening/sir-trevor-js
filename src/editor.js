@@ -19,6 +19,7 @@ var FormEvents = require('./form-events');
 var BlockControls = require('./block-controls');
 var BlockAddition = require('./block-addition');
 var BlockAdditionTop = require('./block-addition-top');
+var BlockAdditionFull = require('./block-addition-full');
 var BlockManager = require('./block-manager');
 var FormatBar = require('./format-bar');
 var EditorStore = require('./extensions/editor-store');
@@ -78,7 +79,8 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
 
     this.blockManager = new BlockManager(this);
     this.blockAddition = BlockAddition.create(this);
-    this.BlockAdditionTop = BlockAdditionTop.create(this);
+    this.blockAdditionTop = BlockAdditionTop.create(this);
+    this.blockAdditionFull = BlockAdditionFull.create(this);
     this.blockControls = BlockControls.create(this);
 
     this.formatBar = new FormatBar(this.options.formatBar, this.mediator, this);
@@ -195,6 +197,8 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   hideAllTheThings: function(e) {
     this.blockControls.hide();
     this.blockAddition.hide();
+    this.blockAdditionTop.hide();
+    this.blockAdditionFull.hide();
 
     if (document.activeElement.getAttribute('contenteditable') === null) {
       this.formatBar.hide();
