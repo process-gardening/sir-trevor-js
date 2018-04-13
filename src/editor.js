@@ -27,7 +27,7 @@ var ErrorHandler = require('./error-handler');
 var BlockPositionerSelect = require('./block-positioner-select');
 var SelectionHandler = require('./selection-handler');
 
-var Editor = function(options) {
+var Editor = function (options) {
   this.initialize(options);
 };
 
@@ -44,16 +44,19 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     'block:content:dropped': 'removeBlockDragOver'
   },
 
-  initialize: function(options) {
+  initialize: function (options) {
     utils.log("Init SirTrevor.Editor");
 
     this.options = Object.assign({}, config.defaults, options || {});
+    console.log(this.options);
     this.ID = _.uniqueId('st-editor-');
 
-    if (!this._ensureAndSetElements()) { return false; }
+    if (!this._ensureAndSetElements()) {
+      return false;
+    }
 
-    if(!_.isUndefined(this.options.onEditorRender) &&
-       _.isFunction(this.options.onEditorRender)) {
+    if (!_.isUndefined(this.options.onEditorRender) &&
+      _.isFunction(this.options.onEditorRender)) {
       this.onEditorRender = this.options.onEditorRender;
     }
 
@@ -75,7 +78,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
    * create a default block.
    * If we have JSON then we need to build all of our blocks from this.
    */
-  build: function() {
+  build: function () {
     Dom.hide(this.el);
 
     this.errorHandler = new ErrorHandler(this.outer, this.mediator, this.options.errorsContainer);
@@ -112,40 +115,46 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     this.createBlocks();
     this.wrapper.classList.add('st-ready');
 
-    if(!_.isUndefined(this.onEditorRender)) {
+    if (!_.isUndefined(this.onEditorRender)) {
       this.onEditorRender();
     }
   },
 
-  createBlocks: function() {
+  createBlocks: function () {
     var store = this.store.retrieve();
 
+    console.log(this.options);
+
     if (store.data.length > 0) {
-      store.data.forEach(function(block) {
+      store.data.forEach(function (block) {
         this.mediator.trigger('block:create', block.type, block.data);
       }, this);
-    } else if (this.options.defaultType !== false) {
-      this.mediator.trigger('block:create', this.options.defaultType, {});
-    }
+    } else if (this.options.defaultType !== false || this.options.editorMode === 'document') {
+      if (this.options.defaultType !== false) {
+        this.mediator.trigger('block:create', this.options.defaultType, {});
+      } else {
+        this.mediator.trigger('block:create', 'text', {});
+      }
 
     if (this.options.focusOnInit) {
       var blockElement = this.wrapper.querySelectorAll('.st-block')[0];
 
-      if (blockElement) {
-        var block = this.blockManager.findBlockById(blockElement.getAttribute('id'));
-        block.focus();
+        if (blockElement) {
+          var block = this.blockManager.findBlockById(blockElement.getAttribute('id'));
+          block.focus();
+        }
       }
     }
   },
 
-  destroy: function() {
+  destroy: function () {
     // Destroy the rendered sub views
     this.formatBar.destroy();
     this.blockAddition.destroy();
     this.blockControls.destroy();
 
     // Destroy all blocks
-    this.blockManager.blocks.forEach(function(block) {
+    this.blockManager.blocks.forEach(function (block) {
       this.mediator.trigger('block:remove', block.blockID);
     }, this);
 
@@ -154,7 +163,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     this.stopListening();
 
     // Remove instance
-    config.instances = config.instances.filter(function(instance) {
+    config.instances = config.instances.filter(function (instance) {
       return instance.ID !== this.ID;
     }, this);
 
@@ -172,7 +181,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     return this.store.retrieve();
   },
 
-  reinitialize: function(options) {
+  reinitialize: function (options) {
     this.destroy();
     this.initialize(options || this.options);
   },
@@ -182,11 +191,11 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     this.reinitialize();
   },
 
-  blockLimitReached: function(toggle) {
+  blockLimitReached: function (toggle) {
     this.wrapper.classList.toggle('st--block-limit-reached', toggle);
   },
 
-  blockOrderUpdated: function() {
+  blockOrderUpdated: function () {
     // Detect first block and decide whether to hide top controls
     var blockElement = this.wrapper.querySelectorAll('.st-block')[0];
     var hideTopControls = false;
@@ -201,8 +210,10 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     this._toggleHideTopControls(hideTopControls);
   },
 
-  _toggleHideTopControls: function(toggle) {
-    this.wrapper.classList.toggle('st--hide-top-controls', toggle);
+  _toggleHideTopControls: function (toggle) {
+    if (this.options.editorMode === 'document') {
+      this.wrapper.classList.toggle('st--hide-top-controls', toggle);
+    }
   },
 
   onBlockCountChange: function(new_count) {
@@ -213,8 +224,8 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     this.blockPositionerSelect.renderInBlock(positioner);
   },
 
-  _setEvents: function() {
-    Object.keys(this.events).forEach(function(type) {
+  _setEvents: function () {
+    Object.keys(this.events).forEach(function (type) {
       EventBus.on(type, this[this.events[type]], this);
     }, this);
   },
@@ -230,7 +241,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     }
 
     var popupSelectors = '.st-block__ui-delete-controls';
-    Array.prototype.forEach.call(this.wrapper.querySelectorAll(popupSelectors), function(el) {
+    Array.prototype.forEach.call(this.wrapper.querySelectorAll(popupSelectors), function (el) {
       el.classList.remove('active');
     });
 
@@ -240,7 +251,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     });
   },
 
-  store: function(method, options){
+  store: function (method, options) {
     utils.log("The store method has been removed, please call store[methodName]");
     return this.store[method].call(this, options || {});
   },
@@ -394,6 +405,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
 
     return true;
   }
+
 });
 
 module.exports = Editor;
