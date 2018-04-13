@@ -1,6 +1,6 @@
 SirTrevor.Locales.de = {
   general: {
-    'delete':           'Löschen?',
+    'delete?':          '',
     'drop':             '__block__ hier ablegen',
     'paste':            'Oder Adresse hier einfügen',
     'upload':           '...oder Datei auswählen',
@@ -9,7 +9,9 @@ SirTrevor.Locales.de = {
     'wait':             'Bitte warten...',
     'link':             'Link eintragen',
     'yes':              'Ja ',
-    'no':               'Nein'
+    'no':               'Nein',
+    'delete':           'Löschen',
+    'cancel':           'Abbrechen'
   },
   errors: {
     'title': "Die folgenden Fehler sind aufgetreten:",

@@ -88,11 +88,13 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   render: function() {
+    console.log('block::render()');
     this.beforeBlockRender();
     this._setBlockInner();
+    this._initUI();
 
     this.editor = this.inner.children[0];
-    
+
     this.mixinsRequireInputs = false;
     this.availableMixins.forEach(function(mixin) {
       if (this[mixin]) {
@@ -177,7 +179,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     if (this.$(matcher).length > 0) {
       Array.prototype.forEach.call(this.$('input, textarea, select, button'), function(input) {
 
-        // Reference elements by their `name` attribute. For elements such as radio buttons 
+        // Reference elements by their `name` attribute. For elements such as radio buttons
         // which require a unique reference per group of elements a `data-name` attribute can
         // be used to provide the same `name` per block.
 
@@ -245,10 +247,16 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
   //Event handlers
   _onFocus: function() {
-    this.trigger('blockFocus', this.el);
+    //console.log('focus');
+    this.ui_drawer.classList.add('visible');
+    this.trigger('block:focus', this.el);
   },
 
-  _onBlur: function() {},
+  _onBlur: function() {
+    //console.log('blur');
+    this.ui_drawer.classList.remove('visible');
+    this.trigger('block:blur', this.el);
+  },
 
   onBlockRender: function() {
     this.focus();
@@ -261,16 +269,17 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     this.mediator.trigger('block:remove', this.blockID, {focusOnPrevious: true});
   },
 
-  // REFACTOR: have one set of delete controls that moves around like the 
+  // REFACTOR: have one set of delete controls that moves around like the
   // block controls?
   addDeleteControls: function(){
 
     var onDeleteDeny = (e) => {
       e.preventDefault();
       this.deleteEl.classList.remove("active");
+      this.el.classList.remove('to-delete');
     };
 
-    this.ui.insertAdjacentHTML("beforeend", DELETE_TEMPLATE());
+    this.ui_drawer.insertAdjacentHTML("beforeend", DELETE_TEMPLATE());
     Events.delegate(this.el, ".js-st-block-confirm-delete", "click", this.onDeleteConfirm);
     Events.delegate(this.el, ".js-st-block-deny-delete", "click", onDeleteDeny);
   },
@@ -286,11 +295,12 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
     this.deleteEl = this.el.querySelector('.st-block__ui-delete-controls');
     this.deleteEl.classList.toggle('active');
+    this.el.classList.add('to-delete');
   },
 
   onPositionerClick: function(e) {
     e.preventDefault();
-    
+
     this.positioner.toggle();
   },
 
@@ -343,11 +353,18 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
     this._withUIComponent(new BlockReorder(this.el, this.mediator));
 
-    this._withUIComponent(new BlockDeletion(), '.st-block-ui-btn__delete',
+    this._withUIDrawerComponent(new BlockDeletion(), '.st-block-ui-btn__delete',
                           this.onDeleteClick);
 
     this.onFocus();
     this.onBlur();
+
+    // callbacks for opening and closing drawer
+    //Events.delegate(this.el, '.st-block__content', 'click', this._onFocus);
+    //Events.delegate(this.el, '.st-block__content', 'focus', this._onFocus);
+    //Events.delegate(this.el, '.st-block__content', 'blur', this._onBlur);
+    Events.delegate(this.el, '.st-block__card-inner', 'focusin', this._onFocus);
+    Events.delegate(this.el, '.st-block__card-inner', 'focusout', this._onBlur);
   },
 
   _initFormatting: function() {

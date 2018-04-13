@@ -14,9 +14,9 @@ Object.assign(BlockDeletion.prototype, require('./function-bind'), require('./re
 
   attributes: {
     html: () => `<svg role="img" class="st-icon">
-                   <use xlink:href="${config.defaults.iconUrl}#cross"/>
+                   <use xlink:href="${config.defaults.iconUrl}#delete"/>
                  </svg>`,
-    'data-icon': 'close'
+    'data-icon': 'delete' // close
   }
 
 });

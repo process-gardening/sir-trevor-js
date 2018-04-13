@@ -208,6 +208,11 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     Array.prototype.forEach.call(this.wrapper.querySelectorAll(popupSelectors), function(el) {
       el.classList.remove('active');
     });
+
+    popupSelectors = '.st-block';
+    Array.prototype.forEach.call(this.wrapper.querySelectorAll(popupSelectors), function (el) {
+      el.classList.remove('to-delete');
+    });
   },
 
   store: function(method, options){

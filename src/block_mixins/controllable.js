@@ -11,7 +11,7 @@ module.exports = {
 
   initializeControllable: function() {
     utils.log("Adding controllable to block " + this.blockID);
-    this.inner.classList.add('st-block__inner--controllable');
+    //this.inner.classList.add('st-block__inner--controllable');
     this.control_ui = Dom.createElement('div', {'class': 'st-block__control-ui'});
     Object.keys(this.controls).forEach(
       function(cmd) {
@@ -20,7 +20,8 @@ module.exports = {
       },
       this
     );
-    this.inner.appendChild(this.control_ui);
+    //this.inner.appendChild(this.control_ui);
+    this.ui_drawer.appendChild(this.control_ui);
   },
 
   getControlTemplate: function(cmd) {

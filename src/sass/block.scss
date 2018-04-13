@@ -51,10 +51,25 @@
   border-color: $error-color;
 }
 
+.st-block__controls_drawer {
+  height: 0;
+  position: relative;
+  overflow: hidden;
+  //background-color: #ddffdd;
+  //border-top: 2px solid #252525;
+
+  transition: height 300ms ease-in-out;
+  &.visible {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    height: 3em;
+  }
+}
+
 .st-block--with-plus:after,
 .st-icon--add:after {
   display: block;
-  position: relative; z-index: 1;
+  position: relative;
+  z-index: 1;
   bottom: 0;
 }
 
