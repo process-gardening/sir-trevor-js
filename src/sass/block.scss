@@ -7,19 +7,23 @@
   overflow: hidden;
   position: relative;
   min-height: 55px;
-  padding-bottom: 6px;
+  padding-bottom: 8px;
 }
 
 .st-block {
   position: relative;
   background-color: whitesmoke;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+  border-left: 1px solid rgba(160, 160, 160, 0.2);
+  border-radius: 2px;
   margin-left: $left_icon_space;
   margin-top: 1em;
   margin-bottom: 1em;
   margin-right: 3px; // for shadow
   &.to-delete {
     background-color: #FFCDD2;
+    border: 2px solid red;
   }
 }
 
@@ -33,6 +37,10 @@
     //background-color: chartreuse;
     outline: 0;
   }
+}
+
+.st-block.to-delete > .st-block__card-inner {
+  background-color: unset;
 }
 
 .st-block__content {
@@ -106,6 +114,15 @@
   }
 }
 
+.st-block__ui-position-info {
+  float: right;
+  margin-right: 1em;
+}
+
+.st-block__ui-position-info p {
+  //font-size: .5em;
+}
+
 .st-block--with-plus:after,
 .st-icon--add:after {
   display: block;
@@ -137,25 +154,76 @@
   display: none
 }
 
+//.st-block,
+.st-top-controls.st-drag-over,
+.st-block.st-drag-over {
+  margin-bottom: 50px;
+  transition: all 0.3s;
+}
+
+$dropzone_txt_en: "Drop card here."; //"Drag card here.";
+$dropzone_txt_de: "Karte hier ablegen.";
+
+//.st-block:after,
 .st-block.st-drag-over:after,
 .st-block.st-drag-over:last-child:after,
 .st-top-controls.st-drag-over:before {
-  content: "";
+  content: $dropzone_txt_en;
+  //text-align: center;
+  //vertical-align: center;
+  font-weight: bold;
+  font-size: 1.25em;
+  color: lightgrey;
   background: transparent;
-  display: block;
+  //display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 3px;
+  height: 40px;
+  transition: all 0.3s;
+
   position: absolute;
-  bottom: 0;
+  bottom: -46px;
   left: 0;
-  background: $accent-color;
+  border: 4px dashed lightgrey;
+  //background: $accent-color;
+  //z-index: 3;
+}
+
+.st-block.st-drag-over,
+.st-block.st-drag-over:last-child {
+  &:lang(en):after {
+    content: $dropzone_txt_en;
+  }
+  &:lang(de):after {
+    content: $dropzone_txt_de;
+  }
+}
+.st-top-controls.st-drag-over {
+  &:lang(en):before {
+    content: $dropzone_txt_en;
+  }
+  &:lang(de):before {
+    content: $dropzone_txt_de;
+  }
+}
+
+.st-top-controls.st-drag-over .st-block-addition-full:before,
+.st-block.st-drag-over .st-block-addition-full:before {
+  opacity: 0;
 }
 
 .st-drag-element {
-  background: #fff;
-  box-shadow: 3px 3px $accent-color inset, -3px -3px $accent-color inset;
+  //background: #fff;
+  //box-shadow: 3px 3px $accent-color inset, -3px -3px $accent-color inset;
+  box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  border: 2px solid $accent-color;
   position: absolute;
-  width: 100%;
+  margin: 0;
+  height: unset;
+  //width: 100%;
   z-index: -1;
 
   .st-block-addition {
@@ -164,7 +232,10 @@
 }
 
 .st-block--dragging {
-  background: #f6f7f9;
+  //background: #f6f7f9;
+  background-color: white;
+  //max-height: 40px;
+  transition: all 0.3s;
   & > * {
     opacity: 0;
   }
@@ -359,3 +430,4 @@ ol .st-list-block__item {
 .st-msg--error {
   color: $error-color;
 }
+
