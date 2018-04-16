@@ -1,0 +1,50 @@
+
+
+.st-block__card-inner.info {
+  background-color: rgb(255, 255, 141);
+}
+.st-block__card-inner.attention {
+  background-color: rgb(255, 209, 128);
+}
+.st-block__card-inner.warn {
+  background-color: rgb(255, 138, 128);
+}
+
+div.st-block__box-icon {
+  position: absolute;
+  width: 3em;
+  //height: 3em;
+  float: left;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+p.st-block__box-icon > svg {
+  cursor: unset;
+  width: 3em;
+  height: 3em;
+}
+
+p.st-block__box-icon {
+  display: inline-block;
+  text-align: center;
+  //margin: 0;
+}
+
+.st-block__box-content {
+  margin-left: 4em;
+  min-height: 6em;
+  padding-bottom: .5em;
+}
+
+.st-block__box-content .st-blocks {
+  padding-right: 1em;
+ // background-color: whitesmoke;
+}
+
+//.st-block__box-content .st-block {
+//  background-color: darken(whitesmoke, 10%);
+//}
+//.st-block__box-content .st-block.to_delete {
+//  background-color: unset !important;
+//}

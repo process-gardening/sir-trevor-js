@@ -77,6 +77,11 @@ var Locales = {
       },
       heading: {
         'title': "Heading"
+      },
+      box: {
+        'info': 'Info',
+        'attention': 'Attention',
+        'warn': 'Warning'
       }
     }
   }
