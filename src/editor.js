@@ -193,8 +193,8 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     this._toggleHideTopControls(hideTopControls);
 
     // update block position info
-    let i=0;
-    for (i=0; i<this.blockManager.blocks.length; i++) {
+    let i = 0;
+    for (i = 0; i < this.blockManager.blocks.length; i++) {
       //console.log(this.blockManager.blocks[i]);
       this.blockManager.blocks[i]
         ._currentPositionUpdated(this.blockManager.getBlockPosition(this.blockManager.blocks[i].el));
@@ -223,15 +223,13 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
       this.formatBar.hide();
     }
 
-    var popupSelectors = '.st-block__ui-delete-controls';
-    Array.prototype.forEach.call(this.wrapper.querySelectorAll(popupSelectors), function (el) {
-      el.classList.remove('active');
-    });
-
-    popupSelectors = '.st-block';
-    Array.prototype.forEach.call(this.wrapper.querySelectorAll(popupSelectors), function (el) {
-      el.classList.remove('to-delete');
-    });
+    let delete_popup = document.getElementById('ui-delete-modal');
+    if (delete_popup) {
+      delete_popup.remove();
+    }
+    for (let elem of document.getElementsByClassName('to-delete')) {
+      elem.classList.remove('to-delete');
+    }
   },
 
   store: function (method, options) {

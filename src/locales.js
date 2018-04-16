@@ -7,7 +7,7 @@ var utils = require('./utils');
 var Locales = {
   en: {
     general: {
-      'delete?': '',
+      'delete?': 'Delete Block?',
       'drop': 'Drag __block__ here',
       'paste': 'Or paste URL here',
       'upload': '...or choose a file',

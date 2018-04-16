@@ -280,42 +280,75 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   onDeleteConfirm: function (e) {
-    console.log('block:onDeleteConfirm()');
     e.preventDefault();
     e.stopPropagation();
     this.mediator.trigger('block:remove', this.blockID, {focusOnPrevious: true});
+
+    // hide popup, should be deleted already
+    let popup = document.getElementById('ui-delete-modal');
+    if (popup) {
+      popup.remove();
+    }
   },
 
-  // REFACTOR: have one set of delete controls that moves around like the
-  // block controls?
-  addDeleteControls: function () {
-    console.log('block:addDeleteControls()');
-    var onDeleteDeny = (e) => {
+  onDeleteDeny: function (e) {
       e.preventDefault();
-      this.deleteEl.classList.remove("active");
-      this.el.classList.remove('to-delete');
-    };
+    //this.el.classList.remove('to-delete');
+    // unmark all blocks
+    for (let elem of document.getElementsByClassName('to-delete')) {
+      elem.classList.remove('to-delete');
+    }
 
-    this.ui_drawer.insertAdjacentHTML("beforeend", DELETE_TEMPLATE());
-    Events.delegate(this.el, ".js-st-block-confirm-delete", "click", this.onDeleteConfirm);
-    Events.delegate(this.el, ".js-st-block-deny-delete", "click", onDeleteDeny);
+    // remove popup
+    let popup = document.getElementById('ui-delete-modal');
+    if (popup) {
+      popup.remove();
+    }
   },
 
   onDeleteClick: function (e) {
-    console.log('block:onDeleteClick()');
-    console.log(e);
     e.preventDefault();
     e.stopPropagation();
 
+    // is current block already marked? -> cancel delete
+    if (this.el.classList.contains('to-delete')) {
+      this.onDeleteDeny(e);
+      return;
+    }
+
+    // unmark all blocks
+    for (let elem of document.getElementsByClassName('to-delete')) {
+      elem.classList.remove('to-delete');
+    }
+
+    // delete old popup. Can happen, if user clicks consecutively on two delete buttons
+    let popup = document.getElementById('ui-delete-modal');
+    if (popup) {
+      popup.classList.remove("active");
+      popup.remove();
+      popup = null;
+    }
+
+    // if empty, delete without asking
     if (this.isEmpty()) {
       this.onDeleteConfirm.call(this, new CustomEvent('click'));
       return;
     }
 
-    //this.deleteEl = this.el.querySelector('.st-block__ui-delete-controls');
-    this.deleteEl = e.currentTarget.parentNode.querySelector('.st-block__ui-delete-controls');
-    this.deleteEl.classList.toggle('active');
+    // mark card to delete
     this.el.classList.add('to-delete');
+
+    // create and show modal delete popup card
+    if (popup === null) {
+      document.getElementById(this.blockID).insertAdjacentHTML("beforeend", DELETE_TEMPLATE());
+      popup = document.getElementById('ui-delete-modal');
+    }
+
+    // connect button events
+    Events.delegate(popup, ".js-st-block-confirm-delete", "click", this.onDeleteConfirm);
+    Events.delegate(popup, ".js-st-block-deny-delete", "click", this.onDeleteDeny);
+
+    popup.classList.add("active");
   },
 
   onPositionerClick: function (e) {
@@ -363,8 +396,6 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
   //Init functions for adding functionality
   _initUIComponents: function () {
-
-    this.addDeleteControls();
 
     this.positioner = new BlockPositioner(this.el, this.mediator);
 

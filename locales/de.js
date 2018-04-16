@@ -1,6 +1,6 @@
 SirTrevor.Locales.de = {
   general: {
-    'delete?':          '',
+    'delete?':          'Block löschen?',
     'drop':             '__block__ hier ablegen',
     'paste':            'Oder Adresse hier einfügen',
     'upload':           '...oder Datei auswählen',
