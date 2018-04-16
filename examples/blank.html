@@ -35,7 +35,7 @@
 <form action="" class="form">
     <div class="errors"></div>
     <textarea class="sir-trevor" name="content"></textarea>
-    <input type="submit" value="Submit" style="display: none;">
+    <input type="submit" value="submit">
 </form>
 
 <pre id="st-json-debug"></pre>
@@ -64,9 +64,11 @@
                 "Heading",
                 "Text",
                 "List",
+                "ListExtended",
                 "Quote",
                 "Image",
-                "Video"
+                "Video",
+                "Box"
             ],
             //defaultType: "Text
             defaultType: false
@@ -74,7 +76,7 @@
 
         document.querySelector('form').addEventListener('submit', function (e) {
             e.preventDefault();
-            document.querySelector('#st-json-debug').innerText = window.editor.store.toString(true);
+            document.querySelector('#st-json-debug').innerText = window.editor.store.toString(2);
         });
 
     })();
