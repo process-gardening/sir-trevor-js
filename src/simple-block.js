@@ -41,7 +41,7 @@ Object.assign(SimpleBlock.prototype, require('./function-bind'), require('./even
   },
 
   title: function() {
-    return i18n.t(`blocks:${this.type}:title`) || 
+    return i18n.t(`blocks:${this.type}:title`) ||
             utils.titleize(this.type.replace(/[\W_]/g, ' '));
   },
 
@@ -113,7 +113,8 @@ Object.assign(SimpleBlock.prototype, require('./function-bind'), require('./even
     card_inner.appendChild(ui_element);
     this.ui = ui_element;
     var controls_drawer = Dom.createElement("div", { 'class': 'st-block__controls_drawer' });
-    this.ui.appendChild(controls_drawer);
+    //this.ui.appendChild(controls_drawer);
+    card_inner.appendChild(controls_drawer);
     this.ui_drawer = controls_drawer;
     this._initUIComponents();
   },

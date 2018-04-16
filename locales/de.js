@@ -50,6 +50,11 @@ SirTrevor.Locales.de = {
     },
     heading: {
       'title': 'Überschrift'
+    },
+    box: {
+      'info': 'Info',
+      'attention': 'Achtung',
+      'warn': 'Warnung'
     }
   }
 };
