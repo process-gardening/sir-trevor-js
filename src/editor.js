@@ -196,6 +196,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   },
 
   blockOrderUpdated: function () {
+    console.log('editor::blockOrderUpdated()');
     // Detect first block and decide whether to hide top controls
     var blockElement = this.wrapper.querySelectorAll('.st-block')[0];
     var hideTopControls = false;
@@ -208,6 +209,14 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     }
 
     this._toggleHideTopControls(hideTopControls);
+
+    // update block position info
+    let i=0;
+    for (i=0; i<this.blockManager.blocks.length; i++) {
+      //console.log(this.blockManager.blocks[i]);
+      this.blockManager.blocks[i]
+        ._currentPositionUpdated(this.blockManager.getBlockPosition(this.blockManager.blocks[i].el));
+    }
   },
 
   _toggleHideTopControls: function (toggle) {
@@ -263,6 +272,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   },
 
   changeBlockPosition: function(block, selectedPosition) {
+    console.log('editor::changeBlockPosition()');
     selectedPosition = selectedPosition - 1;
 
     var blockPosition = this.blockManager.getBlockPosition(block),

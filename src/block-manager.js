@@ -126,6 +126,7 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
       createNextBlock: false
     }, options);
 
+    console.log('block-manager::removeBlock( ' + blockID + ' )');
     var block = this.findBlockById(blockID);
     var type = utils.classify(block.type);
     var previousBlock = this.getPreviousBlock(block);

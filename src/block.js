@@ -73,6 +73,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   supressKeyListeners: false,
 
   _previousSelection: '',
+  _currentPosition: -1,
 
   initialize: function() {},
 
@@ -230,52 +231,57 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     this.focus();
   },
 
-  focusAtEnd: function() {
+  focusAtEnd: function () {
     this.focus();
   },
 
-  blur: function() {
-    Array.prototype.forEach.call(this.getTextBlock(), function(el) {
+  blur: function () {
+    Array.prototype.forEach.call(this.getTextBlock(), function (el) {
       el.blur();
     });
   },
 
-  onFocus: function() {
+  onFocus: function () {
     Array.prototype.forEach.call(this.getTextBlock(), (el) => {
       el.addEventListener('focus', this._onFocus);
     });
   },
 
-  onBlur: function() {
+  onBlur: function () {
     Array.prototype.forEach.call(this.getTextBlock(), (el) => {
       el.addEventListener('blur', this._onBlur);
     });
   },
 
   //Event handlers
-  _onFocus: function() {
+  _onFocus: function () {
     //console.log('focus');
     this.ui_drawer.classList.add('visible');
     this.trigger('block:focus', this.el);
   },
 
-  _onBlur: function() {
+  _onBlur: function () {
     //console.log('blur');
     this.ui_drawer.classList.remove('visible');
     this.trigger('block:blur', this.el);
   },
 
-  onDrop: function(dataTransferObj) {},
 
-  onDeleteConfirm: function(e) {
+
+  onDrop: function (dataTransferObj) {
+  },
+
+  onDeleteConfirm: function (e) {
+    console.log('block:onDeleteConfirm()');
     e.preventDefault();
+    e.stopPropagation();
     this.mediator.trigger('block:remove', this.blockID, {focusOnPrevious: true});
   },
 
   // REFACTOR: have one set of delete controls that moves around like the
   // block controls?
-  addDeleteControls: function(){
-
+  addDeleteControls: function () {
+    console.log('block:addDeleteControls()');
     var onDeleteDeny = (e) => {
       e.preventDefault();
       this.deleteEl.classList.remove("active");
@@ -287,7 +293,9 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     Events.delegate(this.el, ".js-st-block-deny-delete", "click", onDeleteDeny);
   },
 
-  onDeleteClick: function(e) {
+  onDeleteClick: function (e) {
+    console.log('block:onDeleteClick()');
+    console.log(e);
     e.preventDefault();
     e.stopPropagation();
 
@@ -296,21 +304,22 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
       return;
     }
 
-    this.deleteEl = this.el.querySelector('.st-block__ui-delete-controls');
+    //this.deleteEl = this.el.querySelector('.st-block__ui-delete-controls');
+    this.deleteEl = e.currentTarget.parentNode.querySelector('.st-block__ui-delete-controls');
     this.deleteEl.classList.toggle('active');
     this.el.classList.add('to-delete');
   },
 
-  onPositionerClick: function(e) {
+  onPositionerClick: function (e) {
     e.preventDefault();
 
     this.positioner.toggle();
   },
 
-  beforeLoadingData: function() {
+  beforeLoadingData: function () {
     this.loading();
 
-    if(this.mixinsRequireInputs) {
+    if (this.mixinsRequireInputs) {
       Dom.show(this.editor);
       Dom.hide(this.inputs);
     }
@@ -320,7 +329,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     this.ready();
   },
 
-  execTextBlockCommand: function(cmdName) {
+  execTextBlockCommand: function (cmdName) {
     if (_.isUndefined(this._scribe)) {
       throw "No Scribe instance found to send a command to";
     }
@@ -328,7 +337,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     return ScribeInterface.execTextBlockCommand(this._scribe, cmdName);
   },
 
-  queryTextBlockCommandState: function(cmdName) {
+  queryTextBlockCommandState: function (cmdName) {
     if (_.isUndefined(this._scribe)) {
       throw "No Scribe instance found to query command";
     }
@@ -336,28 +345,28 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     return ScribeInterface.queryTextBlockCommandState(this._scribe, cmdName);
   },
 
-  _handleContentPaste: function(ev) {
+  _handleContentPaste: function (ev) {
     setTimeout(this.onContentPasted.bind(this, ev, ev.currentTarget), 0);
   },
 
-  _getBlockClass: function() {
+  _getBlockClass: function () {
     return 'st-block--' + this.className;
   },
 
-   //Init functions for adding functionality
-  _initUIComponents: function() {
+  //Init functions for adding functionality
+  _initUIComponents: function () {
 
     this.addDeleteControls();
 
     this.positioner = new BlockPositioner(this.el, this.mediator);
 
     this._withUIComponent(this.positioner, '.st-block-ui-btn__reorder',
-                          this.onPositionerClick);
+      this.onPositionerClick);
 
     this._withUIComponent(new BlockReorder(this.el, this.mediator));
 
     this._withUIDrawerComponent(new BlockDeletion(), '.st-block-ui-btn__delete',
-                          this.onDeleteClick);
+      this.onDeleteClick);
 
     this.onFocus();
     this.onBlur();
@@ -368,9 +377,27 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     //Events.delegate(this.el, '.st-block__content', 'blur', this._onBlur);
     Events.delegate(this.el, '.st-block__card-inner', 'focusin', this._onFocus);
     Events.delegate(this.el, '.st-block__card-inner', 'focusout', this._onBlur);
+
+    // add id/position to ui_drawer
+    var pos_info = `
+    <div class="st-block__ui-position-info">
+      <p class="st-block__ui-position-info">id: ${this.blockID} ed: ${this.instanceID}
+      #<span class="st-block__ui-position-info">set me</span></p>
+    </div>
+    `
+    this.ui_drawer.insertAdjacentHTML("beforeend", pos_info);
   },
 
-  _initFormatting: function() {
+  _currentPositionUpdated: function (pos) {
+    console.log('block::_currentPositionUpdated( ' + pos + ' )');
+    this._currentPosition = pos;
+    let p = this.ui_drawer.querySelector('p.st-block__ui-position-info');
+    p.innerHTML = `
+      id: ${this.blockID} ed: ${this.instanceID}  #${this._currentPosition}
+    `;
+  },
+
+  _initFormatting: function () {
 
     // Enable formatting keyboard input
     var block = this;
@@ -379,7 +406,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
       return;
     }
 
-    this.options.formatBar.commands.forEach(function(cmd) {
+    this.options.formatBar.commands.forEach(function (cmd) {
       if (_.isUndefined(cmd.keyCode)) {
         return;
       }
@@ -393,7 +420,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     });
   },
 
-  _initTextBlocks: function() {
+  _initTextBlocks: function () {
     Array.prototype.forEach.call(this.getTextBlock(), (el) => {
       el.addEventListener('keyup', this.getSelectionForFormatter);
       el.addEventListener('mousedown', this.addMouseupListener.bind(this));
@@ -419,18 +446,18 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     window.addEventListener('mouseup', listener);
   },
 
-  getSelectionForFormatter: function() {
+  getSelectionForFormatter: function () {
     setTimeout(() => {
       var selection = window.getSelection(),
-          selectionStr = selection.toString().trim(),
-          en = 'formatter:' + ((selectionStr === '') ? 'hide' : 'position');
+        selectionStr = selection.toString().trim(),
+        en = 'formatter:' + ((selectionStr === '') ? 'hide' : 'position');
 
       this.mediator.trigger(en, this);
       EventBus.trigger(en, this);
     }, 1);
   },
 
-  clearInsertedStyles: function(e) {
+  clearInsertedStyles: function (e) {
     var target = e.target;
     if (_.isUndefined(target.tagName)) {
       target = target.parentNode;
@@ -438,11 +465,11 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     target.removeAttribute('style'); // Hacky fix for Chrome.
   },
 
-  hasTextBlock: function() {
+  hasTextBlock: function () {
     return this.getTextBlock().length > 0;
   },
 
-  getTextBlock: function() {
+  getTextBlock: function () {
     if (_.isUndefined(this.text_block)) {
       this.text_block = this.$('.st-text-block');
     }
@@ -450,11 +477,11 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     return this.text_block;
   },
 
-  getTextBlockHTML: function() {
+  getTextBlockHTML: function () {
     return this._scribe.getContent();
   },
 
-  setTextBlockHTML: function(html) {
+  setTextBlockHTML: function (html) {
     var returnVal = this._scribe.setContent(html);
 
     trimScribeContent(this._scribe);
@@ -462,7 +489,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     return returnVal;
   },
 
-  isEmpty: function() {
+  isEmpty: function () {
     return _.isEmpty(this.getBlockData());
   },
 

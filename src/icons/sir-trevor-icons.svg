@@ -1,9 +1,5 @@
 <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
 xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
-  <symbol viewBox="0 0 32 32" id="Poll">
-    <title>Poll</title>
-    <path fill="#444" d="M1.984 8.32h7.68v16.64h-7.68zM3.264 23.68h5.12v-14.080h-5.12zM31.394 27.52v-1.28h-30.722v1.28h30.722zM12.256 4.512h7.68v20.416h-7.68zM13.536 23.648h5.12v-17.856h-5.12zM22.464 12.16h7.68v12.8h-7.68zM23.744 13.44v10.24h5.12v-10.24z"
-    /> </symbol>
   <symbol viewBox="0 0 32 32" id="add-block">
     <title>add-block</title>
     <metadata id="add-block-metadata837">
@@ -401,6 +397,10 @@ xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
     <title>plus</title>
     <path fill="#444" d="M12.8 32h6.4v-32h-6.4v32z" />
     <path fill="#444" d="M0 12.8v6.4h32v-6.4h-32z" /> </symbol>
+  <symbol viewBox="0 0 32 32" id="poll">
+    <title>poll</title>
+    <path fill="#444" d="M1.984 8.32h7.68v16.64h-7.68zM3.264 23.68h5.12v-14.080h-5.12zM31.394 27.52v-1.28h-30.722v1.28h30.722zM12.256 4.512h7.68v20.416h-7.68zM13.536 23.648h5.12v-17.856h-5.12zM22.464 12.16h7.68v12.8h-7.68zM23.744 13.44v10.24h5.12v-10.24z"
+    /> </symbol>
   <symbol viewBox="0 0 32 32" id="publish">
     <title>publish</title>
     <path fill="#444" d="M27.733 18.133l-8.533 8.533v-6.4h-10.667v-4.267h10.667v-6.4zM14.396 9.598l-0.002-1.598h-13.861v20.267h13.867v-5.849h-3.2l0.029 2.643-7.301-0.011-0.159-13.788 7.428-0.064 0.003 2.722 3.2-0.003-0.004-4.319z" /> </symbol>
