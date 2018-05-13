@@ -48,7 +48,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     utils.log("Init SirTrevor.Editor");
 
     this.options = Object.assign({}, config.defaults, options || {});
-    console.log(this.options);
+    //console.log(this.options);
     this.ID = _.uniqueId('st-editor-');
 
     if (!this._ensureAndSetElements()) {
@@ -196,7 +196,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   },
 
   blockOrderUpdated: function () {
-    console.log('editor::blockOrderUpdated()');
+    //console.log('editor::blockOrderUpdated()');
     // Detect first block and decide whether to hide top controls
     var blockElement = this.wrapper.querySelectorAll('.st-block')[0];
     var hideTopControls = false;
@@ -265,7 +265,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   },
 
   changeBlockPosition: function(block, selectedPosition) {
-    console.log('editor::changeBlockPosition()');
+    //console.log('editor::changeBlockPosition()');
     selectedPosition = selectedPosition - 1;
 
     var blockPosition = this.blockManager.getBlockPosition(block),
@@ -285,7 +285,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   },
 
   updateBlockNumbering: function () {
-    console.log('editor::updateBlockNumbering()');
+    //console.log('editor::updateBlockNumbering()');
 
     // update block position info
     let i = 0;
