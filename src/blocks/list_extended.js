@@ -15,9 +15,12 @@ module.exports = (function () {
     set_type(this, 'ol');
   };
   set_type = function (block, list_type) {
-    //console.log('set_type: ' + list_type);
+    //console.log('list_extended::set_type: ' + list_type);
 
-    if (block.list_type === list_type) {
+    var list_old = block.el.getElementsByClassName('st-list-block__list')[0];
+
+    if (block.list_type === list_old.tagName.toLowerCase() &&
+      block.list_type === list_type) {
       //console.log('nothing to set!');
       return;
     }
@@ -30,7 +33,6 @@ module.exports = (function () {
     // remove all existing items with their editors
     block.removeAllItems();
 
-    var list_old = block.el.getElementsByClassName('st-list-block__list')[0];
     if (list_old !== null) {
       var list = document.createElement(list_type);
       //list.innerHTML = list_old.innerHTML; set by load data
@@ -48,7 +50,7 @@ module.exports = (function () {
 
   return Block.extend({
     type: 'list_extended',
-    icon_name: 'listextended',
+    icon_name: 'list_extended',
     //icon_name: 'tweet',
     multi_editable: true,
 
@@ -91,7 +93,7 @@ module.exports = (function () {
       if (this.editorIds.length < 1) {
         this.addListItem();
       }
-      //set_type(this, this.list_type);
+      set_type(this, this.list_type);
       this.highlightControls();
     },
 
@@ -130,9 +132,9 @@ module.exports = (function () {
 
       if (this.list_type !== data.list_type) {
         if (data.list_type === 'ol') {
-          set_ol();
+          this.list_type = 'ol';
         } else {
-          set_ul();
+          this.list_type = 'ul';
         }
       }
     },
