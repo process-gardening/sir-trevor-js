@@ -1,50 +1,115 @@
+$info_accent: #bde0ff; //rgb(255, 255, 141);
+$notice_accent: #2531ff; //rgb(164, 201, 255);
+$caution_accent: #fbfc00; //rgb(255, 209, 128);
+$warning_accent: #ff9600; //rgb(255, 209, 128);
+$danger_accent: #ff2800; //rgb(255, 138, 128);
 
+// option icons
+a.st-block-control-ui-btn--box_caution {
+  //background-color: $caution_accent;
+  //border-radius: 50%;
+  //margin-right: 2px;
+  &.st-block-control-ui-btn--selected {
+    border-radius: 0;
+    background-color: $accent-color;
+  }
+}
 
-.st-block__card-inner.info {
-  background-color: rgb(255, 255, 141);
+a.st-block-control-ui-btn--box_warning {
+  //background-color: $warning_accent;
+  //border-radius: 50%;
+  //margin-right: 2px;
+  &.st-block-control-ui-btn--selected {
+    border-radius: 0;
+    background-color: $accent-color;
+  }
 }
-.st-block__card-inner.attention {
-  background-color: rgb(255, 209, 128);
+
+a.st-block-control-ui-btn--box_danger {
+  //background-color: $danger_accent;
+  //border-radius: 50%;
+  //margin-right: 2px;
+  &.st-block-control-ui-btn--selected {
+    border-radius: 0;
+    background-color: $accent-color;
+  }
 }
-.st-block__card-inner.warn {
-  background-color: rgb(255, 138, 128);
+
+// box design
+.st-block__card-upper.info > .st-block__content,
+.st-block__card-upper.notice > .st-block__content,
+.st-block__card-upper.caution > .st-block__content,
+.st-block__card-upper.warning > .st-block__content,
+.st-block__card-upper.danger > .st-block__content {
+  padding: 0;
+}
+
+// heading
+div.st-block__box-header {
+  padding: 5px;
+}
+
+p.st-block__box-header {
+  font-size: 1.5em;
+  text-align: center;
+  padding: 0;
+  margin: 0;
 }
 
 div.st-block__box-icon {
-  position: absolute;
-  width: 3em;
-  //height: 3em;
-  float: left;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-p.st-block__box-icon > svg {
-  cursor: unset;
-  width: 3em;
-  height: 3em;
-}
-
-p.st-block__box-icon {
   display: inline-block;
-  text-align: center;
-  //margin: 0;
+
 }
 
+svg.st-block__box-icon {
+  width: 1em;
+  height: 1em;
+  top: 3px;
+  position: relative;
+  fill: currentColor;
+}
+
+.st-block__card-upper.info div.st-block__box-header {
+  background-color: $info_accent;
+}
+
+.st-block__card-upper.notice div.st-block__box-header {
+  background-color: $notice_accent;
+  color: white;
+  p {
+    text-transform: uppercase;
+  }
+}
+
+.st-block__card-upper.caution div.st-block__box-header {
+  background-color: $caution_accent;
+  p {
+    text-transform: uppercase;
+  }
+}
+
+.st-block__card-upper.warning div.st-block__box-header {
+  background-color: $warning_accent;
+  p {
+    text-transform: uppercase;
+  }
+}
+
+.st-block__card-upper.danger div.st-block__box-header {
+  background-color: $danger_accent;
+  color: white;
+  p {
+    text-transform: uppercase;
+  }
+}
+
+// nested editor
 .st-block__box-content {
-  margin-left: 4em;
+  margin-left: 1em;
   min-height: 6em;
   padding-bottom: .5em;
 }
 
 .st-block__box-content .st-blocks {
   padding-right: 1em;
- // background-color: whitesmoke;
 }
-
-//.st-block__box-content .st-block {
-//  background-color: darken(whitesmoke, 10%);
-//}
-//.st-block__box-content .st-block.to_delete {
-//  background-color: unset !important;
-//}
