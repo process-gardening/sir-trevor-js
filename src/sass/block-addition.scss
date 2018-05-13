@@ -10,6 +10,12 @@ $animation-speed: 0.2s;
   margin-right: 3px;
 }
 
+@media (max-width: $small_screen_width) {
+  .st-top-controls {
+    margin: 0;
+  }
+}
+
 .st-block-addition {
   text-align: center;
   outline:none;

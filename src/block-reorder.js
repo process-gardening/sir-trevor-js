@@ -28,11 +28,11 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
   attributes: function () {
     return {
       'html': `
-        <div class="st-block-drag-handle"> 
+        
           <svg role="img" class="st-icon">
             <use xlink:href="${config.defaults.iconUrl}#drag-handle"/>
           </svg>
-        </div>`,
+        `,
       'draggable': 'true',
       'data-icon': 'move'
     };
@@ -95,6 +95,7 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
 
       // delete old block
       editor_from.blockManager.removeBlock(block.blockID);
+      editor_from.updateBlockNumbering();
     }
     this.mediator.trigger("block:rerender", item_id);
     EventBus.trigger("block:reorder:dropped", item_id);
@@ -102,24 +103,32 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
 
   onDragStart: function (ev) {
     console.log('block-reorder::onDragStart()');
+    ev.stopPropagation();
     // set drop zone i18n text
 
 
 
     var block = this.block;  // st-block__card-inner to skip margin
-    var card = this.block.querySelector('.st-block__card-inner');
+    var card = this.block.querySelector('.st-block__card-upper');
+    console.log(`width: ${card.clientWidth} height: ${card.clientHeight}`);
 
     //this.dragEl = block.cloneNode(true);
     this.dragEl = card.cloneNode(true);
     this.dragEl.classList.add("st-drag-element");
+
+    // drag element still shrinks
+    this.dragEl.width = card.width;
+    this.dragEl.height = card.clientHeight;
     //this.dragEl.style.top = `${block.offsetTop}px`;
     //this.dragEl.style.left = `${block.offsetLeft}px`;
     //this.dragEl.style.right = `${block.offsetLeft}px`;
 
+    console.log(this.dragEl);
+
     block.parentNode.appendChild(this.dragEl);
 
     ev.dataTransfer.setDragImage(this.dragEl,
-      Math.round(block.offsetWidth - 35), block.offsetHeight / 2);
+      Math.round(this.dragEl.offsetWidth-15), this.dragEl.offsetHeight / 2);
     ev.dataTransfer.setData("text/plain", this.blockId());
     this.mediator.trigger("block-controls:hide");
 
@@ -129,6 +138,7 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
 
   onDragEnd: function (ev) {
     console.log('block-reorder::onDragEnd()');
+    ev.stopPropagation();
     EventBus.trigger("block:reorder:dragend");
     this.block.classList.remove('st-block--dragging');
     this.dragEl.parentNode.removeChild(this.dragEl);

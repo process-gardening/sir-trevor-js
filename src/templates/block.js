@@ -8,10 +8,12 @@ const BLOCK_REPLACER_TEMPLATE = require("./block-replacer");
 
 module.exports = (editor_html) => {
   return `
-    <div class='st-block__card-inner' tabindex='0'>
-      <div class='st-block__content'>
-        <div class='st-block__inner'>
-          ${ editor_html }
+    <div class="st-block__card">
+      <div class='st-block__card-upper'>
+        <div class='st-block__content' tabindex='0'>
+          <div class='st-block__inner'>
+            ${ editor_html }
+          </div>
         </div>
       </div>
     </div>

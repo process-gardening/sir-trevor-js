@@ -61,6 +61,12 @@
   }
 }
 
+@media (max-width: $small_screen_width) {
+  .st-block-addition-top {
+    bottom: -8px;
+  }
+}
+
 .st-block-addition-top__icon {
   transition: all $animation-speed 0.1s ease-in-out;
   border: 1px solid transparent;

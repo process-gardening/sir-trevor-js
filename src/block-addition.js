@@ -77,6 +77,7 @@ module.exports.create = function(editor) {
 
       // delete old block
       editor_from.blockManager.removeBlock(block.blockID);
+      editor_from.updateBlockNumbering();
     }
     editor.mediator.trigger("block:rerender", item_id);
     EventBus.trigger("block:reorder:dropped", item_id);

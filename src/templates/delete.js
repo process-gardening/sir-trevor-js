@@ -3,7 +3,7 @@
 module.exports = () => {
   return `
     <div id="ui-delete-modal" class="st-block__ui-delete-card">
-      <div class="st-block__ui-delete-label">
+      <div class="st-block__ui-delete-label-div">
         <label class="st-block__ui-delete-label">
           ${i18n.t('general:delete?')}
         </label>
