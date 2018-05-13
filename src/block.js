@@ -99,6 +99,8 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
     this.editor = this.inner.children[0];
 
+    console.log('block adding mixins');
+
     this.mixinsRequireInputs = false;
     this.availableMixins.forEach(function(mixin) {
       if (this[mixin]) {
@@ -112,7 +114,11 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     if(this.mixinsRequireInputs) {
       var input_html = document.createElement("div");
       input_html.classList.add('st-block__inputs');
+
+
       this.inner.appendChild(input_html);
+
+
       this.inputs = input_html;
     }
 
@@ -284,7 +290,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   onDeleteDeny: function (e) {
-      e.preventDefault();
+    e.preventDefault();
     //this.el.classList.remove('to-delete');
     // unmark all blocks
     for (let elem of document.getElementsByClassName('to-delete')) {
@@ -399,15 +405,22 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     this._withUIDrawerComponent(new BlockDeletion(), '.st-block-ui-btn__delete',
       this.onDeleteClick);
 
+    // add container for controllable mixin in drawer
+    this.ui_drawer.insertAdjacentHTML("beforeend", `
+      <div class="st-block__ui-controllables">
+      </div>
+    `);
+
+
     this.onFocus();
     this.onBlur();
 
     // callbacks for opening and closing drawer
-    //Events.delegate(this.el, '.st-block__content', 'click', this._onFocus);
-    //Events.delegate(this.el, '.st-block__content', 'focus', this._onFocus);
-    //Events.delegate(this.el, '.st-block__content', 'blur', this._onBlur);
-    Events.delegate(this.el, '.st-block__card-inner', 'focusin', this._onFocus);
-    Events.delegate(this.el, '.st-block__card-inner', 'focusout', this._onBlur);
+    Events.delegate(this.el, '.st-block__content', 'focusin', this._onFocus);
+    Events.delegate(this.el, '.st-block__content', 'focusout', this._onBlur);
+    Events.delegate(this.el, '.st-block__controls_drawer', 'focusin', this._onFocus);
+    Events.delegate(this.el, '.st-block__controls_drawer', 'focusout', this._onBlur);
+
 
     // add id/position to ui_drawer
     var pos_info = `
@@ -420,12 +433,11 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   _currentPositionUpdated: function (pos) {
-    console.log('block::_currentPositionUpdated( ' + pos + ' )');
+    //console.log('block::_currentPositionUpdated( ' + pos + ' )');
     this._currentPosition = pos;
     let p = this.ui_drawer.querySelector('p.st-block__ui-position-info');
-    p.innerHTML = `
-      id: ${this.blockID} ed: ${this.instanceID}  #${this._currentPosition}
-    `;
+    //p.innerHTML = `id: ${this.blockID} ed: ${this.instanceID}  #${this._currentPosition}`;
+    p.innerHTML = `#${this._currentPosition}`;
   },
 
   _initFormatting: function () {

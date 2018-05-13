@@ -21,7 +21,8 @@ module.exports = {
       this
     );
     //this.inner.appendChild(this.control_ui);
-    this.ui_drawer.appendChild(this.control_ui);
+    //this.ui_drawer.appendChild(this.control_ui);
+    this.ui_drawer.querySelector('.st-block__ui-controllables').appendChild(this.control_ui);
   },
 
   getControlTemplate: function(cmd) {

@@ -27,7 +27,11 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs3111" />
+     id="defs3111">
+    <path
+       d="M0 0h24v24H0V0z"
+       id="a" />
+  </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -37,20 +41,21 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="2498"
-     inkscape:window-height="1417"
+     inkscape:window-width="1430"
+     inkscape:window-height="905"
      id="namedview3109"
      showgrid="false"
-     inkscape:zoom="27.812867"
-     inkscape:cx="14.34642"
-     inkscape:cy="25.993375"
-     inkscape:window-x="54"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:zoom="6.9532168"
+     inkscape:cx="27.857168"
+     inkscape:cy="22.283803"
+     inkscape:window-x="114"
+     inkscape:window-y="52"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg3107" />
   <path
-     d="M 0.04273581,15.985755 H 23.957264 v -2.65717 H 0.04273581 Z m 0,5.31434 H 23.957264 v -2.65717 H 0.04273581 Z m 0,-10.62868 H 23.957264 V 8.014245 H 0.04273581 Z m 0,-7.9715097 V 5.3570751 H 23.957264 V 2.6999053 Z"
-     id="path3105"
+     id="path831"
+     d="M 23.945962,7.520265 H 0.05403757 v 2.986491 H 23.945962 Z M 0.05403757,16.479735 H 23.945962 v -2.98649 H 0.05403757 Z"
+     clip-path="url(#b)"
      inkscape:connector-curvature="0"
-     style="stroke-width:1.32858491" />
+     style="stroke-width:1.49324536;fill:#696969" />
 </svg>

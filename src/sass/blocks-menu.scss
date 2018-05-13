@@ -14,20 +14,21 @@
   border:none;
   background:transparent;
   font-size: 12px;
-  text-transform: uppercase;
+  //text-transform: uppercase;
   display: inline-block;
   cursor: pointer;
   margin: 0.5em;
-  text-transform: uppercase;
+  padding: 2px;
+  color: #9b9b9b;
 }
 
 .st-blocks-menu__button .st-icon {
   //margin: 0 0 10px 0;
   margin: 0 auto 10px auto;
   display: block;
-  width: 42px;
-  height: 42px;
-  fill: inherit;
+  width: 38px;
+  height: 38px;
+  fill: currentColor;
 }
 
 .st-blocks-menu__button:hover {

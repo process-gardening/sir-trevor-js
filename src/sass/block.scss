@@ -7,23 +7,20 @@
   overflow: hidden;
   position: relative;
   min-height: 55px;
-  padding-bottom: 8px;
+  padding-bottom: 15px; // 8px
 }
 
-.st-block {
+.st-block { // base container including addition buttons and icons
   position: relative;
-  background-color: whitesmoke;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-  border-top: 1px solid rgba(160, 160, 160, 0.2);
-  border-left: 1px solid rgba(160, 160, 160, 0.2);
-  border-radius: 2px;
+
   margin-left: $left_icon_space;
   margin-top: 1em;
   margin-bottom: 1em;
   margin-right: 3px; // for shadow
-  &.to-delete {
-    background-color: #FFCDD2;
-    border: 2px solid red;
+}
+@media (max-width: $small_screen_width) {
+  .st-block {
+    margin: 0;
   }
 }
 
@@ -31,30 +28,57 @@
   //background-color: yellow;
 }
 
-.st-block__card-inner {
-  height: 100%;
-  &:focus {
-    //background-color: chartreuse;
-    outline: 0;
-  }
+.st-block__card { // the actual card, including controls drawer
+  border-top: 1px solid #d3d3d3;
+  background-color: #fff;
+  color: #444;
 }
 
-.st-block.to-delete > .st-block__card-inner {
+@media (min-width: 600px) {
+  .st-block__card { // the actual card, including controls drawer
+    //background-color: whitesmoke;
+    //box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+    //border-top: 1px solid rgba(160, 160, 160, 0.2);
+    //border-left: 1px solid rgba(160, 160, 160, 0.2);
+    border-radius: 2px;
+    background-color: #fff;
+    border-bottom: 1px solid #c4c4c4;
+    border-left: 1px solid #d3d3d3;
+    border-right: 1px solid #d3d3d3;
+    border-top: 1px solid #d3d3d3;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.07);
+    color: #444;
+  }
+}
+.st-block.to-delete .st-block__card { // asked for delete, mark delete scope
+  background-color: #FFCDD2;
+  border: 2px solid red;
+}
+
+.st-block__card-upper { // the always visible part of card with content and drag handle
+  display: flex;
+  flex-direction: row;
+}
+
+.st-block.to-delete .st-block__card-upper {
   background-color: unset;
 }
 
-.st-block__content {
+.st-block__content { // frame for the actual block content
   padding-top: .5em;
   padding-left: 1em;
-  padding-right: 4em;
-  //margin-bottom: -1em;
+  //padding-right: 1em;
+  flex: 1 1 auto;
+  &:focus {
+    outline: 0;
+  }
 }
 
 .st-block__content:focus {
 
 }
 
-.st-block__inner {
+.st-block__inner { // the div for the editor content
   position: relative;
   margin: 0;
   padding: 0;
@@ -62,9 +86,16 @@
   //margin-top: 1em;
   //margin-bottom: 1em;
 
+
+
   .st-block--textable & {
     margin-top: 0;
     margin-bottom: 0;
+
+    // tune line breaking
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
   }
 }
 
@@ -106,21 +137,39 @@
   overflow: hidden;
   //background-color: #ddffdd;
   //border-top: 2px solid #252525;
+  display: flex;
+  //flex-direction: row;
+  align-items: center;
 
-  transition: height 300ms ease-in-out;
+  transition: height .3s ease-in-out;
   &.visible {
     border-top: 1px solid rgba(160, 160, 160, 0.2);
-    height: 3em;
+    min-height: 3em;
+    height: unset;
+  }
+  &:focus {
+    outline: none;
   }
 }
 
-.st-block__ui-position-info {
-  float: right;
+.st-block__ui { // div for drag handle and positioner
+  flex: 0 0 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.st-block__ui-position-info {
+  margin-left: auto;
   margin-right: 1em;
+  //float: right;
+  //margin: .8em 1em auto 1em;
 }
 
 .st-block__ui-position-info p {
   //font-size: .5em;
+  //margin: auto;
+  margin: 0;
 }
 
 .st-block--with-plus:after,
@@ -161,8 +210,10 @@
   transition: all 0.3s;
 }
 
-$dropzone_txt_en: "Drop card here."; //"Drag card here.";
-$dropzone_txt_de: "Karte hier ablegen.";
+$dropzone_txt_en: "Drop block here."; //"Drag card here.";
+$dropzone_txt_de: "Block hier ablegen.";
+
+$dropzone_color: #6d6d6d;
 
 //.st-block:after,
 .st-block.st-drag-over:after,
@@ -173,7 +224,7 @@ $dropzone_txt_de: "Karte hier ablegen.";
   //vertical-align: center;
   font-weight: bold;
   font-size: 1.25em;
-  color: lightgrey;
+  color: $dropzone_color;
   background: transparent;
   //display: block;
   display: flex;
@@ -182,12 +233,12 @@ $dropzone_txt_de: "Karte hier ablegen.";
   justify-content: center;
   width: 100%;
   height: 40px;
-  transition: all 0.3s;
+  transition: all 0.3s ease-in-out;
 
   position: absolute;
   bottom: -46px;
   left: 0;
-  border: 4px dashed lightgrey;
+  border: 4px dashed $dropzone_color;
   //background: $accent-color;
   //z-index: 3;
 }
@@ -201,6 +252,7 @@ $dropzone_txt_de: "Karte hier ablegen.";
     content: $dropzone_txt_de;
   }
 }
+
 .st-top-controls.st-drag-over {
   &:lang(en):before {
     content: $dropzone_txt_en;
@@ -231,17 +283,23 @@ $dropzone_txt_de: "Karte hier ablegen.";
   }
 }
 
-.st-block--dragging {
+.st-block--dragging .st-block__card {
   //background: #f6f7f9;
+  border: 3px solid lightgrey;
   background-color: white;
   //max-height: 40px;
   transition: all 0.3s;
   & > * {
-    opacity: 0;
+    opacity: 0.25;
   }
   & .st-block-addition {
     opacity: 1;
   }
+}
+
+
+.st-block--dragging st-block__content {
+  pointer-events: none;
 }
 
 .st-drag-over {

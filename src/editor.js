@@ -123,7 +123,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   createBlocks: function () {
     var store = this.store.retrieve();
 
-    console.log(this.options);
+    //console.log(this.options);
 
     if (store.data.length > 0) {
       store.data.forEach(function (block) {
@@ -211,12 +211,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     this._toggleHideTopControls(hideTopControls);
 
     // update block position info
-    let i = 0;
-    for (i = 0; i < this.blockManager.blocks.length; i++) {
-      //console.log(this.blockManager.blocks[i]);
-      this.blockManager.blocks[i]
-        ._currentPositionUpdated(this.blockManager.getBlockPosition(this.blockManager.blocks[i].el));
-    }
+    this.updateBlockNumbering();
   },
 
   _toggleHideTopControls: function (toggle) {
@@ -283,6 +278,21 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
       } else {
         Dom.insertAfter(block, blockBy);
       }
+
+      // update block position info
+      this.updateBlockNumbering();
+    }
+  },
+
+  updateBlockNumbering: function () {
+    console.log('editor::updateBlockNumbering()');
+
+    // update block position info
+    let i = 0;
+    for (i = 0; i < this.blockManager.blocks.length; i++) {
+      //console.log(this.blockManager.blocks[i]);
+      this.blockManager.blocks[i]
+        ._currentPositionUpdated(this.blockManager.getBlockPosition(this.blockManager.blocks[i].el) + 1);
     }
   },
 

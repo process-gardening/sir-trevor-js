@@ -1,20 +1,20 @@
 .st-block-addition-full {
   transition: all $animation-speed 0.2s ease-in-out;
   text-align: left;
-  outline:none;
-  border:none;
-  width:100%;
-  background-color:transparent;
-  padding:0;
+  outline: none;
+  border: none;
+  width: 100%;
+  background-color: transparent;
+  padding: 0;
   z-index: 2;
   //position: relative;
   cursor: text;
   //display: none;
 
   &::-moz-focus-inner {
-    padding:0;
-    margin:0;
-    margin-left:-1px;
+    padding: 0;
+    margin: 0;
+    margin-left: -1px;
   }
 
   position: absolute;
@@ -26,7 +26,7 @@
 
   &:before {
     transition: all $animation-speed 0.1s ease-in-out;
-	  background: $light-ui-color;
+    background: $light-ui-color;
     position: absolute;
     height: 2px;
     top: 50%;
@@ -37,7 +37,7 @@
     transform: translateY(-50%) translateZ(0);
   }
   &:hover:before {
-  	  background: $accent-color;
+    background: $accent-color;
   }
 
   .st-block--empty & {
@@ -62,13 +62,19 @@
   }
 }
 
+@media (max-width: $small_screen_width) {
+  .st-block-addition-full {
+    bottom: -8px;
+  }
+}
+
 .st-block-addition-full__icon {
   transition: all $animation-speed 0.1s ease-in-out;
   border: 1px solid transparent;
   color: $light-ui-color;
-  position:absolute;
+  position: absolute;
   top: 9px;
-  box-sizing:border-box;
+  box-sizing: border-box;
   //padding-left: 35px;
   display: inline-block;
   //margin: 0 auto;
@@ -84,15 +90,30 @@
   }
 
   .st-block-addition-full:hover &,
-  .st-block--active &
-  {
+  .st-block--active & {
     color: $accent-color;
     //opacity: 1;
   }
 }
 
+@media (max-width: $small_screen_width) {
+  .st-block-addition-full__icon {
+
+    //background-color: white;
+    margin-left: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-47%) translateZ(0);
+
+    .st-icon {
+      border-radius: 50%;
+      background-color: white;
+      color: inherit;
+    }
+  }
+}
+
 .st-block-addition-full__button {
-	color: #444444;
+  color: #444444;
   position: absolute;
   top: 0;
   left: 0;

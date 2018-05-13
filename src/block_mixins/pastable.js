@@ -15,10 +15,16 @@ module.exports = {
     this.paste_options = Object.assign(
       {}, config.defaults.Block.paste_options, this.paste_options);
 
-    this.inputs.insertAdjacentHTML("beforeend", _.template(this.paste_options.html, this));
+    var target = this.el.querySelector('#' + _.result(this, 'inputs_container'));
+    if (target) {
+      target.insertAdjacentHTML("beforeend", _.template(this.paste_options.html, this));
+    } else {
+      this.inputs.insertAdjacentHTML("beforeend", _.template(this.paste_options.html, this));
+      target = this.inputs;
+    }
 
     Array.prototype.forEach.call(this.$('.st-paste-block'), (el) => {
-      el.addEventListener('click', function() { 
+      el.addEventListener('click', function() {
         var event = document.createEvent('HTMLEvents');
         event.initEvent('select', true, false);
         this.dispatchEvent(event);

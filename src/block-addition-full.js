@@ -46,7 +46,7 @@ function render(Blocks, availableTypes) {
 module.exports.create = function (SirTrevor) {
 
   // REFACTOR - should probably not know about blockManager
-  console.log(SirTrevor.blockManager.blockTypes);
+  //console.log(SirTrevor.blockManager.blockTypes);
   var el = render(Blocks, SirTrevor.blockManager.blockTypes);
 
   function showBlockMenu(e) {
@@ -63,11 +63,11 @@ module.exports.create = function (SirTrevor) {
   }
 
   function addNewBlock(e) {
-    console.log('block-addition-full::addNewBlock()');
-    console.log('ST ID: ' + SirTrevor.ID);
+    //console.log('block-addition-full::addNewBlock()');
+    //console.log('ST ID: ' + SirTrevor.ID);
     // trigger only for closest editor
     if (e.currentTarget.parentNode.parentNode.parentNode.parentNode.id === SirTrevor.ID) {
-      console.log('closest editor: ' + SirTrevor.ID);
+      //console.log('closest editor: ' + SirTrevor.ID);
       // REFACTOR: mediator so that we can trigger events directly on instance?
       // REFACTOR: block create event expects data as second argument.
       /*jshint validthis:true */
@@ -76,13 +76,13 @@ module.exports.create = function (SirTrevor) {
         "block:create", this.getAttribute('data-type'), null, this.parentNode.parentNode, {autoFocus: true}
       );
     } else {
-      console.log('ignore for: ' + SirTrevor.ID);
+      //console.log('ignore for: ' + SirTrevor.ID);
     }
   }
 
 
   function createBlock(e) {
-    console.log('block-addition-full::createBlock()');
+    //console.log('block-addition-full::createBlock()');
     //e.stopPropagation(); // only once
     if (e.currentTarget.parentNode.parentNode.parentNode.parentNode.id === SirTrevor.ID) {
       // REFACTOR: mediator so that we can trigger events directly on instance?
@@ -115,9 +115,9 @@ module.exports.create = function (SirTrevor) {
     (SirTrevor.options.editorMode === 'document') ? createBlock : showBlockMenu
   );
 
-  console.log('Event delegation');
-  console.log(el);
-  console.log(this);
+  //console.log('Event delegation');
+  //console.log(el);
+  //console.log(this);
   // this will trigger for each editor
   Events.delegate(
     SirTrevor.wrapper, ".st-blocks-menu__button", "click", addNewBlock

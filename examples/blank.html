@@ -19,10 +19,16 @@
     <style>
         body {
             font-family: 'Source Sans Pro', sans-serif;
-            padding: 3em;
-            background-color: #fff;
+
+            background-color: #eee;
             margin: 0 auto;
             max-width: 960px;
+        }
+
+        @media (min-width: 600px) {
+            body {
+                padding: 3em;
+            }
         }
 
         .form {
@@ -54,7 +60,10 @@
         SirTrevor.config.scribeDebug = true;
         SirTrevor.config.language = "en";
         SirTrevor.setDefaults({
-            iconUrl: '../src/icons/sir-trevor-icons.svg'
+            iconUrl: '../src/icons/sir-trevor-icons.svg',
+            BoxBlockTypes: ["Text",
+                "List",
+                "ListExtended"]
         });
 
 
