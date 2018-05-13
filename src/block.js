@@ -96,14 +96,14 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   render: function () {
-    console.log('block::render()');
+    //console.log('block::render()');
     this.beforeBlockRender();
     this._setBlockInner();
     this._initUI();
 
     this.editor = this.inner.children[0];
 
-    console.log('block adding mixins');
+    //console.log('block adding mixins');
 
     this.mixinsRequireInputs = false;
     this.availableMixins.forEach(function (mixin) {

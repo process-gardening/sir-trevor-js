@@ -24,12 +24,7 @@ module.exports = (function () {
     set_type(this, 'danger');
   };
   set_type = function (block, box_type) {
-    console.log('box::set_type: ' + box_type);
-
-    //if (block.box_type === box_type) {
-    //console.log('nothing to set!');
-    // return;
-    //}
+    //console.log('box::set_type: ' + box_type);
 
     // set new type first
     block.box_type = box_type;
@@ -49,7 +44,6 @@ module.exports = (function () {
 
     // set text
     block.el.querySelector('div.st-block__box-header span.box-type').innerHTML = i18n.t('blocks:box:' + block.box_type);
-    //block.el.querySelector('p.st-block__box-icon > span').innerHTML = i18n.t('blocks:box:' + block.box_type);
 
     block.highlightControls();
   };
@@ -68,7 +62,7 @@ module.exports = (function () {
     },
 
     editorHTML: function () {
-      console.log('box::editorHTML()');
+      //console.log('box::editorHTML()');
       this.content_id = _.uniqueId("js-div-description-");
 
       return `
@@ -93,7 +87,7 @@ module.exports = (function () {
     },
 
     initialize: function () {
-      console.log('box::initialize()');
+      //console.log('box::initialize()');
       this.box_type = 'info';
       this._nested_editor = null;
       this._nested_data = null;
@@ -103,11 +97,11 @@ module.exports = (function () {
     },
 
     beforeBlockRender: function () {
-      console.log('box::beforeBlockRender()');
+      //console.log('box::beforeBlockRender()');
     },
 
     onBlockRender: function () {
-      console.log('box::onBlockRender()');
+      //console.log('box::onBlockRender()');
 
       // add nested editor
       let editor_area = document.getElementById(this.content_id);
@@ -115,13 +109,13 @@ module.exports = (function () {
       if (editor_area && !this._nested_editor) {
 
         if (this._nested_data) {
-          console.log('create and load nested editor');
+          //console.log('create and load nested editor');
           //console.log(this._nested_data);
           editor_area.value = `{"data": ${JSON.stringify(this._nested_data, undefined, 0)} }`;
           this._nested_data = null; // not needed any more
           //console.log(editor_area.value);
         } else {
-          console.log('create empty nested editor');
+          //console.log('create empty nested editor');
         }
         this._nested_editor = new SirTrevor.Editor({
           el: editor_area,
@@ -145,8 +139,8 @@ module.exports = (function () {
     },
 
     loadData: function (data) {
-      console.log('box::loadData()');
-      console.log(data);
+      //console.log('box::loadData()');
+      //console.log(data);
 
       if (data.box_type) {
         this.box_type = data.box_type;
@@ -158,7 +152,7 @@ module.exports = (function () {
     },
 
     _serializeData: function () {
-      console.log('box::_serializeData()');
+      //console.log('box::_serializeData()');
       var data = {format: 'html', box_type: this.box_type, nested_data: []};
 
       if (this._nested_editor !== null) {
@@ -169,7 +163,7 @@ module.exports = (function () {
     },
 
     isEmpty: function () {
-      console.log('box::isEmpty()');
+      //console.log('box::isEmpty()');
       return this._nested_editor.blockManager.blocks.length === 0;
     }
 
