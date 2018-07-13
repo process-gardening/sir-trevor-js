@@ -142,7 +142,8 @@
   align-items: center;
 
   transition: height .3s ease-in-out;
-  &.visible {
+  &.visible,
+  &.visible_delete {
     border-top: 1px solid rgba(160, 160, 160, 0.2);
     min-height: 3em;
     height: unset;
