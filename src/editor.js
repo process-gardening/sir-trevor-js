@@ -77,6 +77,8 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   build: function () {
     Dom.hide(this.el);
 
+    // this.mediator.on('all', this.onAll); // only for debugging
+
     this.errorHandler = new ErrorHandler(this.outer, this.mediator, this.options.errorsContainer);
     this.store = new EditorStore(this.el.value, this.mediator);
 
@@ -113,15 +115,22 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     }
   },
 
+  onAll: function(e, d, d2) {
+    console.log('event: ', e, d, d2);
+  },
+
   createBlocks: function () {
     var store = this.store.retrieve();
 
-    //console.log(this.options);
+    //console.log('createBlocks()');
 
     if (store.data.length > 0) {
       store.data.forEach(function (block) {
         this.mediator.trigger('block:create', block.type, block.data);
       }, this);
+      // Need to update positioner. Its debounced. Only last one will be correct
+      this.mediator.trigger('block:updateAll');
+
     } else if (this.options.defaultType !== false || this.options.editorMode === 'document') {
       if (this.options.defaultType !== false) {
         this.mediator.trigger('block:create', this.options.defaultType, {});
@@ -129,7 +138,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
         this.mediator.trigger('block:create', 'text', {});
       }
       if (this.options.focusOnInit) {
-        var blockElement = this.wrapper.querySelectorAll('.st-block')[0];
+        var blockElement = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.ID}"]`)[0];
 
         if (blockElement) {
           var block = this.blockManager.findBlockById(blockElement.getAttribute('id'));
@@ -180,7 +189,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   blockOrderUpdated: function () {
     //console.log('editor::blockOrderUpdated()');
     // Detect first block and decide whether to hide top controls
-    var blockElement = this.wrapper.querySelectorAll('.st-block')[0];
+    var blockElement = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.ID}"]`)[0];
     var hideTopControls = false;
 
     if (blockElement) {
@@ -258,10 +267,14 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
 
   changeBlockPosition: function (block, selectedPosition) {
     //console.log('editor::changeBlockPosition()');
+    //console.log('block:');
+    //console.log(block);
+    //console.log('selectedPosition:');
+    //console.log(selectedPosition);
     selectedPosition = selectedPosition - 1;
 
-    var blockPosition = this.blockManager.getBlockPosition(block),
-      blockBy = this.wrapper.querySelectorAll('.st-block')[selectedPosition];
+    let blockPosition = this.blockManager.getBlockPosition(block);
+    let blockBy = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.ID}"]`)[selectedPosition];
 
     if (blockBy && blockBy.getAttribute('id') !== block.getAttribute('id')) {
       this.hideAllTheThings();
@@ -315,7 +328,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
    */
 
   validateBlocks: function (shouldValidate) {
-    Array.prototype.forEach.call(this.wrapper.querySelectorAll('.st-block'), (block, idx) => {
+    Array.prototype.forEach.call(this.wrapper.querySelectorAll(`.st-block[data-instance="${this.ID}"]`), (block, idx) => {
       var _block = this.blockManager.findBlockById(block.getAttribute('id'));
       if (!_.isUndefined(_block)) {
         this.validateAndSaveBlock(_block, shouldValidate);

@@ -38,6 +38,13 @@ module.exports = (function () {
     card_inner.classList.remove('danger');
     card_inner.classList.add(block.box_type);
 
+    var block_box = block.el.getElementsByClassName('st-block__box')[0];
+    block_box.classList.remove('info');
+    block_box.classList.remove('notice');
+    block_box.classList.remove('caution');
+    block_box.classList.remove('warning');
+    block_box.classList.remove('danger');
+    block_box.classList.add(block.box_type);
     // set icon
     block.el.querySelector('svg.st-block__box-icon > use')
       .setAttribute('xlink:href', `${config.defaults.iconUrl}#box_${block.box_type}`);
@@ -122,6 +129,8 @@ module.exports = (function () {
           defaultType: false,
           blockTypes: config.defaults.BoxBlockTypes  // ["Text", "ListExtended"] // <%#= block_types_content %>
         });
+        //console.log('this._nested_editor: ');
+        //console.log(this._nested_editor);
       }
       set_type(this, this.box_type);
     },

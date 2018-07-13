@@ -19,7 +19,9 @@ module.exports.create = function(SirTrevor) {
     );
   }
 
-  function hide() {}
+  function hide() {
+    //console.log('block-addition-top::hide()');
+  }
 
   // Public
   function destroy() {

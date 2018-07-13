@@ -40,6 +40,7 @@ module.exports = {
     Events.delegate(this.control_ui, '.st-block-control-ui-btn--' + cmd, 'click', (e) => {
       this.selectUiControl(cmd);
       handler(e);
+      e.stopPropagation();
     });
   },
 

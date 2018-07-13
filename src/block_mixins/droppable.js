@@ -1,6 +1,6 @@
 "use strict";
 
-/* Adds drop functionaltiy to this block */
+/* Adds drop functionality to this block */
 
 var _ = require('../lodash');
 var config = require('../config');
@@ -18,7 +18,7 @@ module.exports = {
   requireInputs: true,
 
   initializeDroppable: function () {
-    console.log('droppable::initializeDroppable()');
+    //console.log('droppable::initializeDroppable()');
     utils.log("Adding droppable to block " + this.blockID);
 
     this.drop_options = Object.assign({}, config.defaults.Block.drop_options, this.drop_options);
@@ -30,16 +30,16 @@ module.exports = {
     var target = this.el.querySelector('#'+_.result(this, 'inputs_container'));
     //var target = document.getElementById(_.result(this, 'insert_dropzone_into'));
     //var target = document.getElementById(this.drop_options.insert_dropzone_into);
-    console.log('target func: ' + _.result(this, 'inputs_container'));
-    console.log(target);
+    //console.log('target func: ' + _.result(this, 'inputs_container'));
+    //console.log(target);
     if (target) {
-      console.log('given target');
-      target.insertAdjacentHTML("beforeend", _.template(this.drop_options.html,
-        {block: this, _: _, config: config}));
+      //console.log('given target');
+      target.insertAdjacentHTML("beforeend",
+        _.template(this.drop_options.html)({block: this, _: _, config: config}));
     } else {
-      console.log('standard target');
-      this.inputs.insertAdjacentHTML("beforeend", _.template(this.drop_options.html,
-        {block: this, _: _, config: config}));
+      //console.log('standard target');
+      this.inputs.insertAdjacentHTML("beforeend",
+        _.template(this.drop_options.html)({block: this, _: _, config: config}));
       target = this.inputs.lastElementChild;
     }
 

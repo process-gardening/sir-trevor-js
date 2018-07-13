@@ -1,5 +1,7 @@
 "use strict";
 
+exports.debounce = require('lodash.debounce');
+exports.findIndex = require('lodash.findindex');
 exports.isEmpty = require('lodash.isempty');
 exports.isFunction = require('lodash.isfunction');
 exports.isObject = require('lodash.isobject');
