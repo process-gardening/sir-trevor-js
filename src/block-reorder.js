@@ -52,7 +52,7 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
   },
 
   onMouseDown: function () {
-    console.log('block-reorder::onMouseDown()');
+    //console.log('block-reorder::onMouseDown()');
     EventBus.trigger("block:reorder:down");
   },
 
@@ -138,7 +138,7 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
 
   onDragEnd: function (ev) {
     console.log('block-reorder::onDragEnd()');
-    ev.stopPropagation();
+    //ev.stopPropagation();
     EventBus.trigger("block:reorder:dragend");
     this.block.classList.remove('st-block--dragging');
     this.dragEl.parentNode.removeChild(this.dragEl);

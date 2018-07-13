@@ -21,9 +21,9 @@ module.exports = {
 
     var target = this.el.querySelector('#' + _.result(this, 'inputs_container'));
     if (target) {
-      target.insertAdjacentHTML("beforeend", _.template(this.upload_options.html, this));
+      target.insertAdjacentHTML("beforeend", _.template(this.upload_options.html)(this));
     } else {
-      this.inputs.insertAdjacentHTML("beforeend", _.template(this.upload_options.html, this));
+      this.inputs.insertAdjacentHTML("beforeend", _.template(this.upload_options.html)(this));
       target = this.inputs;
     }
 

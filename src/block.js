@@ -376,7 +376,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
   onPositionerClick: function (e) {
     e.preventDefault();
-
+    e.stopPropagation();
     this.positioner.toggle();
   },
 

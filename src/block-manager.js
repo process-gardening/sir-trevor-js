@@ -51,7 +51,8 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     'replace': 'replaceBlock',
     'focusPrevious': 'focusPreviousBlock',
     'focusNext': 'focusNextBlock',
-    'paste': 'paste'
+    'paste': 'paste',
+    'updateAll': 'updateAllBlocks'
   },
 
   initialize: function() {},
@@ -255,7 +256,7 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
   getPreviousBlock: function(block) {
     var blockPosition = this.getBlockPosition(block.el);
     if (blockPosition < 1) { return; }
-    var previousBlock = this.wrapper.querySelectorAll('.st-block')[blockPosition - 1];
+    var previousBlock = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.instance_scope}"]`)[blockPosition - 1];
     return this.findBlockById(
       previousBlock.getAttribute('id')
     );
@@ -265,12 +266,26 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     var blockPosition = this.getBlockPosition(block.el);
     if (blockPosition < 0 || blockPosition >= this.blocks.length - 1) { return; }
     return this.findBlockById(
-      this.wrapper.querySelectorAll('.st-block')[blockPosition + 1].getAttribute('id')
+      this.wrapper.querySelectorAll(`.st-block[data-instance="${this.instance_scope}"]`)[blockPosition + 1]
+        .getAttribute('id')
     );
   },
 
   getBlockPosition: function(block) {
-    return Array.prototype.indexOf.call(this.wrapper.querySelectorAll('.st-block'), block);
+    //console.log('this.instance_scope: ', this.instance_scope);
+    //console.log('block: ', block);
+    //console.log('blocks: ', this.blocks);
+
+    //console.log ('orig: ', Array.prototype.indexOf.call(this.wrapper.querySelectorAll('.st-block'), block));
+    //let pos = _.findIndex(this.blocks, function(b) { return b.blockID === block.id; });
+    //console.log ('pos: ', pos);
+
+    //console.log ('.st-block: ', this.wrapper.querySelectorAll('[data-instance="st-editor-1"]'));
+
+
+    //return Array.prototype.indexOf.call(this.wrapper.querySelectorAll('.st-block'), block);
+    //return _.findIndex(this.blocks, function(b) { return b.blockID === block.id; });
+    return Array.prototype.indexOf.call(this.wrapper.querySelectorAll(`[data-instance="${this.instance_scope}"]`), block);
   },
 
   focusPreviousBlock: function(blockID, options = {}) {
@@ -328,6 +343,22 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     blocks.forEach((block) => {
       this.createBlock(block.type, block.data, undefined, { focusAtEnd: true });
     });
+  },
+
+  updateAllBlocks: function() {
+    //console.log('updateAllBlocks()');
+    //console.log(this);
+    //console.log(`total_blocks: ${this.blocks.length}`);
+
+    // called after block create to update positioner after all blocks are created
+    var inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
+    for (var i = 1; i <= this.blocks.length; i++) {
+      inner += "<option value=" + i + ">" + i + "</option>";
+    }
+    this.blocks.forEach(function (block) {
+      //console.log(block);
+      block.positioner.select.innerHTML = inner;
+    }, this);
   },
 
   triggerBlockCountUpdate: function() {

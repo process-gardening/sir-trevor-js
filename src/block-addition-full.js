@@ -32,11 +32,11 @@ function generateBlocksHTML(Blocks, availableTypes) {
 }
 
 function render(Blocks, availableTypes) {
-  var el = document.createElement('div');
+  let el = document.createElement('div');
   el.className = "st-blocks-menu__buttons";
   el.innerHTML = generateBlocksHTML.apply(null, arguments);
 
-  var elButtons = document.createElement('div');
+  let elButtons = document.createElement('div');
   elButtons.className = "st-blocks-menu";
   elButtons.appendChild(el);
   return elButtons;
@@ -47,13 +47,13 @@ module.exports.create = function (SirTrevor) {
 
   // REFACTOR - should probably not know about blockManager
   //console.log(SirTrevor.blockManager.blockTypes);
-  var el = render(Blocks, SirTrevor.blockManager.blockTypes);
+  const el = render(Blocks, SirTrevor.blockManager.blockTypes);
 
   function showBlockMenu(e) {
     //console.log('block-addition-full::showBlockMenu()');
     e.stopPropagation(); // we don't want el to be removed by the window click
     /*jshint validthis:true */
-    var block = this.parentNode.parentNode;
+    let block = this.parentNode.parentNode;
     if (!block || hide() === block) {
       return;
     }
@@ -96,6 +96,7 @@ module.exports.create = function (SirTrevor) {
   }
 
   function hide() {
+    //console.log('block-addition-full::hide()');
     el.remove();
   }
 

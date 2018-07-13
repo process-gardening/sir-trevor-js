@@ -1,13 +1,14 @@
 "use strict";
+let _ = require('./lodash');
 
-var template = [
+let template = [
   "<div class='st-block-positioner__inner'>",
   "<span class='st-block-positioner__selected-value'></span>",
   "<select class='st-block-positioner__select'></select>",
   "</div>"
 ].join("\n");
 
-var BlockPositioner = function(block, mediator) {
+let BlockPositioner = function (block, mediator) {
   this.mediator = mediator;
   this.block = block;
 
@@ -16,6 +17,17 @@ var BlockPositioner = function(block, mediator) {
 
   this.initialize();
 };
+
+let renderPositionList_debounced = _.debounce(renderPositionList_global, 250);
+
+function renderPositionList_global(positioner) {
+  var inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
+  for (var i = 1; i <= positioner.total_blocks; i++) {
+    inner += "<option value=" + i + ">" + i + "</option>";
+  }
+  positioner.select.innerHTML = inner;
+}
+
 
 Object.assign(BlockPositioner.prototype, require('./function-bind'), require('./renderable'), {
 
@@ -26,23 +38,29 @@ Object.assign(BlockPositioner.prototype, require('./function-bind'), require('./
   className: 'st-block-positioner',
   visibleClass: 'active',
 
-  initialize: function(){
+  initialize: function () {
     this.el.insertAdjacentHTML("beforeend", template);
     this.select = this.$('.st-block-positioner__select')[0];
 
     this.select.addEventListener('change', this.onSelectChange);
 
+    //console.log('st-block-positioner__inner:');
+    //console.log(this.el.getElementsByClassName('st-block-positioner__inner'));
+    this.el.getElementsByClassName('st-block-positioner__inner')[0]
+      .addEventListener('click', this.onClick);
+
     this.mediator.on("block:countUpdate", this.onBlockCountChange);
   },
 
-  onBlockCountChange: function(new_count) {
+  onBlockCountChange: function (new_count) {
     if (new_count !== this.total_blocks) {
       this.total_blocks = new_count;
-      this.renderPositionList();
+      //this.renderPositionList();
+      renderPositionList_debounced(this);
     }
   },
 
-  onSelectChange: function() {
+  onSelectChange: function () {
     var val = this.select.value;
     if (val !== 0) {
       this.mediator.trigger(
@@ -52,28 +70,42 @@ Object.assign(BlockPositioner.prototype, require('./function-bind'), require('./
     }
   },
 
-  renderPositionList: function() {
-    //var pos = this.blockManager.getBlockPosition(this.block);
-    //console.log('renderPositionList() -> ' + pos);
+  onClick: function (e) {
+    //console.log('onClick');
+    e.stopPropagation();
+  },
 
-
+  renderPositionList: function () {
+    //console.log('renderPositionList()');
     var inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
-    for(var i = 1; i <= this.total_blocks; i++) {
-      inner += "<option value="+i+">"+i+"</option>";
+    for (var i = 1; i <= this.total_blocks; i++) {
+      inner += "<option value=" + i + ">" + i + "</option>";
     }
     this.select.innerHTML = inner;
   },
 
-  toggle: function() {
-    this.mediator.trigger('block-positioner-select:render', this);
-    this.el.classList.toggle(this.visibleClass);
+  toggle: function () {
+    //console.log('block-positioner:toggle()');
+    //console.log(`contains: ${this.el.classList.contains(this.visibleClass)}`);
+    if (this.el.classList.contains(this.visibleClass)) {
+      this.el.classList.remove(this.visibleClass);
+    } else {
+      // hide all other positioners
+      for (let elem of document.getElementsByClassName(`${this.className} ${this.visibleClass}`)) {
+        elem.classList.remove(this.visibleClass);
+      }
+      this.mediator.trigger('block-positioner-select:render', this);
+      this.el.classList.add(this.visibleClass);
+    }
   },
 
-  show: function(){
+  show: function () {
+    //console.log('block-positioner:show()');
     this.el.classList.add(this.visibleClass);
   },
 
-  hide: function(){
+  hide: function () {
+    //console.log('block-positioner:hide()');
     this.el.classList.remove(this.visibleClass);
   }
 

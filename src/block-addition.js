@@ -61,7 +61,9 @@ module.exports.create = function(editor) {
       // same editor -> just change position
       console.log('just change position');
       if (!!item_id, !!block_div, dropped_on.id !== item_id) {
-        Dom.insertAfter(block_div, dropped_on);
+        //Dom.insertAfter(block_div, dropped_on);
+        this.mediator.trigger(
+          "block:changePosition", block_div, 1, 'before');
       }
     } else {
       // different editor -> insert to and remove from
