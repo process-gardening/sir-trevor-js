@@ -1,4 +1,4 @@
-$info_accent: #bde0ff; //rgb(255, 255, 141);
+$info_accent: #FFF9C4; //rgb(255, 255, 141);
 $notice_accent: #2531ff; //rgb(164, 201, 255);
 $caution_accent: #fbfc00; //rgb(255, 209, 128);
 $warning_accent: #ff9600; //rgb(255, 209, 128);
@@ -69,10 +69,18 @@ svg.st-block__box-icon {
   fill: currentColor;
 }
 
-.st-block__card-upper.info div.st-block__box-header {
+div.st-block__box.info {
+  border: solid 1px darkgray;
   background-color: $info_accent;
 }
+.st-block__card-upper.info div.st-block__box-header {
+  background-color: $info_accent;
+  border-bottom: solid 1px darkgray;
+}
 
+div.st-block__box.notice {
+  border: solid 2px $notice_accent;
+}
 .st-block__card-upper.notice div.st-block__box-header {
   background-color: $notice_accent;
   color: white;
@@ -81,6 +89,9 @@ svg.st-block__box-icon {
   }
 }
 
+div.st-block__box.caution {
+  border: solid 3px $caution_accent;
+}
 .st-block__card-upper.caution div.st-block__box-header {
   background-color: $caution_accent;
   p {
@@ -88,6 +99,9 @@ svg.st-block__box-icon {
   }
 }
 
+div.st-block__box.warning {
+  border: solid 3px $warning_accent;
+}
 .st-block__card-upper.warning div.st-block__box-header {
   background-color: $warning_accent;
   p {
@@ -95,6 +109,9 @@ svg.st-block__box-icon {
   }
 }
 
+div.st-block__box.danger {
+  border: solid 3px $danger_accent;
+}
 .st-block__card-upper.danger div.st-block__box-header {
   background-color: $danger_accent;
   color: white;
