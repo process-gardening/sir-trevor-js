@@ -209,6 +209,12 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   },
 
   hideAllTheThings: function (e) {
+    //console.log('editor:hideAllTheThings()');
+    //console.log(e);
+    if (e) {
+      //e.stopPropagation();
+    }
+    //console.log(this);
     this.blockControls.hide();
     this.blockAddition.hide();
     this.blockAdditionTop.hide();
@@ -218,13 +224,23 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
       this.formatBar.hide();
     }
 
-    let delete_popup = document.getElementById('ui-delete-modal');
-    if (delete_popup) {
-      delete_popup.remove();
-    }
-    for (let elem of document.getElementsByClassName('to-delete')) {
-      elem.classList.remove('to-delete');
-    }
+    _.debounce(function () {
+      let delete_popup = document.getElementById('ui-delete-modal');
+      if (delete_popup) {
+        delete_popup.remove();
+      }
+      for (let elem of document.getElementsByClassName('to-delete')) {
+        elem.classList.remove('to-delete');
+      }
+      // remove blur lock, drawer can close
+      for (let elem of document.getElementsByClassName('visible_delete')) {
+        elem.classList.remove('visible_delete');
+      }
+
+      for (let elem of document.getElementsByClassName('st-block-positioner active')) {
+        elem.classList.remove('active');
+      }
+    }, 5)();
   },
 
   store: function (method, options) {
