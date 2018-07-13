@@ -278,6 +278,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   onDeleteConfirm: function (e) {
+    //console.log('onDeleteConfirm()');
     e.preventDefault();
     e.stopPropagation();
     this.mediator.trigger('block:remove', this.blockID, {focusOnPrevious: true});
@@ -290,8 +291,14 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   onDeleteDeny: function (e) {
+    //console.log('onDeleteDeny()', this);
     e.preventDefault();
-    //this.el.classList.remove('to-delete');
+    e.stopPropagation();
+
+    // remove blur lock, drawer can close
+    for (let elem of document.getElementsByClassName('visible_delete')) {
+      elem.classList.remove('visible_delete');
+    }
     // unmark all blocks
     for (let elem of document.getElementsByClassName('to-delete')) {
       elem.classList.remove('to-delete');
@@ -305,9 +312,16 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   onDeleteClick: function (e) {
+    //console.log('onDeleteClick()');
     e.preventDefault();
     e.stopPropagation();
 
+    // remove blur lock, keeps drawer open
+    for (let elem of document.getElementsByClassName('visible_delete')) {
+      elem.classList.remove('visible_delete');
+    }
+    // add blur lock
+    this.ui_drawer.classList.add('visible_delete');
     // is current block already marked? -> cancel delete
     if (this.el.classList.contains('to-delete')) {
       this.onDeleteDeny(e);
@@ -343,8 +357,19 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     }
 
     // connect button events
-    Events.delegate(popup, ".js-st-block-confirm-delete", "click", this.onDeleteConfirm);
-    Events.delegate(popup, ".js-st-block-deny-delete", "click", this.onDeleteDeny);
+    //Events.delegate(popup, ".js-st-block-confirm-delete", "click", this.onDeleteConfirm);
+    //Events.delegate(popup, ".js-st-block-deny-delete", "click", this.onDeleteDeny);
+    popup.getElementsByClassName("js-st-block-confirm-delete")[0].addEventListener("click", this.onDeleteConfirm );
+    popup.getElementsByClassName("js-st-block-deny-delete")[0].addEventListener("click", this.onDeleteDeny );
+
+
+
+    // catch other click events to prevent propagation to hideAllTheThings
+    document.getElementById("ui-delete-modal").addEventListener("click", function (e) {
+      console.log('Click on modal');
+      e.preventDefault();
+      e.stopPropagation();
+    });
 
     popup.classList.add("active");
   },
