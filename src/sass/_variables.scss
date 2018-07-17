@@ -6,9 +6,14 @@ $left_icon_space: 35px;
 
 $editable_background: lightyellow !default;
 $text-block-font-color: #282d31 !default;
-$accent-color: #17bb75 !default;
+
 $base-ui-color: #42474b !default;
-$light-ui-color: #ccc !default;
+$light-ui-color: #EEEEEE !default;
+$medium-ui-color: #BDBDBD !default;
+$dark-ui-color: #424242 !default;
+
+$accent-color: $dark-ui-color !default;
+
 $blocks-control-bg-color: #f7f7f7 !default;
 $blocks-control-border-color: #ddd !default;
 $error-color: #d70014 !default;
@@ -18,7 +23,7 @@ $inner-block-padding: 30px 30px 48px !default;
 
 $block-controls-height: 164px !default;
 $block-add-height: 40px !default;
-$block-controls-color: #9b9b9b !default;
+$block-controls-color: $dark-ui-color !default;
 
 $border-size: 2px !default;
 $border-style: solid !default;

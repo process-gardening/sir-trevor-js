@@ -99,14 +99,14 @@
 
   &:hover,
   &:focus {
-    background-color: $accent-color;
+    background-color: $dark-ui-color;
     color: white;
   }
 }
 
 .st-block-control-ui-btn--selected {
-  background-color: $accent-color;
-  color: black;
+  background-color: $medium-ui-color;
+  color: $dark-ui-color;
 }
 
 .st-block--with-errors .st-block-control-ui-btn,
