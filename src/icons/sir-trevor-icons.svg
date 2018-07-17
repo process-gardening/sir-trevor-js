@@ -624,7 +624,7 @@ xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
   <symbol viewBox="0 0 32 32" id="ol">
     <title>ol</title>
     <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1369" inkscape:window-height="802"
-    id="ol-namedview1975" showgrid="false" inkscape:zoom="7.375" inkscape:cx="-0.88135593" inkscape:cy="16" inkscape:window-x="886" inkscape:window-y="50" inkscape:window-maximized="0" inkscape:current-layer="svg827" />
+    id="ol-namedview1975" showgrid="false" inkscape:zoom="7.375" inkscape:cx="-5.4704851" inkscape:cy="16" inkscape:window-x="170" inkscape:window-y="174" inkscape:window-maximized="0" inkscape:current-layer="svg827" />
     <metadata id="ol-metadata833">
       <rdf:RDF>
         <cc:Work rdf:about="">
@@ -633,8 +633,10 @@ xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
           <dc:title/> </cc:Work>
       </rdf:RDF>
     </metadata>
-    <path d="m 27.173941,26.367861 v 5.503583 H 5.9934857 V 26.367861 H 13.887513 V 6.9663406 q -0.500325,0.667101 -1.61216,1.389794 -1.056244,0.722693 -2.3348527,1.334202 -1.27861,0.6115094 -2.6684045,1.0562434 -1.389793,0.389142 -2.446037,0.389142 V 5.4097718 q 1.111835,0 2.557221,-0.667101 1.5009775,-0.667101 2.8907702,-1.5565687 1.389793,-0.8894675 2.390445,-1.7789355 1.000651,-0.88946795 1.223018,-1.27861025 h 6.226276 V 26.367861 Z"
-    id="ol-path859" /> </symbol>
+    <g id="ol-g5101" transform="matrix(1.6685994,0,0,1.6685994,-10.36493,-11.546245)">
+      <path id="ol-path5082" d="m 6.3006353,21.508603 h 2 v 0.5 h -1 v 1 h 1 v 0.5 h -2 v 1 h 3 v -4 h -3 z m 1,-9 h 1 V 8.5086034 h -2 v 1 h 1 z m -1,3 h 1.8 l -1.8,2.1 v 0.9 h 3 v -1 h -1.8 l 1.8,-2.1 v -0.9 h -3 z M 11.300635,9.5086034 v 1.9999996 h 14 V 9.5086034 Z m 0,13.9999996 h 14 v -2 h -14 z m 0,-6 h 14 v -2 h -14 z"
+      inkscape:connector-curvature="0" /> </g>
+  </symbol>
   <symbol viewBox="0 0 32 32" id="plus">
     <title>plus</title>
     <path fill="#444" d="M12.8 32h6.4v-32h-6.4v32z" />
@@ -746,8 +748,8 @@ xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
     /> </symbol>
   <symbol viewBox="0 0 32 32" id="ul">
     <title>ul</title>
-    <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1452" inkscape:window-height="753"
-    id="ul-namedview1418" showgrid="false" inkscape:zoom="7.375" inkscape:cx="-12.067797" inkscape:cy="16" inkscape:window-x="749" inkscape:window-y="82" inkscape:window-maximized="0" inkscape:current-layer="svg827" />
+    <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="997" inkscape:window-height="683"
+    id="ul-namedview1418" showgrid="false" inkscape:zoom="7.375" inkscape:cx="17.345139" inkscape:cy="16" inkscape:window-x="403" inkscape:window-y="81" inkscape:window-maximized="0" inkscape:current-layer="svg827" />
     <metadata id="ul-metadata833">
       <rdf:RDF>
         <cc:Work rdf:about="">
@@ -756,7 +758,10 @@ xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
           <dc:title/> </cc:Work>
       </rdf:RDF>
     </metadata>
-    <ellipse ry="15.874125" rx="15.895014" cy="16" cx="16" id="ul-path853" /> </symbol>
+    <g id="ul-g5122" transform="matrix(1.7322034,0,0,1.7322034,-53.08996,-13.82913)">
+      <path id="ul-path5103" d="m 32.135593,15.720339 c -0.83,0 -1.5,0.67 -1.5,1.5 0,0.83 0.67,1.5 1.5,1.5 0.83,0 1.5,-0.67 1.5,-1.5 0,-0.83 -0.67,-1.5 -1.5,-1.5 z m 0,-6.0000003 c -0.83,0 -1.5,0.6700003 -1.5,1.5000003 0,0.83 0.67,1.5 1.5,1.5 0.83,0 1.5,-0.67 1.5,-1.5 0,-0.83 -0.67,-1.5000003 -1.5,-1.5000003 z m 0,12.0000003 c -0.83,0 -1.5,0.68 -1.5,1.5 0,0.82 0.68,1.5 1.5,1.5 0.82,0 1.5,-0.68 1.5,-1.5 0,-0.82 -0.67,-1.5 -1.5,-1.5 z m 3,2.5 h 14 v -2 h -14 z m 0,-6 h 14 v -2 h -14 z m 0,-8 v 2 h 14 v -2 z"
+      inkscape:connector-curvature="0" /> </g>
+  </symbol>
   <symbol viewBox="0 0 32 32" id="user">
     <title>user</title>
     <path fill="#444" d="M26.667 26.667c-7.649 0.062-15.272 0.062-21.333 0 0-3.612 3.665-6.625 8.533-7.317v-1.787c-1.275-0.738-2.133-2.117-2.133-3.696 0-0.094 0.003-0.188 0.009-0.28-0.643-0.368-1.076-1.060-1.076-1.853s0.433-1.486 1.076-1.853c-0.006-0.092-0.009-0.186-0.009-0.28 0-2.356 1.91-4.267 4.267-4.267s4.267 1.91 4.267 4.267c0 0.094-0.003 0.188-0.009 0.28 0.642 0.368 1.076 1.060 1.076 1.853s-0.433 1.486-1.076 1.853c0.006 0.092 0.009 0.186 0.009 0.28 0 1.579-0.858 2.958-2.133 3.696v1.787c4.869 0.692 8.533 3.705 8.533 7.317z"

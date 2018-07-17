@@ -28,10 +28,10 @@
      id="namedview1975"
      showgrid="false"
      inkscape:zoom="7.375"
-     inkscape:cx="-0.88135593"
+     inkscape:cx="-5.4704851"
      inkscape:cy="16"
-     inkscape:window-x="886"
-     inkscape:window-y="50"
+     inkscape:window-x="170"
+     inkscape:window-y="174"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg827" />
   <metadata
@@ -48,8 +48,12 @@
   </metadata>
   <defs
      id="defs831" />
-  <path
-     d="m 27.173941,26.367861 v 5.503583 H 5.9934857 V 26.367861 H 13.887513 V 6.9663406 q -0.500325,0.667101 -1.61216,1.389794 -1.056244,0.722693 -2.3348527,1.334202 -1.27861,0.6115094 -2.6684045,1.0562434 -1.389793,0.389142 -2.446037,0.389142 V 5.4097718 q 1.111835,0 2.557221,-0.667101 1.5009775,-0.667101 2.8907702,-1.5565687 1.389793,-0.8894675 2.390445,-1.7789355 1.000651,-0.88946795 1.223018,-1.27861025 h 6.226276 V 26.367861 Z"
-     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:40px;line-height:125%;font-family:Raleway;-inkscape-font-specification:'Raleway, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.38979375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     id="path859" />
+  <g
+     id="g5101"
+     transform="matrix(1.6685994,0,0,1.6685994,-10.36493,-11.546245)">
+    <path
+       id="path5082"
+       d="m 6.3006353,21.508603 h 2 v 0.5 h -1 v 1 h 1 v 0.5 h -2 v 1 h 3 v -4 h -3 z m 1,-9 h 1 V 8.5086034 h -2 v 1 h 1 z m -1,3 h 1.8 l -1.8,2.1 v 0.9 h 3 v -1 h -1.8 l 1.8,-2.1 v -0.9 h -3 z M 11.300635,9.5086034 v 1.9999996 h 14 V 9.5086034 Z m 0,13.9999996 h 14 v -2 h -14 z m 0,-6 h 14 v -2 h -14 z"
+       inkscape:connector-curvature="0" />
+  </g>
 </svg>
