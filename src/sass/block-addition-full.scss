@@ -26,7 +26,7 @@
 
   &:before {
     transition: all $animation-speed 0.1s ease-in-out;
-    background: $light-ui-color;
+    background: $medium-ui-color;
     position: absolute;
     height: 2px;
     top: 50%;
@@ -71,7 +71,7 @@
 .st-block-addition-full__icon {
   transition: all $animation-speed 0.1s ease-in-out;
   border: 1px solid transparent;
-  color: $light-ui-color;
+  color: $medium-ui-color;
   position: absolute;
   top: 9px;
   box-sizing: border-box;
