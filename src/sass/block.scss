@@ -132,18 +132,15 @@
   height: 0;
   position: relative;
   overflow: hidden;
-  //background-color: #ddffdd;
-  //border-top: 2px solid #252525;
   display: flex;
-  //flex-direction: row;
   align-items: center;
 
-  transition: height .3s ease-in-out;
+  transition: height 400ms ease-in-out, border-top 400ms ease-in-out;
+  border-top: 0 solid rgba(160, 160, 160, 0.2);
   &.visible,
   &.visible_delete {
     border-top: 1px solid rgba(160, 160, 160, 0.2);
-    min-height: 3em;
-    height: unset;
+    height: 3em;
   }
   &:focus {
     outline: none;
