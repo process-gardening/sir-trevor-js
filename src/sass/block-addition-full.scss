@@ -1,0 +1,123 @@
+.st-block-addition-full {
+  transition: all $animation-speed 0.2s ease-in-out;
+  text-align: left;
+  outline: none;
+  border: none;
+  width: 100%;
+  background-color: transparent;
+  padding: 0;
+  z-index: 2;
+  //position: relative;
+  cursor: text;
+  //display: none;
+
+  &::-moz-focus-inner {
+    padding: 0;
+    margin: 0;
+    margin-left: -1px;
+  }
+
+  position: absolute;
+  //top: -2em;
+  bottom: -17px;
+  height: 16px;
+  //opacity: 0;
+  display: block;
+
+  &:before {
+    transition: all $animation-speed 0.1s ease-in-out;
+    background: $medium-ui-color;
+    position: absolute;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    right: 0;
+    content: "";
+    display: block;
+    transform: translateY(-50%) translateZ(0);
+  }
+  &:hover:before {
+    background: $accent-color;
+  }
+
+  .st-block--empty & {
+    display: none !important;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .st-block--textable &,
+  .st-block[data-type="list"] & {
+    //top: -1.5em;
+  }
+
+  .st-block:nth-child(3) & {
+    //display: none;
+  }
+
+  .st-block--empty + .st-block & {
+    //display: none;
+  }
+}
+
+@media (max-width: $small_screen_width) {
+  .st-block-addition-full {
+    bottom: -8px;
+  }
+}
+
+.st-block-addition-full__icon {
+  transition: all $animation-speed 0.1s ease-in-out;
+  border: 1px solid transparent;
+  color: $medium-ui-color;
+  position: absolute;
+  top: 9px;
+  box-sizing: border-box;
+  //padding-left: 35px;
+  display: inline-block;
+  //margin: 0 auto;
+  margin-left: -$left_icon_space;
+  cursor: pointer;
+  //opacity: 0.2;
+  transform: translateY(-50%) translateZ(0);
+
+  .st-icon {
+    width: 30px;
+    height: 30px;
+    color: inherit;
+  }
+
+  .st-block-addition-full:hover &,
+  .st-block--active & {
+    color: $accent-color;
+    //opacity: 1;
+  }
+}
+
+@media (max-width: $small_screen_width) {
+  .st-block-addition-full__icon {
+
+    //background-color: white;
+    margin-left: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-47%) translateZ(0);
+
+    .st-icon {
+      border-radius: 50%;
+      background-color: white;
+      color: inherit;
+    }
+  }
+}
+
+.st-block-addition-full__button {
+  color: #444444;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: inline-block;
+}

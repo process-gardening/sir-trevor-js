@@ -1,0 +1,38 @@
+// Block Controls
+
+.st-blocks-menu {
+  font-size:1em;
+  margin-left: $left_icon_space;
+  //padding: 0px 110px;
+}
+
+.st-blocks-menu__buttons {
+  text-align: left;
+}
+
+.st-blocks-menu__button {
+  border:none;
+  background:transparent;
+  font-size: 12px;
+  //text-transform: uppercase;
+  display: inline-block;
+  cursor: pointer;
+  margin: 0.5em;
+  padding: 2px;
+  color: #9b9b9b;
+}
+
+.st-blocks-menu__button .st-icon {
+  //margin: 0 0 10px 0;
+  margin: 0 auto 10px auto;
+  display: block;
+  width: 38px;
+  height: 38px;
+  fill: currentColor;
+}
+
+.st-blocks-menu__button:hover {
+  color: white;
+  fill: white;
+  background-color: $accent-color;
+}

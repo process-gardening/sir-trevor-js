@@ -6,6 +6,8 @@ module.exports = {
   Image: require('./image'),
   Heading: require('./heading'),
   List: require('./list'),
+  ListExtended: require('./list_extended'),
+  Box: require('./box'),
   Tweet: require('./tweet'),
   Video: require('./video'),
 };

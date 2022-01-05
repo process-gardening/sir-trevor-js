@@ -9,7 +9,7 @@
 const Blocks = require("./blocks");
 const Events = require("./packages/events");
 
-const BLOCK_REPLACER_CONTROL_TEMPLATE  = require("./templates/block-control");
+const BLOCK_REPLACER_CONTROL_TEMPLATE = require("./templates/block-control");
 
 function generateBlocksHTML(Blocks, availableTypes) {
   return availableTypes.reduce((memo, type) => {
@@ -31,12 +31,13 @@ function render(Blocks, availableTypes) {
   return elButtons;
 }
 
-module.exports.create = function(SirTrevor) {
+module.exports.create = function (SirTrevor) {
 
   // REFACTOR - should probably not know about blockManager
   var el = render(Blocks, SirTrevor.blockManager.blockTypes);
 
   function replaceBlock(e) {
+    //console.log('block-controls::replace()');
     // REFACTOR: mediator so that we can trigger events directly on instance?
     // REFACTOR: block create event expects data as second argument.
     /*jshint validthis:true */
@@ -49,7 +50,9 @@ module.exports.create = function(SirTrevor) {
     e.stopPropagation(); // we don't want el to be removed by the window click
     /*jshint validthis:true */
     var parent = this.parentNode;
-    if (!parent || hide() === parent) { return; }
+    if (!parent || hide() === parent) {
+      return;
+    }
     parent.appendChild(el);
     parent.classList.toggle("st-block--controls-active");
   }
@@ -57,7 +60,9 @@ module.exports.create = function(SirTrevor) {
   // Public
   function hide() {
     var parent = el.parentNode;
-    if (!parent) { return; }
+    if (!parent) {
+      return;
+    }
     parent.removeChild(el);
     parent.classList.remove("st-block--controls-active");
     return parent;

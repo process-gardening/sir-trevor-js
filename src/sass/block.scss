@@ -1,21 +1,98 @@
+
+.st-blocks.st--hide-top-controls.st-ready {
+  padding-bottom: 22px;
+}
+
 .st-blocks {
   overflow: hidden;
-  position:relative;
+  position: relative;
+  min-height: 55px;
+  padding-bottom: 15px; // 8px
 }
 
-.st-block {
+.st-block { // base container including addition buttons and icons
   position: relative;
+
+  margin-left: $left_icon_space;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-right: 3px; // for shadow
+}
+@media (max-width: $small_screen_width) {
+  .st-block {
+    margin: 0;
+  }
 }
 
-.st-block__inner {
+.st-block__card { // the actual card, including controls drawer
+  border-top: 1px solid #d3d3d3;
+  background-color: #fff;
+  color: #444;
+}
+
+@media (min-width: 600px) {
+  .st-block__card { // the actual card, including controls drawer
+    border-radius: 2px;
+    background-color: #fff;
+    border-bottom: 1px solid #c4c4c4;
+    border-left: 1px solid #d3d3d3;
+    border-right: 1px solid #d3d3d3;
+    border-top: 1px solid #d3d3d3;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.07);
+    color: #444;
+
+    &:hover {
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+      box-shadow: 0 14px 26px -12px rgba(69, 90, 100, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(69, 90, 100, 0.2);
+    }
+  }
+}
+.st-block.to-delete .st-block__card { // asked for delete, mark delete scope
+  background-color: #FFCDD2;
+  border: 2px solid red;
+}
+
+.st-block__card-upper { // the always visible part of card with content and drag handle
+  display: flex;
+  flex-direction: row;
+}
+
+.st-block.to-delete .st-block__card-upper {
+  background-color: unset;
+}
+
+.st-block__content { // frame for the actual block content
+  padding-top: .5em;
+  padding-left: 1em;
+  //padding-right: 1em;
+  flex: 1 1 auto;
+  &:focus {
+    outline: 0;
+  }
+}
+
+.st-block__content:focus {
+
+}
+
+.st-block__inner { // the div for the editor content
   position: relative;
-  margin: 0 110px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 0;
+  padding: 0;
+  //margin: 0 110px;
+  //margin-top: 1em;
+  //margin-bottom: 1em;
+
+
 
   .st-block--textable & {
     margin-top: 0;
     margin-bottom: 0;
+
+    // tune line breaking
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
   }
 }
 
@@ -47,14 +124,54 @@
 }
 
 .st-block--with-errors .st-block__inner,
-.st-block--delete-active .st-block__inner  {
+.st-block--delete-active .st-block__inner {
   border-color: $error-color;
+}
+
+.st-block__controls_drawer {
+  height: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  transition: height 400ms ease-in-out, border-top 400ms ease-in-out;
+  border-top: 0 solid rgba(160, 160, 160, 0.2);
+  &.visible,
+  &.visible_delete {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    height: 3em;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.st-block__ui { // div for drag handle and positioner
+  flex: 0 0 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.st-block__ui-position-info {
+  margin-left: auto;
+  margin-right: 1em;
+  //float: right;
+  //margin: .8em 1em auto 1em;
+}
+
+.st-block__ui-position-info p {
+  //font-size: .5em;
+  //margin: auto;
+  margin: 0;
 }
 
 .st-block--with-plus:after,
 .st-icon--add:after {
   display: block;
-  position: relative; z-index: 1;
+  position: relative;
+  z-index: 1;
   bottom: 0;
 }
 
@@ -78,48 +195,111 @@
 
 .with-st-controls:after,
 .with-st-controls:before {
-  display:none
+  display: none
 }
 
+//.st-block,
+.st-top-controls.st-drag-over,
+.st-block.st-drag-over {
+  margin-bottom: 50px;
+  transition: all 0.3s;
+}
+
+$dropzone_txt_en: "Drop block here."; //"Drag card here.";
+$dropzone_txt_de: "Block hier ablegen.";
+
+$dropzone_color: #6d6d6d;
+
+//.st-block:after,
 .st-block.st-drag-over:after,
 .st-block.st-drag-over:last-child:after,
 .st-top-controls.st-drag-over:before {
-  content: "";
+  content: $dropzone_txt_en;
+  //text-align: center;
+  //vertical-align: center;
+  font-weight: bold;
+  font-size: 1.25em;
+  color: $dropzone_color;
   background: transparent;
-  display:block;
-  width:100%;
-  height:3px;
-  position:absolute;
-  bottom:0;
-  left:0;
-  background:$accent-color;
+  //display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  transition: all 0.3s ease-in-out;
+
+  position: absolute;
+  bottom: -46px;
+  left: 0;
+  border: 4px dashed $dropzone_color;
+  //background: $accent-color;
+  //z-index: 3;
+}
+
+.st-block.st-drag-over,
+.st-block.st-drag-over:last-child {
+  &:lang(en):after {
+    content: $dropzone_txt_en;
+  }
+  &:lang(de):after {
+    content: $dropzone_txt_de;
+  }
+}
+
+.st-top-controls.st-drag-over {
+  &:lang(en):before {
+    content: $dropzone_txt_en;
+  }
+  &:lang(de):before {
+    content: $dropzone_txt_de;
+  }
+}
+
+.st-top-controls.st-drag-over .st-block-addition-full:before,
+.st-block.st-drag-over .st-block-addition-full:before {
+  opacity: 0;
 }
 
 .st-drag-element {
-  background:#fff;
-  box-shadow: 3px 3px $accent-color inset, -3px -3px $accent-color inset ;
-  position:absolute;
-  width:100%;
-  z-index:-1;
+  //background: #fff;
+  //box-shadow: 3px 3px $accent-color inset, -3px -3px $accent-color inset;
+  box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  border: 2px solid $accent-color;
+  position: absolute;
+  margin: 0;
+  height: unset;
+  //width: 100%;
+  z-index: -1;
 
   .st-block-addition {
-    display:none;
+    display: none;
   }
 }
 
-.st-block--dragging {
-  background:#f6f7f9;
+.st-block--dragging .st-block__card {
+  //background: #f6f7f9;
+  border: 3px solid lightgrey;
+  background-color: white;
+  //max-height: 40px;
+  transition: all 0.3s;
   & > * {
-    opacity:0;
+    opacity: 0.25;
   }
   & .st-block-addition {
-    opacity:1;
+    opacity: 1;
   }
+}
+
+
+.st-block--dragging st-block__content {
+  pointer-events: none;
 }
 
 .st-drag-over {
   & .st-block-addition {
-    opacity:0;
+    opacity: 0;
   }
 }
 
@@ -179,7 +359,7 @@
 }
 
 .st-text-block--heading p {
-  margin:.5em 0;
+  margin: .5em 0;
 }
 
 .st-text-block--quote {
@@ -194,8 +374,12 @@ ul.st-text-block {
 
 .st-list-block__list {
   font-size: $text-block-font-size;
-  margin: 0;
+  //margin: 0;
   padding-left: 1em;
+}
+
+ol .st-list-block__item {
+  padding-left: .25em;
 }
 
 .st-list-block__editor {
@@ -244,7 +428,8 @@ ul.st-text-block {
 }
 
 .st-block__upload-container:hover .st-upload-btn {
-  @include st-btn-hover;
+  background: $accent-color;
+  color: #fff;
 }
 
 .st-block__editor--with-square-media {
@@ -267,7 +452,8 @@ ul.st-text-block {
 .st-block__editor--with-sixteen-by-nine-media iframe {
   height: 100%;
   width: 100%;
-  left: 0; top: 0;
+  left: 0;
+  top: 0;
   position: absolute;
 }
 

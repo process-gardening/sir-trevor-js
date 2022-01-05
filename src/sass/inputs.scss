@@ -3,7 +3,7 @@
   display: block;
   margin-bottom: 0.5em;
   font-size: 13px;
-  text-transform: uppercase;
+  //text-transform: uppercase;
 }
 
 // Generic styles
@@ -72,4 +72,9 @@
 .st-block__upload-container:hover .st-upload-btn {
   background: $accent-color;
   color: #fff;
+}
+
+.st-block [contenteditable="true"]:active,
+.st-block [contenteditable="true"]:focus {
+  background-color: $editable_background;
 }

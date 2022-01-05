@@ -16,3 +16,6 @@ website/vendor/
 build/**/*.debug.*
 build/**/*.test.*
 .vscode
+.idea/
+*~
+build

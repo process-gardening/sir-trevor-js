@@ -1,0 +1,132 @@
+$info_accent: #FFF9C4; //rgb(255, 255, 141);
+$notice_accent: #2531ff; //rgb(164, 201, 255);
+$caution_accent: #fbfc00; //rgb(255, 209, 128);
+$warning_accent: #ff9600; //rgb(255, 209, 128);
+$danger_accent: #ff2800; //rgb(255, 138, 128);
+
+// option icons
+a.st-block-control-ui-btn--box_caution {
+  //background-color: $caution_accent;
+  //border-radius: 50%;
+  //margin-right: 2px;
+  &.st-block-control-ui-btn--selected {
+    border-radius: 0;
+    //background-color: $accent-color;
+  }
+}
+
+a.st-block-control-ui-btn--box_warning {
+  //background-color: $warning_accent;
+  //border-radius: 50%;
+  //margin-right: 2px;
+  &.st-block-control-ui-btn--selected {
+    border-radius: 0;
+    //background-color: $accent-color;
+  }
+}
+
+a.st-block-control-ui-btn--box_danger {
+  //background-color: $danger_accent;
+  //border-radius: 50%;
+  //margin-right: 2px;
+  &.st-block-control-ui-btn--selected {
+    border-radius: 0;
+    //background-color: $accent-color;
+  }
+}
+
+// box design
+.st-block__card-upper.info > .st-block__content,
+.st-block__card-upper.notice > .st-block__content,
+.st-block__card-upper.caution > .st-block__content,
+.st-block__card-upper.warning > .st-block__content,
+.st-block__card-upper.danger > .st-block__content {
+  padding: 0;
+}
+
+// heading
+div.st-block__box-header {
+  padding: 5px;
+}
+
+p.st-block__box-header {
+  font-size: 1.5em;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+div.st-block__box-icon {
+  display: inline-block;
+
+}
+
+svg.st-block__box-icon {
+  width: 1em;
+  height: 1em;
+  top: 3px;
+  position: relative;
+  fill: currentColor;
+}
+
+div.st-block__box.info {
+  border: solid 1px darkgray;
+  background-color: $info_accent;
+}
+.st-block__card-upper.info div.st-block__box-header {
+  background-color: $info_accent;
+  border-bottom: solid 1px darkgray;
+}
+
+div.st-block__box.notice {
+  border: solid 2px $notice_accent;
+}
+.st-block__card-upper.notice div.st-block__box-header {
+  background-color: $notice_accent;
+  color: white;
+  p {
+    text-transform: uppercase;
+  }
+}
+
+div.st-block__box.caution {
+  border: solid 3px $caution_accent;
+}
+.st-block__card-upper.caution div.st-block__box-header {
+  background-color: $caution_accent;
+  p {
+    text-transform: uppercase;
+  }
+}
+
+div.st-block__box.warning {
+  border: solid 3px $warning_accent;
+}
+.st-block__card-upper.warning div.st-block__box-header {
+  background-color: $warning_accent;
+  p {
+    text-transform: uppercase;
+  }
+}
+
+div.st-block__box.danger {
+  border: solid 3px $danger_accent;
+}
+.st-block__card-upper.danger div.st-block__box-header {
+  background-color: $danger_accent;
+  color: white;
+  p {
+    text-transform: uppercase;
+  }
+}
+
+// nested editor
+.st-block__box-content {
+  margin-left: 1em;
+  min-height: 6em;
+  padding-bottom: .5em;
+}
+
+.st-block__box-content .st-blocks {
+  padding-right: 1em;
+}

@@ -1,14 +1,17 @@
 SirTrevor.Locales.de = {
   general: {
-    delete: "Löschen?",
-    drop: "__block__ hier ablegen",
-    paste: "Oder Adresse hier einfügen",
-    upload: "...oder Datei auswählen",
-    close: "Schließen",
-    position: "Position",
-    wait: "Bitte warten...",
-    yes: "Ja ",
-    no: "Nein"
+    'delete?':          'Block löschen?',
+    'drop':             '__block__ hier ablegen',
+    'paste':            'Oder Adresse hier einfügen',
+    'upload':           '...oder Datei auswählen',
+    'close':            'Schließen',
+    'position':         'Position',
+    'wait':             'Bitte warten...',
+    'link':             'Link eintragen',
+    'yes':              'Ja ',
+    'no':               'Nein',
+    'delete':           'Löschen',
+    'cancel':           'Abbrechen'
   },
   errors: {
     title: "Die folgenden Fehler sind aufgetreten:",
@@ -67,7 +70,12 @@ SirTrevor.Locales.de = {
       key_missing: "An Embedly API key must be present"
     },
     heading: {
-      title: "Überschrift"
+      'title': 'Überschrift'
+    },
+    box: {
+      'info': 'Info',
+      'attention': 'Achtung',
+      'warn': 'Warnung'
     }
   }
 };

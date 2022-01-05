@@ -2,29 +2,52 @@
 
 var _ = require('./lodash');
 
-var drop_options = {
-  title: (block) => {
-    return i18n.t(`blocks:${block.type}:drop_title`) || _.result(block, "title");
-  },
+/*var drop_options = {
   html: ['<div class="st-block__dropzone">',
     '<svg role="img" class="st-icon"><use xlink:href="<%= config.defaults.iconUrl %>#<%= _.result(block, "icon_name") %>"/></svg>',
     '<p><%= i18n.t("general:drop", { block: "<span>" + block.drop_options.title(block) + "</span>" }) %>',
     '</p></div>'].join('\n'),
-  re_render_on_reorder: false
+    re_render_on_reorder: false
+};*/
+
+var drop_options = {
+  html: `
+    <div class="st-block__dropzone">
+      <svg role="img" class="st-icon">
+        <use xlink:href="<%= config.defaults.iconUrl %>#<%= _.result(block, 'icon_name') %>"/>
+      </svg>
+      <p>
+        <%= i18n.t("general:drop", { block: "<span>" + _.result(block, 'title') + "</span>" }) %>
+      </p>
+    </div>
+  `,
+  re_render_on_reorder: false,
+  hide_editor: false
 };
+
 
 var paste_options = {
-  html: ['<input type="text" placeholder="<%= i18n.t("general:paste") %>"',
-    ' class="st-block__paste-input st-paste-block">'].join('')
+  html: `
+    <input type="text" placeholder="<%= i18n.t("general:paste") %>" class="st-block__paste-input st-paste-block">
+  `
 };
 
-var upload_options = {
+/*var upload_options = {
   html: [
     '<div class="st-block__upload-container">',
     '<input type="file" type="st-file-upload">',
     '<button class="st-upload-btn"><%= i18n.t("general:upload") %></button>',
     '</div>'
   ].join('\n')
+};*/
+
+var upload_options = {
+  html: `
+    <div class="st-block__upload-container">
+      <input type="file" type="st-file-upload">
+        <button class="st-upload-btn"><%= i18n.t("general:upload") %></button>
+    </div> 
+  `
 };
 
 module.exports = {
@@ -32,11 +55,11 @@ module.exports = {
   scribeDebug: false,
   skipValidation: false,
   version: "0.4.0",
-  language: "en",
 
   instances: [],
 
   defaults: {
+    language: "en",
     defaultType: false,
     spinner: {
       className: 'st-spinner',
@@ -56,6 +79,8 @@ module.exports = {
       paste_options: paste_options,
       upload_options: upload_options,
     },
+    editorMode: 'block', // or document
+    //editorMode: 'document', // or document
     blockLimit: 0,
     blockTypeLimits: {},
     required: [],
@@ -103,7 +128,7 @@ module.exports = {
           cmd: "unlink",
           text: "link",
         },
-        {
+/*        {
           name: "Heading",
           title: "heading",
           iconName: "fmt-heading",
@@ -116,7 +141,7 @@ module.exports = {
           iconName: "fmt-quote",
           cmd: "quote",
           text: "quote"
-        }
+        }*/
       ],
     },
     ajaxOptions: {

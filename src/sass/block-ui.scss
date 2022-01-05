@@ -1,7 +1,21 @@
+//div.st-block__ui {
+//  height: 3rem;
+//  background-color: #ddffdd;
+//}
+
 .st-block__control-ui {
-  position: absolute;
-  bottom: 0; left: 0;
-  opacity: 1;
+  //position: absolute;
+  //bottom: 0; left: 0;
+  //opacity: 1;
+  margin-top: .4em;
+  margin-bottom: .4em;
+  margin-left: 1em;
+  float: left;
+  border: 1px solid rgba(160, 160, 160, 0.2);
+  //border-top: 1px solid rgba(160, 160, 160, 0.2);
+  //border-left: 1px solid rgba(160, 160, 160, 0.2);
+  //box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
 }
 
 .st-block__inner:hover .st-block__ui,
@@ -9,89 +23,90 @@
   opacity: 1;
 }
 
-.st-block-ui__confirm {
-  color: $error-color;
-  border:1px solid $error-color;
-  background:none;
-  padding: 0.15em .4em;
-  margin: 0 0.1em;
-  font-size:.9em;
-  cursor:pointer;
-}
-
 %st-block-ui-btn {
   @extend .st-icon;
   display: block;
   cursor: pointer;
-  width: 1em;
-  height: 1em;
-  color:$block-controls-color;
-
-  &:before {
-    position: absolute;
-    display: block;
-    content: "";
-    top: -10px;
-    right: -10px;
-    bottom: -10px;
-    left: -10px;
-  }
+  width: 2.5em;
+  height: 2.5em;
+  padding: .5em;
+  color: $block-controls-color;
 }
 
 .st-block-ui-btn__reorder {
   @extend %st-block-ui-btn;
-  position: absolute;
-  right: 2em;
-  transform: scaleX(-1);
-  top: 0.5em;
-  opacity: 0.2;
+  //position: absolute;
+  //right: 1em;
+  //top: 50%; //0.5em;
+  //transform: translateY(-50%);
   transition: opacity 0.3s ease-in-out;
   &:hover,
   &:focus {
-    color:$accent-color;
+    color: $accent-color;
     opacity: 1;
   }
 }
 
+//a.st-block-ui-btn__reorder > svg {
+//  transform: translateY(-50%);
+//}
+
 .st-block-ui-btn__delete {
   @extend %st-block-ui-btn;
-  position: absolute;
-  right: 1em;
-  top: 1.5em;
-  font-size:1.5em;
-  opacity: 0.5;
+  //position: absolute;
+  //right: 1em;
+  //top: 1.5em;
+  //left: 1.5em;
+  //bottom: .5em;
+  //font-size:1.5em;
+  //opacity: 0.5;
+  margin-left: 1em;
+  //margin-top: .25em;
+  //float: left;
   &:hover,
   &:focus {
-    color:$error-color;
+    color: $error-color;
     opacity: 1;
   }
 
   .st-block--textable &,
   .st-block[data-type="list"] &,
   .st-block {
-    display: none;
+    //display: none;
   }
   .st-block[data-type="quote"] & {
-    display: block;
+    //display: block;
   }
 }
 
 .st-block-control-ui-btn {
   @extend %st-block-ui-btn;
-  width: 2em;
-  line-height: 1.25em;
-  height: 1.25em;
-  font-size: 1em;
+  //width: 2em;
+  //line-height: 1.25em;
+  //height: 1.25em;
+  //font-size: 1em;
   display: inline-block;
-  padding: 3px;
+  //padding: 3px;
   transition: color .1s;
+  //width: 2rem;
+  //height: 2rem;
+  width: 2.5em;
+  height: 2.5em;
+  padding: .5em;
+
+
+  border-right: 1px solid rgba(160, 160, 160, 0.2);
+
   &:hover,
   &:focus {
-    color:$accent-color;
+    background-color: $dark-ui-color;
+    color: white;
   }
 }
+
 .st-block-control-ui-btn--selected {
-  color:$accent-color;
+  background-color: $medium-ui-color;
+  color: $dark-ui-color;
 }
 
 .st-block--with-errors .st-block-control-ui-btn,
@@ -106,25 +121,63 @@
   }
 }
 
-.st-block__ui-delete-controls {
-  @include ui-popup;
-  right: 4em;
-  top: 1.85em;
-  padding: 0.3em .5em;
-  border-color:$error-color;
+.st-block__ui-delete-card {
+  position: absolute;
+  z-index: 2;
+  background: #fff;
+  display:none;
+  min-width: 230px;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%)translateY(-50%);
+  //border: 1px solid $error-color;
+  //box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  &.active {
+    display: block;
+  }
+}
 
-  &:before {
-    left:auto;
-    right:-0.3em;
-    border-color:$error-color;
+div.st-block__ui-delete-label-div {
+  padding: 24px;
+  font-weight: bold;
+}
+
+.st-block__ui-buttons {
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+  height: 53px;
+  padding: 8px;
+}
+
+.st-block__ui-delete-cancel {
+  background-color: white;
+  border: 0;
+  padding: 8px;
+  height: 36px;
+  margin-right: 8px;
+
+  color: darkgray;
+  &:hover {
+    color: black;
+    background-color: lightgrey;
+  }
+}
+
+.st-block__ui-delete-confirm {
+  background-color: white;
+  border: 0;
+  padding: 8px;
+  height: 36px;
+  margin-right: 8px;
+
+  color: darkred;
+  &:hover {
+    color: red;
+    background-color: lightpink;
   }
 }
 
 .st-block--with-errors {
   opacity: 1;
   z-index: 2;
-}
-
-.st-block__delete-label {
-  color: $error-color;
 }

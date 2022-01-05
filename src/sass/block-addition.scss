@@ -5,6 +5,15 @@ $animation-speed: 0.2s;
   min-height: 1.750em;
   position: relative;
   z-index: 2;
+  margin-left: $left_icon_space;
+  margin-bottom: 15px;
+  margin-right: 3px;
+}
+
+@media (max-width: $small_screen_width) {
+  .st-top-controls {
+    margin: 0;
+  }
 }
 
 .st-block-addition {
@@ -31,7 +40,7 @@ $animation-speed: 0.2s;
 }
 
 .st--hide-top-controls {
-  .st-top-controls .st-block-addition {
+  .st-top-controls, .st-block-addition {
     display: none;
   }
 }

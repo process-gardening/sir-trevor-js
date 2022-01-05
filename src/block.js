@@ -39,14 +39,14 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
   className: 'st-block',
 
-  attributes: function() {
+  attributes: function () {
     return Object.assign(SimpleBlock.fn.attributes.call(this));
   },
 
   icon_name: 'default',
 
-  validationFailMsg: function() {
-    return i18n.t('errors:validation_fail', { type: _.isFunction(this.title) ? this.title() : this.title });
+  validationFailMsg: function () {
+    return i18n.t('errors:validation_fail', {type: _.isFunction(this.title) ? this.title() : this.title});
   },
 
   editorHTML: "<div class=\"st-block__editor\"></div>",
@@ -73,14 +73,22 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   supressKeyListeners: false,
 
   _previousSelection: '',
+  _currentPosition: -1,
 
-  initialize: function() {},
+  initialize: function () {
+  },
 
-  toMarkdown: function(markdown){ return markdown; },
-  toHTML: function(html){ return html; },
+  toMarkdown: function (markdown) {
+    return markdown;
+  },
+  toHTML: function (html) {
+    return html;
+  },
 
-  withMixin: function(mixin) {
-    if (!_.isObject(mixin)) { return; }
+  withMixin: function (mixin) {
+    if (!_.isObject(mixin)) {
+      return;
+    }
 
     var initializeMethod = "initialize" + mixin.mixinName;
 
@@ -90,14 +98,16 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     }
   },
 
-  render: function() {
+  render: function () {
+    //console.log('block::render()');
     this.beforeBlockRender();
     this._setBlockInner();
+    this._initUI();
 
     this.editor = this.inner.children[0];
 
     this.mixinsRequireInputs = false;
-    this.availableMixins.forEach(function(mixin) {
+    this.availableMixins.forEach(function (mixin) {
       if (this[mixin]) {
         var blockMixin = BlockMixins[utils.classify(mixin)];
         if (!_.isUndefined(blockMixin.requireInputs) && blockMixin.requireInputs) {
@@ -106,29 +116,37 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
       }
     }, this);
 
-    if(this.mixinsRequireInputs) {
+    if (this.mixinsRequireInputs) {
       var input_html = document.createElement("div");
       input_html.classList.add('st-block__inputs');
+
+
       this.inner.appendChild(input_html);
+
+
       this.inputs = input_html;
     }
 
-    if (this.hasTextBlock()) { this._initTextBlocks(); }
+    if (this.hasTextBlock()) {
+      this._initTextBlocks();
+    }
 
-    this.availableMixins.forEach(function(mixin) {
+    this.availableMixins.forEach(function (mixin) {
       if (this[mixin]) {
         this.withMixin(BlockMixins[utils.classify(mixin)]);
       }
     }, this);
 
-    if (this.formattable) { this._initFormatting(); }
+    if (this.formattable) {
+      this._initFormatting();
+    }
 
     this._blockPrepare();
 
     return this;
   },
 
-  remove: function() {
+  remove: function () {
     if (this.ajaxable) {
       this.resolveAllInQueue();
     }
@@ -136,8 +154,10 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     Dom.remove(this.el);
   },
 
-  loading: function() {
-    if(!_.isUndefined(this.spinner)) { this.ready(); }
+  loading: function () {
+    if (!_.isUndefined(this.spinner)) {
+      this.ready();
+    }
 
     this.spinner = new Spinner(config.defaults.spinner);
     this.spinner.spin(this.el);
@@ -145,7 +165,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     this.el.classList.add('st--is-loading');
   },
 
-  ready: function() {
+  ready: function () {
     this.el.classList.remove('st--is-loading');
     if (!_.isUndefined(this.spinner)) {
       this.spinner.stop();
@@ -153,12 +173,12 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     }
   },
 
-   //Generic _serializeData implementation to serialize the block into a plain object.
-   //Can be overwritten, although hopefully this will cover most situations.
-   //If you want to get the data of your block use block.getBlockData()
+  //Generic _serializeData implementation to serialize the block into a plain object.
+  //Can be overwritten, although hopefully this will cover most situations.
+  //If you want to get the data of your block use block.getBlockData()
 
-   // jshint maxdepth:4
-  _serializeData: function() {
+  // jshint maxdepth:4
+  _serializeData: function () {
     utils.log("toData for " + this.blockID);
 
     var data = {};
@@ -178,7 +198,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     ].join(",");
 
     if (this.$(matcher).length > 0) {
-      Array.prototype.forEach.call(this.$('input, textarea, select, button'), function(input) {
+      Array.prototype.forEach.call(this.$('input, textarea, select, button'), function (input) {
 
         // Reference elements by their `name` attribute. For elements such as radio buttons
         // which require a unique reference per group of elements a `data-name` attribute can
@@ -218,8 +238,8 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   //[> Generic implementation to tell us when the block is active <]
-  focus: function() {
-    Array.prototype.forEach.call(this.getTextBlock(), function(el) {
+  focus: function () {
+    Array.prototype.forEach.call(this.getTextBlock(), function (el) {
       el.focus();
     });
   },
@@ -232,75 +252,151 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     this.focus();
   },
 
-  blur: function() {
-    Array.prototype.forEach.call(this.getTextBlock(), function(el) {
+  blur: function () {
+    Array.prototype.forEach.call(this.getTextBlock(), function (el) {
       el.blur();
     });
   },
 
-  onFocus: function() {
+  onFocus: function () {
     Array.prototype.forEach.call(this.getTextBlock(), (el) => {
       el.addEventListener('focus', this._onFocus);
     });
   },
 
-  onBlur: function() {
+  onBlur: function () {
     Array.prototype.forEach.call(this.getTextBlock(), (el) => {
       el.addEventListener('blur', this._onBlur);
     });
   },
 
   //Event handlers
-  _onFocus: function() {
-    this.trigger('blockFocus', this.el);
+  _onFocus: function () {
+    //console.log('focus');
+    this.ui_drawer.classList.add('visible');
+    this.trigger('block:focus', this.el);
   },
 
-  _onBlur: function() {},
+  _onBlur: function () {
+    //console.log('blur');
+    this.ui_drawer.classList.remove('visible');
+    this.trigger('block:blur', this.el);
+  },
 
-  onDrop: function(dataTransferObj) {},
+  onBlockRender: function () {
+    this.focus();
+  },
 
-  onDeleteConfirm: function(e) {
+  onDrop: function (dataTransferObj) {
+  },
+
+  onDeleteConfirm: function (e) {
+    //console.log('onDeleteConfirm()');
     e.preventDefault();
+    e.stopPropagation();
     this.mediator.trigger('block:remove', this.blockID, {focusOnPrevious: true});
+
+    // hide popup, should be deleted already
+    let popup = document.getElementById('ui-delete-modal');
+    if (popup) {
+      popup.remove();
+    }
   },
 
-  // REFACTOR: have one set of delete controls that moves around like the
-  // block controls?
-  addDeleteControls: function(){
-
-    var onDeleteDeny = (e) => {
-      e.preventDefault();
-      this.deleteEl.classList.remove("active");
-    };
-
-    this.ui.insertAdjacentHTML("beforeend", DELETE_TEMPLATE());
-    Events.delegate(this.el, ".js-st-block-confirm-delete", "click", this.onDeleteConfirm);
-    Events.delegate(this.el, ".js-st-block-deny-delete", "click", onDeleteDeny);
-  },
-
-  onDeleteClick: function(e) {
+  onDeleteDeny: function (e) {
+    //console.log('onDeleteDeny()', this);
     e.preventDefault();
     e.stopPropagation();
 
+    // remove blur lock, drawer can close
+    for (let elem of document.getElementsByClassName('visible_delete')) {
+      elem.classList.remove('visible_delete');
+    }
+    // unmark all blocks
+    for (let elem of document.getElementsByClassName('to-delete')) {
+      elem.classList.remove('to-delete');
+    }
+
+    // remove popup
+    let popup = document.getElementById('ui-delete-modal');
+    if (popup) {
+      popup.remove();
+    }
+  },
+
+  onDeleteClick: function (e) {
+    //console.log('onDeleteClick()');
+    e.preventDefault();
+    e.stopPropagation();
+
+    // remove blur lock, keeps drawer open
+    for (let elem of document.getElementsByClassName('visible_delete')) {
+      elem.classList.remove('visible_delete');
+    }
+    // add blur lock
+    this.ui_drawer.classList.add('visible_delete');
+    // is current block already marked? -> cancel delete
+    if (this.el.classList.contains('to-delete')) {
+      this.onDeleteDeny(e);
+      return;
+    }
+
+    // unmark all blocks
+    for (let elem of document.getElementsByClassName('to-delete')) {
+      elem.classList.remove('to-delete');
+    }
+
+    // delete old popup. Can happen, if user clicks consecutively on two delete buttons
+    let popup = document.getElementById('ui-delete-modal');
+    if (popup) {
+      popup.classList.remove("active");
+      popup.remove();
+      popup = null;
+    }
+
+    // if empty, delete without asking
     if (this.isEmpty()) {
       this.onDeleteConfirm.call(this, new CustomEvent('click'));
       return;
     }
 
-    this.deleteEl = this.el.querySelector('.st-block__ui-delete-controls');
-    this.deleteEl.classList.toggle('active');
+    // mark card to delete
+    this.el.classList.add('to-delete');
+
+    // create and show modal delete popup card
+    if (popup === null) {
+      document.getElementById(this.blockID).insertAdjacentHTML("beforeend", DELETE_TEMPLATE());
+      popup = document.getElementById('ui-delete-modal');
+    }
+
+    // connect button events
+    //Events.delegate(popup, ".js-st-block-confirm-delete", "click", this.onDeleteConfirm);
+    //Events.delegate(popup, ".js-st-block-deny-delete", "click", this.onDeleteDeny);
+    popup.getElementsByClassName("js-st-block-confirm-delete")[0].addEventListener("click", this.onDeleteConfirm );
+    popup.getElementsByClassName("js-st-block-deny-delete")[0].addEventListener("click", this.onDeleteDeny );
+
+
+
+    // catch other click events to prevent propagation to hideAllTheThings
+    document.getElementById("ui-delete-modal").addEventListener("click", function (e) {
+      console.log('Click on modal');
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    popup.classList.add("active");
   },
 
-  onPositionerClick: function(e) {
+  onPositionerClick: function (e) {
     e.preventDefault();
-
+    e.stopPropagation();
     this.positioner.toggle();
   },
 
-  beforeLoadingData: function() {
+  beforeLoadingData: function () {
     this.loading();
 
-    if(this.mixinsRequireInputs) {
+    if (this.mixinsRequireInputs) {
       Dom.show(this.editor);
       Dom.hide(this.inputs);
     }
@@ -310,7 +406,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     this.ready();
   },
 
-  execTextBlockCommand: function(cmdName) {
+  execTextBlockCommand: function (cmdName) {
     if (_.isUndefined(this._scribe)) {
       throw "No Scribe instance found to send a command to";
     }
@@ -318,7 +414,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     return ScribeInterface.execTextBlockCommand(this._scribe, cmdName);
   },
 
-  queryTextBlockCommandState: function(cmdName) {
+  queryTextBlockCommandState: function (cmdName) {
     if (_.isUndefined(this._scribe)) {
       throw "No Scribe instance found to query command";
     }
@@ -326,34 +422,63 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     return ScribeInterface.queryTextBlockCommandState(this._scribe, cmdName);
   },
 
-  _handleContentPaste: function(ev) {
+  _handleContentPaste: function (ev) {
     setTimeout(this.onContentPasted.bind(this, ev, ev.currentTarget), 0);
   },
 
-  _getBlockClass: function() {
+  _getBlockClass: function () {
     return 'st-block--' + this.className;
   },
 
-   //Init functions for adding functionality
-  _initUIComponents: function() {
-
-    this.addDeleteControls();
+  //Init functions for adding functionality
+  _initUIComponents: function () {
 
     this.positioner = new BlockPositioner(this.el, this.mediator);
 
     this._withUIComponent(this.positioner, '.st-block-ui-btn__reorder',
-                          this.onPositionerClick);
+      this.onPositionerClick);
 
     this._withUIComponent(new BlockReorder(this.el, this.mediator));
 
-    this._withUIComponent(new BlockDeletion(), '.st-block-ui-btn__delete',
-                          this.onDeleteClick);
+    this._withUIDrawerComponent(new BlockDeletion(), '.st-block-ui-btn__delete',
+      this.onDeleteClick);
+
+    // add container for controllable mixin in drawer
+    this.ui_drawer.insertAdjacentHTML("beforeend", `
+      <div class="st-block__ui-controllables">
+      </div>
+    `);
+
 
     this.onFocus();
     this.onBlur();
+
+    // callbacks for opening and closing drawer
+    Events.delegate(this.el, '.st-block__content', 'focusin', this._onFocus);
+    Events.delegate(this.el, '.st-block__content', 'focusout', this._onBlur);
+    Events.delegate(this.el, '.st-block__controls_drawer', 'focusin', this._onFocus);
+    Events.delegate(this.el, '.st-block__controls_drawer', 'focusout', this._onBlur);
+
+
+    // add id/position to ui_drawer
+    var pos_info = `
+    <div class="st-block__ui-position-info">
+      <p class="st-block__ui-position-info">id: ${this.blockID} ed: ${this.instanceID} 
+      #<span class="st-block__ui-position-info">set me</span></p>
+    </div>
+    `
+    this.ui_drawer.insertAdjacentHTML("beforeend", pos_info);
   },
 
-  _initFormatting: function() {
+  _currentPositionUpdated: function (pos) {
+    //console.log('block::_currentPositionUpdated( ' + pos + ' )');
+    this._currentPosition = pos;
+    let p = this.ui_drawer.querySelector('p.st-block__ui-position-info');
+    //p.innerHTML = `id: ${this.blockID} ed: ${this.instanceID}  #${this._currentPosition}`;
+    p.innerHTML = `#${this._currentPosition}`;
+  },
+
+  _initFormatting: function () {
 
     // Enable formatting keyboard input
     var block = this;
@@ -362,7 +487,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
       return;
     }
 
-    this.options.formatBar.commands.forEach(function(cmd) {
+    this.options.formatBar.commands.forEach(function (cmd) {
       if (_.isUndefined(cmd.keyCode)) {
         return;
       }
@@ -376,7 +501,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     });
   },
 
-  _initTextBlocks: function() {
+  _initTextBlocks: function () {
     Array.prototype.forEach.call(this.getTextBlock(), (el) => {
       el.addEventListener('keyup', this.getSelectionForFormatter);
       el.addEventListener('mousedown', this.addMouseupListener.bind(this));
@@ -402,18 +527,18 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     window.addEventListener('mouseup', listener);
   },
 
-  getSelectionForFormatter: function() {
+  getSelectionForFormatter: function () {
     setTimeout(() => {
       var selection = window.getSelection(),
-          selectionStr = selection.toString().trim(),
-          en = 'formatter:' + ((selectionStr === '') ? 'hide' : 'position');
+        selectionStr = selection.toString().trim(),
+        en = 'formatter:' + ((selectionStr === '') ? 'hide' : 'position');
 
       this.mediator.trigger(en, this);
       EventBus.trigger(en, this);
     }, 1);
   },
 
-  clearInsertedStyles: function(e) {
+  clearInsertedStyles: function (e) {
     var target = e.target;
     if (_.isUndefined(target.tagName)) {
       target = target.parentNode;
@@ -421,11 +546,11 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     target.removeAttribute('style'); // Hacky fix for Chrome.
   },
 
-  hasTextBlock: function() {
+  hasTextBlock: function () {
     return this.getTextBlock().length > 0;
   },
 
-  getTextBlock: function() {
+  getTextBlock: function () {
     if (_.isUndefined(this.text_block)) {
       this.text_block = this.$('.st-text-block');
     }
@@ -433,19 +558,33 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     return this.text_block;
   },
 
-  getTextBlockHTML: function() {
+  getTextBlockHTML: function () {
     return this._scribe.getContent();
   },
 
-  setTextBlockHTML: function(html) {
+  setTextBlockHTML: function (html) {
     var returnVal = this._scribe.setContent(html);
 
-    trimScribeContent(this._scribe);
+    // Remove any whitespace in the first node, otherwise selections won't work.
+    var firstNode = this._scribe.node.firstDeepestChild(this._scribe.el);
+    if (firstNode.nodeName === '#text') {
+      firstNode.textContent = utils.leftTrim(firstNode.textContent);
+    }
+
+    // Remove all empty nodes at the front to get blocks working.
+    while (this._scribe.el.firstChild && this._scribe.el.firstChild.textContent === '') {
+      this._scribe.el.removeChild(this._scribe.el.firstChild);
+    }
+
+    // Firefox adds empty br tags at the end of content.
+    while (this._scribe.el.lastChild && this._scribe.el.lastChild.nodeName === 'BR') {
+      this._scribe.el.removeChild(this._scribe.el.lastChild);
+    }
 
     return returnVal;
   },
 
-  isEmpty: function() {
+  isEmpty: function () {
     return _.isEmpty(this.getBlockData());
   },
 
