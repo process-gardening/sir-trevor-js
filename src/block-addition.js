@@ -43,7 +43,7 @@ module.exports.create = function(editor) {
     ev.preventDefault();
     ev.stopPropagation(); // only once
 
-    var dropped_on = topControls,
+    const dropped_on = topControls,
       item_id = ev.dataTransfer.getData("text/plain"),
       block_div = document.querySelector('#' + item_id);
 
@@ -72,7 +72,7 @@ module.exports.create = function(editor) {
       let editor_from = SirTrevor.getInstance(editor_from_id);
 
       // create new one
-      var block = editor_from.blockManager.findBlockById(block_div.getAttribute("id"));
+      const block = editor_from.blockManager.findBlockById(block_div.getAttribute("id"));
       console.log(block);
       editor.mediator.trigger("block:create", block.type, block._serializeData(),
         dropped_on, { autoFocus: true });

@@ -5,33 +5,31 @@
  * --
  * Displayed for extra options.
  */
+const MicroModal = require('micromodal/lib/src/index').default;
+const Dom = require('./dom');
+const _ = require('../lodash');
 
-
-var MicroModal = require('micromodal/lib/src/index').default;
-var Dom = require('./dom');
-var _ = require('../lodash');
-
-var template = [
+const template = [
   '<div class="st-modal st-micromodal-slide" id="<%= id %>" aria-hidden="true">',
-    '<div class="st-modal__overlay" tabindex="-1" data-micromodal-close>',
-      '<form class="st-modal__container" role="dialog" aria-modal="true" aria-labelledby="<%= id %>-title" novalidate>',
-        '<header class="st-modal__header">',
-          '<h2 class="st-modal__title" id="<%= id %>-title"></h2>',
-          '<a class="st-modal__close" aria-label="Close modal" data-micromodal-close></a>',
-        '</header>',
-        '<main class="st-modal__content" id="<%= id %>-content"></main>',
-        '<footer class="st-modal__footer">',
-          '<button id="<%= id %>-submit" class="st-modal__btn">',
-            i18n.t("general:submit"),
-          '</button>',
-          '<span class="st-modal__buttons"></span>',
-        '</footer>',
-      '</form>',
-    '</div>',
+  '<div class="st-modal__overlay" tabindex="-1" data-micromodal-close>',
+  '<form class="st-modal__container" role="dialog" aria-modal="true" aria-labelledby="<%= id %>-title" novalidate>',
+  '<header class="st-modal__header">',
+  '<h2 class="st-modal__title" id="<%= id %>-title"></h2>',
+  '<a class="st-modal__close" aria-label="Close modal" data-micromodal-close></a>',
+  '</header>',
+  '<main class="st-modal__content" id="<%= id %>-content"></main>',
+  '<footer class="st-modal__footer">',
+  '<button id="<%= id %>-submit" class="st-modal__btn">',
+  i18n.t("general:submit"),
+  '</button>',
+  '<span class="st-modal__buttons"></span>',
+  '</footer>',
+  '</form>',
+  '</div>',
   '</div>'
 ].join("\n");
 
-var Modal = function() {
+const Modal = function () {
   this.initialize();
 };
 
@@ -42,7 +40,7 @@ Object.assign(Modal.prototype, {
     this.el = document.getElementById(this.id);
 
     if (!this.el) {
-      var element = _.template(template, { id: this.id });
+      let element = _.template(template, {id: this.id});
       element = Dom.createElementFromString(element);
       document.body.appendChild(element);
       this.el = element;

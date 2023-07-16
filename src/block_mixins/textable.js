@@ -1,8 +1,8 @@
 "use strict";
 
-var selectionRange = require('selection-range');
+const selectionRange = require('selection-range');
 
-var {
+let {
   createBlocksFromParagraphs,
   getTotalLength
 } = require("../blocks/scribe-plugins/shared");
@@ -17,29 +17,29 @@ module.exports = {
   focusAtEnd: function() {
     this.focus();
 
-    var length = getTotalLength(this._scribe);
+    const length = getTotalLength(this._scribe);
     if (length > 0) {
       selectionRange(this._scribe.el, { start: length });
     }
   },
 
   selectText: function() {
-    var range = document.createRange();
+    const range = document.createRange();
     if (this._scribe.allowsBlockElements()) {
       range.setStartAfter(this._scribe.el.firstChild, 0);
     } else {
       range.selectNodeContents(this._scribe.el);
     }
     range.collapse(false);
-    var selection = new this._scribe.api.Selection();
+    const selection = new this._scribe.api.Selection();
     selection.selection.removeAllRanges();
     selection.selection.addRange(range);
   },
 
   getScribeInnerContent: function(block) {
-    var content = '';
+    let content = '';
     if (this._scribe.getTextContent() !== '') {
-      var fakeContent = document.createElement('div');
+      const fakeContent = document.createElement('div');
       fakeContent.innerHTML = this.getTextBlockHTML();
 
       // We concatenate the content of each paragraph and take into account the new lines
@@ -64,8 +64,8 @@ module.exports = {
 
     this.focusAtEnd();
 
-    var caretPosition = this.getCaretPositionAtEnd();
-    var currentContent = this.getScribeInnerContent();
+    const caretPosition = this.getCaretPositionAtEnd();
+    const currentContent = this.getScribeInnerContent();
 
     if (currentContent !== '') {
       content = currentContent + content;

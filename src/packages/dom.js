@@ -1,6 +1,6 @@
 "use strict";
 
-var _ = require('../lodash');
+const _ = require('../lodash');
 
 // disabling undefined warnings until jshint can handle argument destructing
 
@@ -54,16 +54,16 @@ Dom.show = (el) => {
 };
 
 Dom.matches = (function(proto) {
-  var matcher =
+  const matcher =
     proto.matchesSelector ||
     proto.mozMatchesSelector ||
     proto.msMatchesSelector ||
     proto.oMatchesSelector ||
     proto.webkitMatchesSelector ||
     function (selector) {
-      var element = this;
-      var matches = (element.document || element.ownerDocument).querySelectorAll(selector);
-      var i = 0;
+      const element = this;
+      const matches = (element.document || element.ownerDocument).querySelectorAll(selector);
+      let i = 0;
       while (matches[i] && matches[i] !== element) {
         i++;
       }
@@ -94,8 +94,8 @@ Dom.wrap = function(toWrap, wrapper) {
 };
 
 Dom.createDocumentFragmentFromString = function(html) {
-  var frag = document.createDocumentFragment();
-  var elem = document.createElement('div');
+  const frag = document.createDocumentFragment();
+  const elem = document.createElement('div');
   elem.innerHTML = html;
 
   while (elem.childNodes[0]) {
@@ -105,7 +105,7 @@ Dom.createDocumentFragmentFromString = function(html) {
 };
 
 Dom.createElementFromString = function(html) {
-  var elem = document.createElement('div');
+  const elem = document.createElement('div');
   elem.innerHTML = html;
   return elem.childNodes[0];
 };

@@ -9,11 +9,11 @@
  * This will be triggered *by anything* so it needs to subscribe to events.
  */
 
-var utils = require('../utils');
+const utils = require('../utils');
 
-var EventBus = require('../event-bus');
+const EventBus = require('../event-bus');
 
-var Submittable = function(form) {
+const Submittable = function (form) {
   this.form = form;
   this.initialize();
 };
@@ -23,7 +23,7 @@ Object.assign(Submittable.prototype, {
   initialize: function(){
     this.submitBtns = this.form.querySelectorAll("input[type='submit']");
 
-    var btnTitles = [];
+    const btnTitles = [];
 
     Array.prototype.forEach.call(this.submitBtns, function(btn, i){
       btnTitles.push(btn.getAttribute('value'));
@@ -42,7 +42,7 @@ Object.assign(Submittable.prototype, {
   },
 
   resetSubmitButton: function(){
-    var titles = this.submitBtnTitles;
+    const titles = this.submitBtnTitles;
     Array.prototype.forEach.call(this.submitBtns, function(item, index){
       item.setAttribute('value', titles[index]);
     });

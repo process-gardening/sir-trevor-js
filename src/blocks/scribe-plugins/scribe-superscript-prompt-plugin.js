@@ -1,21 +1,21 @@
 "use strict";
 
-var selectionRange = require('selection-range');
-var Modal = require('../../packages/modal');
-var Dom = require('../../packages/dom');
+const selectionRange = require('selection-range');
+const Modal = require('../../packages/modal');
+const Dom = require('../../packages/dom');
 
-var MODAL_FORM_TEMPLATE = ({ modal, title }) => {
+const MODAL_FORM_TEMPLATE = ({modal, title}) => {
   return `
     <p>
       <input id="${modal.id}-sup-title" type="text" value="${title}" />
     </p>
   `;
-}
+};
 
 const scribeSuperscriptPromptPlugin = function(block) {
   // ===== INIT ===== //
-  var block = block || {};
-  var modal = new Modal();
+  block = block || {};
+  const modal = new Modal();
 
   if (!block.transforms) {
     block.transforms = {};
@@ -48,16 +48,16 @@ const scribeSuperscriptPromptPlugin = function(block) {
        * the `createLink` and `unlink` commands are not supported.
        * As per: http://jsbin.com/OCiJUZO/1/edit?js,console,output
        */
-      var selection = new scribe.api.Selection();
+      const selection = new scribe.api.Selection();
       return !! selection.getContaining(function(node) {
         return node.nodeName === superscriptPromptCommand.nodeName;
       });
     };
 
     superscriptPromptCommand.execute = function superscriptPromptCommandExecute(passedTitle) {
-      var selection = new scribe.api.Selection();
-      var range = selection.range;
-      var anchorNode = selection.getContaining(function(node) {
+      const selection = new scribe.api.Selection();
+      const range = selection.range;
+      const anchorNode = selection.getContaining(function (node) {
         return node.nodeName === superscriptPromptCommand.nodeName;
       });
 
@@ -67,23 +67,23 @@ const scribeSuperscriptPromptPlugin = function(block) {
         selection.selection.addRange(range);
       }
 
-      var initialTitle = anchorNode ? anchorNode.title : '';
+      const initialTitle = anchorNode ? anchorNode.title : '';
 
-      var form = MODAL_FORM_TEMPLATE({
+      const form = MODAL_FORM_TEMPLATE({
         modal: modal,
         title: passedTitle || initialTitle
       });
 
-      var removeButton = "";
+      let removeButton = "";
 
       if (anchorNode) {
-        var removeButton = Dom.createElementFromString('<button type="button" style="background: grey;">Remove</button>');
+        removeButton = Dom.createElementFromString('<button type="button" style="background: grey;">Remove</button>');
 
         removeButton.addEventListener("mousedown", (ev) => {
           ev.preventDefault();
           ev.stopPropagation();
 
-          var selection = window.getSelection();
+          const selection = window.getSelection();
           selection.removeAllRanges();
           selection.addRange(range);
 
@@ -100,22 +100,22 @@ const scribeSuperscriptPromptPlugin = function(block) {
         content: form,
         buttons: removeButton
       }, function(modal) {
-        var title = modal.el.querySelector(`#${modal.id}-sup-title`).value;
+        let title = modal.el.querySelector(`#${modal.id}-sup-title`).value;
 
         title = runTransforms(block.transforms.pre, title);
 
-        var attr = '';
+        let attr = '';
 
         if (title) {
           title = runTransforms(block.transforms.post, title);
           attr = ` title="${title}"`;
         }
 
-        var selection = window.getSelection();
+        const selection = window.getSelection();
         selection.removeAllRanges();
         selection.addRange(range);
 
-        var html = `<sup${attr}>${selection}</sup>`;
+        const html = `<sup${attr}>${selection}</sup>`;
         document.execCommand('insertHTML', false, html);
 
         return true;

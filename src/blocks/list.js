@@ -1,12 +1,12 @@
 "use strict";
 
-var selectionRange = require('selection-range');
+const selectionRange = require('selection-range');
 
-var Block = require('../block');
-var stToHTML = require('../to-html');
+const Block = require('../block');
+const stToHTML = require('../to-html');
 
-var ScribeListBlockPlugin = require('./scribe-plugins/scribe-list-block-plugin');
-var { getTotalLength, rangeToHTML, selectToEnd } = require('./scribe-plugins/shared');
+const ScribeListBlockPlugin = require('./scribe-plugins/scribe-list-block-plugin');
+let {getTotalLength, rangeToHTML, selectToEnd} = require('./scribe-plugins/shared');
 
 module.exports = Block.extend({
   type: 'list',
@@ -58,7 +58,7 @@ module.exports = Block.extend({
   },
 
   loadData: function(data) {
-    var block = this;
+    const block = this;
     if (this.options.convertFromMarkdown && data.format !== "html") {
       data = this.parseFromMarkdown(data.text);
     }
@@ -73,7 +73,7 @@ module.exports = Block.extend({
   },
 
   parseFromMarkdown: function(markdown) {
-    var listItems = markdown.replace(/^ - (.+)$/mg,"$1").split("\n");
+    let listItems = markdown.replace(/^ - (.+)$/mg, "$1").split("\n");
     listItems = listItems.
       filter(function(item) {
         return item.length;
@@ -86,10 +86,10 @@ module.exports = Block.extend({
   },
 
   _serializeData: function() {
-    var data = {format: 'html', listItems: []};
+    const data = {format: 'html', listItems: []};
 
     this.editorIds.forEach(function(editorId) {
-      var listItem = {content: this.getTextEditor(editorId).scribe.getContent()};
+      const listItem = {content: this.getTextEditor(editorId).scribe.getContent()};
       data.listItems.push(listItem);
     }.bind(this));
 
@@ -106,13 +106,13 @@ module.exports = Block.extend({
     content = content.trim();
     if (content === "<br>") { content = ''; }
 
-    var editor = this.newTextEditor(this.listItemEditorHTML, content);
+    const editor = this.newTextEditor(this.listItemEditorHTML, content);
 
     if (after && this.ul.lastchild !== after.node) {
-      var before = after.node.nextSibling;
+      const before = after.node.nextSibling;
       this.ul.insertBefore(editor.node, before);
 
-      var idx = this.editorIds.indexOf(after.id) + 1;
+      const idx = this.editorIds.indexOf(after.id) + 1;
       this.editorIds.splice(idx, 0, editor.id);
     } else {
       this.ul.appendChild(editor.node);
@@ -123,14 +123,14 @@ module.exports = Block.extend({
   },
 
   focus: function() {
-    var editor = this.getCurrentTextEditor();
+    let editor = this.getCurrentTextEditor();
     if (!editor) editor = this.getTextEditor(this.editorIds[0]);
 
     this.focusOn(editor);
   },
 
   focusOnNeighbor: function(item) {
-    var neighbor = this.previousListItem() || this.nextListItem();
+    const neighbor = this.previousListItem() || this.nextListItem();
 
     if (neighbor) {
       this.focusOn(neighbor);
@@ -138,10 +138,10 @@ module.exports = Block.extend({
   },
 
   focusOn: function(editor, options = {}) {
-    var scribe = editor.scribe;
-    var selection = new scribe.api.Selection();
-    var lastChild = scribe.el.lastChild;
-    var range;
+    const scribe = editor.scribe;
+    const selection = new scribe.api.Selection();
+    const lastChild = scribe.el.lastChild;
+    let range;
 
     if (selection.range) {
       range = selection.range.cloneRange();
@@ -170,20 +170,20 @@ module.exports = Block.extend({
   },
 
   focusAtStart: function() {
-    var editor = this.getTextEditor(this.editorIds[0]);
+    const editor = this.getTextEditor(this.editorIds[0]);
     this.focusOn(editor);
   },
 
   focusAtEnd: function() {
-    var lastEditorId = this.editorIds[this.editorIds.length - 1];
+    const lastEditorId = this.editorIds[this.editorIds.length - 1];
     this.appendToTextEditor(lastEditorId);
   },
 
   removeCurrentListItem: function() {
     if (this.editorIds.length === 1) { return; }
 
-    var item = this.getCurrentTextEditor();
-    var idx = this.editorIds.indexOf(item.id);
+    const item = this.getCurrentTextEditor();
+    const idx = this.editorIds.indexOf(item.id);
 
     this.focusOnNeighbor(item);
     this.editorIds.splice(idx, 1);
@@ -200,8 +200,8 @@ module.exports = Block.extend({
   },
 
   nextListItem: function() {
-    var idx = this.editorIds.indexOf(this.getCurrentTextEditor().id);
-    var editorId = this.editorIds[idx + 1];
+    const idx = this.editorIds.indexOf(this.getCurrentTextEditor().id);
+    const editorId = this.editorIds[idx + 1];
 
     if (editorId !== undefined) {
       return this.getTextEditor(editorId);
@@ -211,8 +211,8 @@ module.exports = Block.extend({
   },
 
   previousListItem: function() {
-    var idx = this.editorIds.indexOf(this.getCurrentTextEditor().id);
-    var editorId = this.editorIds[idx - 1];
+    const idx = this.editorIds.indexOf(this.getCurrentTextEditor().id);
+    const editorId = this.editorIds[idx - 1];
 
     if (editorId !== undefined) {
       return this.getTextEditor(editorId);
@@ -222,8 +222,8 @@ module.exports = Block.extend({
   },
 
   asClipboardHTML: function() {
-    var data = this.getBlockData();
-    var listItems = data.listItems.map(item => {
+    const data = this.getBlockData();
+    const listItems = data.listItems.map(item => {
       return `<li>${item.content}</li>`;
     }).join("\n");
     return `<ul>${listItems}</ul>`;
@@ -232,7 +232,7 @@ module.exports = Block.extend({
   splitCurrentEditor: function(scribe) {
     if (scribe.getTextContent().length === 0) return false;
 
-    var content = rangeToHTML(selectToEnd(scribe));
+    const content = rangeToHTML(selectToEnd(scribe));
     this.addListItemAfterCurrent(content);
     return true;
   },
@@ -241,7 +241,7 @@ module.exports = Block.extend({
     const currentEditor = this.getCurrentTextEditor();
     if (!currentEditor) return;
 
-    var scribe = currentEditor.scribe;
+    const scribe = currentEditor.scribe;
     if (this.splitCurrentEditor(scribe)) {
       this.focusOnNeighbor();
       this.addListItemAfterCurrent("");

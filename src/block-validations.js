@@ -1,10 +1,10 @@
 "use strict";
 
-var _ = require('./lodash');
-var utils = require('./utils');
+const _ = require('./lodash');
+const utils = require('./utils');
 
-var bestNameFromField = function(field) {
-  var msg = field.getAttribute("data-st-name") || field.getAttribute("name");
+const bestNameFromField = function (field) {
+  let msg = field.getAttribute("data-st-name") || field.getAttribute("name");
 
   if (!msg) {
     msg = 'Field';
@@ -27,7 +27,7 @@ module.exports = {
   performValidations: function() {
     this.resetErrors();
 
-    var required_fields = this.$('.st-required');
+    const required_fields = this.$('.st-required');
     Array.prototype.forEach.call(required_fields, function (f, i) {
       this.validateField(f);
     }.bind(this));
@@ -40,8 +40,8 @@ module.exports = {
   validations: [],
 
   validateField: function(field) {
-    
-    var content = field.getAttribute('contenteditable') ? field.textContent : field.value;
+
+    const content = field.getAttribute('contenteditable') ? field.textContent : field.value;
 
     if (content.length === 0) {
       this.setError(field, i18n.t("errors:block_empty",
@@ -56,7 +56,7 @@ module.exports = {
   },
 
   setError: function(field, reason) {
-    var msg = this.addMessage(reason, "st-msg--error");
+    const msg = this.addMessage(reason, "st-msg--error");
     field.classList.add('st-error');
 
     this.errors.push({ field: field, reason: reason, msg: msg });

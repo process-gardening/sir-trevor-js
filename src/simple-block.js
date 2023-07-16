@@ -1,15 +1,15 @@
 "use strict";
 
-var _ = require('./lodash');
-var utils = require('./utils');
-var Dom = require('./packages/dom');
-var Events = require('./packages/events');
+const _ = require('./lodash');
+const utils = require('./utils');
+const Dom = require('./packages/dom');
+const Events = require('./packages/events');
 
-var BlockReorder = require('./block-reorder');
+const BlockReorder = require('./block-reorder');
 
 const BLOCK_TEMPLATE = require('./templates/block');
 
-var SimpleBlock = function (data, instance_id, mediator, options, editorOptions) {
+const SimpleBlock = function (data, instance_id, mediator, options, editorOptions) {
   this.createStore(data);
   this.blockID = _.uniqueId('st-block-');
   this.instanceID = instance_id;
@@ -72,7 +72,7 @@ Object.assign(SimpleBlock.prototype, require('./function-bind'), require('./even
 
   _setBlockInner: function () {
     //console.log('simple-block::_setBlockInner()');
-    var editor_html = _.result(this, 'editorHTML');
+    const editor_html = _.result(this, 'editorHTML');
 
     this.el.insertAdjacentHTML("beforeend", this.block_template(editor_html));
 
@@ -118,13 +118,13 @@ Object.assign(SimpleBlock.prototype, require('./function-bind'), require('./even
 
   _initUI: function () {
     //console.log('simple-block::_initUI()');
-    var card_upper = this.el.getElementsByClassName('st-block__card-upper')[0];
-    var ui_element = Dom.createElement("div", {'class': 'st-block__ui'});
+    const card_upper = this.el.getElementsByClassName('st-block__card-upper')[0];
+    const ui_element = Dom.createElement("div", {'class': 'st-block__ui'});
     card_upper.appendChild(ui_element);
     this.ui = ui_element;
 
-    var card = this.el.getElementsByClassName('st-block__card')[0];
-    var controls_drawer = Dom.createElement("div", {
+    const card = this.el.getElementsByClassName('st-block__card')[0];
+    const controls_drawer = Dom.createElement("div", {
       'class': 'st-block__controls_drawer',
       'tabindex': '0'
     });
@@ -134,7 +134,7 @@ Object.assign(SimpleBlock.prototype, require('./function-bind'), require('./even
   },
 
   _initMessages: function () {
-    var msgs_element = Dom.createElement("div", {'class': 'st-block__messages'});
+    const msgs_element = Dom.createElement("div", {'class': 'st-block__messages'});
     this.inner.insertBefore(msgs_element, this.inner.firstChild);
     this.messages = msgs_element;
   },

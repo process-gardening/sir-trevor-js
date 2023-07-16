@@ -1,4 +1,4 @@
-var jsHintDefaultOptions = {
+const jsHintDefaultOptions = {
   // Errors
   bitwise: true,
   camelcase: false,

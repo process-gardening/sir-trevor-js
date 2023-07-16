@@ -1,13 +1,13 @@
 "use strict";
 
-var config = require('../config');
-var _ = require('../lodash');
-var Block = require('../block');
-var stToHTML = require('../to-html');
+const config = require('../config');
+const _ = require('../lodash');
+const Block = require('../block');
+const stToHTML = require('../to-html');
 
 //module.exports = Block.extend({
 module.exports = (function () {
-  var set_info, set_notice, set_caution, set_warning, set_danger, set_type;
+  let set_info, set_notice, set_caution, set_warning, set_danger, set_type;
   set_info = function () {
     set_type(this, 'info');
   };
@@ -30,7 +30,7 @@ module.exports = (function () {
     block.box_type = box_type;
 
     // set class for styling
-    var card_inner = block.el.getElementsByClassName('st-block__card-upper')[0];
+    const card_inner = block.el.getElementsByClassName('st-block__card-upper')[0];
     card_inner.classList.remove('info');
     card_inner.classList.remove('notice');
     card_inner.classList.remove('caution');
@@ -38,7 +38,7 @@ module.exports = (function () {
     card_inner.classList.remove('danger');
     card_inner.classList.add(block.box_type);
 
-    var block_box = block.el.getElementsByClassName('st-block__box')[0];
+    const block_box = block.el.getElementsByClassName('st-block__box')[0];
     block_box.classList.remove('info');
     block_box.classList.remove('notice');
     block_box.classList.remove('caution');
@@ -82,7 +82,7 @@ module.exports = (function () {
               <span class="box-type">Default</span>
           </p>
         </div>
-        
+
         <div class="st-block__box-content">
           <div class="rc-panel">
             <div class="st-block__box-editor rc-panel-body">
@@ -137,8 +137,8 @@ module.exports = (function () {
 
 
     highlightControls: function () {
-      var cs = this.control_ui.children;
-      for (var i = 0; i < cs.length; ++i) {
+      const cs = this.control_ui.children;
+      for (let i = 0; i < cs.length; ++i) {
         if (cs[i].getAttribute("data-icon") === `box_${this.box_type}`) {
           cs[i].classList.add("st-block-control-ui-btn--selected");
         } else {
@@ -162,7 +162,7 @@ module.exports = (function () {
 
     _serializeData: function () {
       //console.log('box::_serializeData()');
-      var data = {format: 'html', box_type: this.box_type, nested_data: []};
+      const data = {format: 'html', box_type: this.box_type, nested_data: []};
 
       if (this._nested_editor !== null) {
         this._nested_editor.onFormSubmit(true);

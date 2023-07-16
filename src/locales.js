@@ -1,10 +1,10 @@
 "use strict";
 
-var _ = require('./lodash');
-var config = require('./config');
-var utils = require('./utils');
+const _ = require('./lodash');
+const config = require('./config');
+const utils = require('./utils');
 
-var Locales = {
+const Locales = {
   en: {
     general: {
       'delete?': 'Delete?',
@@ -163,7 +163,8 @@ if (window.i18n === undefined) {
   utils.log("Using i18n stub.");
   window.i18n = {
     t: function (key, options) {
-      var parts = key.split(':'), str, obj, part, i;
+      const parts = key.split(':');
+      let str, obj, part, i;
 
       obj = Locales[config.language || config.defaults.language];
 

@@ -5,19 +5,19 @@
 *   Generic Upload implementation that can be extended for blocks
 */
 
-var _ = require('../lodash');
-var config = require('../config');
-var utils = require('../utils');
-var Ajax = require('../packages/ajax');
+const _ = require('../lodash');
+const config = require('../config');
+const utils = require('../utils');
+const Ajax = require('../packages/ajax');
 
-var EventBus = require('../event-bus');
+const EventBus = require('../event-bus');
 
 module.exports = function(block, file, success, error) {
-  var uid  = [block.blockID, (new Date()).getTime(), 'raw'].join('-');
-  var data = new FormData();
-  var attachmentName = block.attachmentName || config.defaults.attachmentName;
-  var attachmentFile = block.attachmentFile || config.defaults.attachmentFile;
-  var attachmentUid = block.attachmentUid || config.defaults.attachmentUid;
+  const uid = [block.blockID, (new Date()).getTime(), 'raw'].join('-');
+  const data = new FormData();
+  const attachmentName = block.attachmentName || config.defaults.attachmentName;
+  const attachmentFile = block.attachmentFile || config.defaults.attachmentFile;
+  const attachmentUid = block.attachmentUid || config.defaults.attachmentUid;
 
   data.append(attachmentName, file.name);
   data.append(attachmentFile, file);
@@ -27,7 +27,7 @@ module.exports = function(block, file, success, error) {
 
   block.resetMessages();
 
-  var callbackSuccess = function(data) {
+  const callbackSuccess = function (data) {
     utils.log('Upload callback called');
     EventBus.trigger('onUploadStop', data);
 
@@ -38,7 +38,7 @@ module.exports = function(block, file, success, error) {
     block.removeQueuedItem(uid);
   };
 
-  var callbackError = function(jqXHR, status, errorThrown) {
+  const callbackError = function (jqXHR, status, errorThrown) {
     utils.log('Upload callback error called');
     EventBus.trigger('onUploadStop', undefined, errorThrown, status, jqXHR);
 
@@ -49,9 +49,9 @@ module.exports = function(block, file, success, error) {
     block.removeQueuedItem(uid);
   };
 
-  var url = block.uploadUrl || config.defaults.uploadUrl;
+  const url = block.uploadUrl || config.defaults.uploadUrl;
 
-  var xhr = Ajax.fetch(url, {
+  const xhr = Ajax.fetch(url, {
     body: data,
     method: 'POST',
     dataType: 'json'

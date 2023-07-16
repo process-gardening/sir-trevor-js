@@ -2,7 +2,7 @@
 
 describe("BlockPositioner", function(){
 
-  var positioner, positionerSelect, el, mediator;
+  let positioner, positionerSelect, el, mediator;
 
   beforeEach(function() {
     el = document.createElement("div");

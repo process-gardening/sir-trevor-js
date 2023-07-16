@@ -1,12 +1,12 @@
 "use strict";
 
-var _ = require('../lodash');
-var utils = require('../utils');
-var Dom = require('../packages/dom');
+const _ = require('../lodash');
+const utils = require('../utils');
+const Dom = require('../packages/dom');
 
-var Block = require('../block');
+const Block = require('../block');
 
-var tweet_template = _.template([
+const tweet_template = _.template([
   "<blockquote class='twitter-tweet' align='center'>",
   "<p><%= text %></p>",
   "&mdash; <%= user.name %> (@<%= user.screen_name %>)",
@@ -32,19 +32,19 @@ module.exports = Block.extend({
 
   loadData: function(data) {
     if (_.isUndefined(data.status_url)) { data.status_url = ''; }
-    var twitterwidget = this.inner.querySelector('twitterwidget');
+    const twitterwidget = this.inner.querySelector('twitterwidget');
     Dom.remove(twitterwidget);
 
     this.inner.insertAdjacentHTML("afterbegin", tweet_template(data));
 
-    var script = Dom.createElement('script', {src: '//platform.twitter.com/widgets.js'});
+    const script = Dom.createElement('script', {src: '//platform.twitter.com/widgets.js'});
     this.inner.appendChild(script);
   },
 
   onContentPasted: function(event){
     // Content pasted. Delegate to the drop parse method
-    var input = event.target,
-    val = input.value;
+    const input = event.target,
+      val = input.value;
 
     // Pass this to the same handler as onDrop
     this.handleTwitterDropPaste(val);
@@ -57,7 +57,7 @@ module.exports = Block.extend({
     }
 
     // Twitter status
-    var tweetID = url.match(/[^\/]+$/);
+    let tweetID = url.match(/[^\/]+$/);
     if (!_.isEmpty(tweetID)) {
       this.loading();
       tweetID = tweetID[0];
@@ -74,7 +74,7 @@ module.exports = Block.extend({
 
   onTweetSuccess: function(data) {
     // Parse the twitter object into something a bit slimmer..
-    var obj = {
+    const obj = {
       user: {
         profile_image_url: data.user.profile_image_url,
         profile_image_url_https: data.user.profile_image_url_https,
@@ -98,12 +98,12 @@ module.exports = Block.extend({
   },
 
   onDrop: function(transferData){
-    var url = transferData.getData('text/plain');
+    const url = transferData.getData('text/plain');
     this.handleTwitterDropPaste(url);
   },
 
   asClipboardHTML: function() {
-    var data = this.getBlockData();
+    const data = this.getBlockData();
     if (!data.status_url) return;
 
     return `<p>${data.status_url}</p>`;

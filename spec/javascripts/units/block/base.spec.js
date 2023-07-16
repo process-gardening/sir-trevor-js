@@ -4,7 +4,7 @@ require('../../../../locales/fr');
 
 describe("Block", function(){
 
-  var element, editor, block, block_two, block_three;
+  let element, editor, block, block_two, block_three;
 
   beforeEach(function(){
 
@@ -176,7 +176,7 @@ describe("Block", function(){
       `;
       block_three.render();
 
-      var data = {
+      const data = {
         text: '<p><br></p>',
         format: 'html',
         inputtext1: 'inputtext1',

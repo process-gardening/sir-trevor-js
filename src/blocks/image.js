@@ -1,7 +1,7 @@
 "use strict";
 
-var Dom = require('../packages/dom');
-var Block = require('../block');
+const Dom = require('../packages/dom');
+const Block = require('../block');
 
 module.exports = Block.extend({
 
@@ -19,8 +19,8 @@ module.exports = Block.extend({
   },
 
   onDrop: function(transferData){
-    var file = transferData.files[0],
-        urlAPI = (typeof URL !== "undefined") ? URL : (typeof webkitURL !== "undefined") ? webkitURL : null;
+    const file = transferData.files[0],
+      urlAPI = (typeof URL !== "undefined") ? URL : (typeof webkitURL !== "undefined") ? webkitURL : null;
 
     // Handle one upload at a time
     if (/image/.test(file.type)) {
@@ -46,8 +46,8 @@ module.exports = Block.extend({
   },
 
   asClipboardHTML: function() {
-    var data = this.getBlockData();
-    var url = data.file && data.file.url;
+    const data = this.getBlockData();
+    const url = data.file && data.file.url;
     if (!url) return;
     return `<img src="${url}" alt="${url}" />`;
   }

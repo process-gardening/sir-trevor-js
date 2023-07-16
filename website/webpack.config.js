@@ -1,4 +1,4 @@
-var webpack = require("webpack");
+const webpack = require("webpack");
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 

@@ -1,22 +1,22 @@
 "use strict";
 
-var selectionRange = require('selection-range');
+const selectionRange = require('selection-range');
 
-var _ = require('./lodash');
-var utils = require('./utils');
-var config = require('./config');
+const _ = require('./lodash');
+const utils = require('./utils');
+const config = require('./config');
 
-var EventBus = require('./event-bus');
-var Blocks = require('./blocks');
+const EventBus = require('./event-bus');
+const Blocks = require('./blocks');
 
-var Dom = require("./packages/dom");
+const Dom = require("./packages/dom");
 
 const BLOCK_OPTION_KEYS =
   ['convertToMarkdown', 'convertFromMarkdown', 'formatBar'];
 
-var BlockManager = function(SirTrevor) {
+const BlockManager = function (SirTrevor) {
   this.options = SirTrevor.options;
-  this.blockOptions = BLOCK_OPTION_KEYS.reduce(function(acc, key) {
+  this.blockOptions = BLOCK_OPTION_KEYS.reduce(function (acc, key) {
     acc[key] = SirTrevor.options[key];
     return acc;
   }, {});
@@ -64,8 +64,8 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     // Run validations
     if (!this.canCreateBlock(type)) { return; }
 
-    var block = new Blocks[type](data, this.instance_scope, this.mediator,
-                                 this.blockOptions, this.options);
+    const block = new Blocks[type](data, this.instance_scope, this.mediator,
+      this.blockOptions, this.options);
     this.blocks.push(block);
 
     this._incrementBlockTypeCount(type);
@@ -92,8 +92,8 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     // Run validations
     if (!this.canCreateBlock(type)) { return; }
 
-    var block = new Blocks[type](data, this.instance_scope, this.mediator,
-                                 this.blockOptions, this.options);
+    const block = new Blocks[type](data, this.instance_scope, this.mediator,
+      this.blockOptions, this.options);
     this.blocks.push(block);
 
     this._incrementBlockTypeCount(type);
@@ -128,10 +128,10 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     }, options);
 
     console.log('block-manager::removeBlock( ' + blockID + ' )');
-    var block = this.findBlockById(blockID);
-    var type = utils.classify(block.type);
-    var previousBlock = this.getPreviousBlock(block);
-    var nextBlock = this.getNextBlock(block);
+    const block = this.findBlockById(blockID);
+    const type = utils.classify(block.type);
+    const previousBlock = this.getPreviousBlock(block);
+    const nextBlock = this.getNextBlock(block);
 
     if (options.transposeContent && block.mergeable) {
 
@@ -210,7 +210,7 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
   },
 
   replaceBlock: function(blockNode, type, data) {
-    var block = this.findBlockById(blockNode.id);
+    const block = this.findBlockById(blockNode.id);
     this.createBlock(type, data || null, blockNode);
     this.removeBlock(blockNode.id);
     block.remove();
@@ -220,7 +220,7 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     // REFACTOR: this will have to do until we're able to address
     // the block manager
 
-    var blockElement = block.render().el;
+    const blockElement = block.render().el;
 
     if (previousSibling) {
       Dom.insertAfter(blockElement, previousSibling);
@@ -233,20 +233,20 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
       blockElement.addEventListener("mouseenter", () => {
         if (!this.editor.mouseDown) return;
 
-        var blockPosition = this.getBlockPosition(block.el);
+        const blockPosition = this.getBlockPosition(block.el);
         this.mediator.trigger("selection:update", blockPosition);
       });
 
       blockElement.addEventListener("mousedown", (ev) => {
-        var blockPosition = this.getBlockPosition(block.el);
-        var options = { mouseEnabled: true, expand: ev.shiftKey || ev.metaKey };
+        const blockPosition = this.getBlockPosition(block.el);
+        const options = {mouseEnabled: true, expand: ev.shiftKey || ev.metaKey};
         this.mediator.trigger("selection:start", blockPosition, options);
       });
     }
   },
 
   rerenderBlock: function(blockID) {
-    var block = this.findBlockById(blockID);
+    const block = this.findBlockById(blockID);
     if (!_.isUndefined(block) && !block.isEmpty() &&
         block.drop_options.re_render_on_reorder) {
       block.beforeLoadingData();
@@ -254,16 +254,16 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
   },
 
   getPreviousBlock: function(block) {
-    var blockPosition = this.getBlockPosition(block.el);
+    const blockPosition = this.getBlockPosition(block.el);
     if (blockPosition < 1) { return; }
-    var previousBlock = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.instance_scope}"]`)[blockPosition - 1];
+    const previousBlock = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.instance_scope}"]`)[blockPosition - 1];
     return this.findBlockById(
       previousBlock.getAttribute('id')
     );
   },
 
   getNextBlock: function(block) {
-    var blockPosition = this.getBlockPosition(block.el);
+    const blockPosition = this.getBlockPosition(block.el);
     if (blockPosition < 0 || blockPosition >= this.blocks.length - 1) { return; }
     return this.findBlockById(
       this.wrapper.querySelectorAll(`.st-block[data-instance="${this.instance_scope}"]`)[blockPosition + 1]
@@ -291,10 +291,10 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
   focusPreviousBlock: function(blockID, options = {}) {
     options = Object.assign({ force: false }, options);
 
-    var block = this.findBlockById(blockID);
+    const block = this.findBlockById(blockID);
 
     if (block && (block.mergeable || options.force)) {
-      var previousBlock = this.getPreviousBlock(block);
+      const previousBlock = this.getPreviousBlock(block);
 
       if (previousBlock && previousBlock.mergeable) {
         previousBlock.focusAtEnd();
@@ -307,10 +307,10 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
   focusNextBlock: function(blockID, options = {}) {
     options = Object.assign({ force: false }, options);
 
-    var block = this.findBlockById(blockID);
+    const block = this.findBlockById(blockID);
 
     if (block && (block.mergeable || options.force)) {
-      var nextBlock = this.getNextBlock(block);
+      const nextBlock = this.getNextBlock(block);
 
       if (nextBlock && nextBlock.mergeable) {
         nextBlock.focusAtStart();
@@ -321,12 +321,12 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
   },
 
   paste: function(blocks) {
-    var currentBlock = utils.getBlockBySelection();
+    const currentBlock = utils.getBlockBySelection();
 
     if (currentBlock) {
       currentBlock.split();
 
-      var nextBlock = this.getNextBlock(currentBlock);
+      const nextBlock = this.getNextBlock(currentBlock);
 
       if (currentBlock.isEmpty()) {
         this.removeBlock(currentBlock.blockID);
@@ -351,8 +351,8 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     //console.log(`total_blocks: ${this.blocks.length}`);
 
     // called after block create to update positioner after all blocks are created
-    var inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
-    for (var i = 1; i <= this.blocks.length; i++) {
+    let inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
+    for (let i = 1; i <= this.blocks.length; i++) {
       inner += "<option value=" + i + ">" + i + "</option>";
     }
     this.blocks.forEach(function (block) {
@@ -397,7 +397,7 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
                               { text: i18n.t("errors:type_missing", { type: type }) });
 
       } else {
-        var blocks = this.getBlocksByType(type).filter(function(b) {
+        const blocks = this.getBlocksByType(type).filter(function (b) {
           return !b.isEmpty();
         });
 
@@ -439,7 +439,7 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
   },
 
   canAddBlockType: function(type) {
-    var block_type_limit = this._getBlockTypeLimit(type);
+    const block_type_limit = this._getBlockTypeLimit(type);
     return !(block_type_limit !== 0 && this._getBlockTypeCount(type) >= block_type_limit);
   },
 

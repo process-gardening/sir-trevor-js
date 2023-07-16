@@ -2,7 +2,7 @@
 
 describe("Block:Pastable Block", function(){
 
-  var element, editor, block;
+  let element, editor, block;
 
   beforeEach(function(){
     element = global.createBaseElement();

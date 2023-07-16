@@ -1,10 +1,10 @@
 "use strict";
 
-var _ = require('../lodash');
-var config = require('../config');
-var utils = require('../utils');
+const _ = require('../lodash');
+const config = require('../config');
+const utils = require('../utils');
 
-var fileUploader = require('../extensions/file-uploader');
+const fileUploader = require('../extensions/file-uploader');
 
 module.exports = {
 
@@ -19,7 +19,7 @@ module.exports = {
 
     this.upload_options = Object.assign({}, config.defaults.Block.upload_options, this.upload_options);
 
-    var target = this.el.querySelector('#' + _.result(this, 'inputs_container'));
+    let target = this.el.querySelector('#' + _.result(this, 'inputs_container'));
     if (target) {
       target.insertAdjacentHTML("beforeend", _.template(this.upload_options.html)(this));
     } else {

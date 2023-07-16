@@ -2,7 +2,7 @@
 
 describe("Editor:Editor with options", function(){
 
-  var element, editor;
+  let element, editor;
 
   beforeEach(function(){
     SirTrevor.config.instances = [];

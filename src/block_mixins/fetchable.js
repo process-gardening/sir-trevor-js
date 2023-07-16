@@ -1,7 +1,7 @@
 "use strict";
 
-var _ = require('../lodash');
-var Ajax = require('../packages/ajax');
+const _ = require('../lodash');
+const Ajax = require('../packages/ajax');
 
 module.exports = {
 
@@ -12,8 +12,8 @@ module.exports = {
   },
 
   fetch: function(url, options, success, failure){
-    var uid = _.uniqueId(this.blockID + "_fetch"),
-        xhr = Ajax.fetch(url, options);
+    const uid = _.uniqueId(this.blockID + "_fetch"),
+      xhr = Ajax.fetch(url, options);
 
     this.resetMessages();
     this.addQueuedItem(uid, xhr);

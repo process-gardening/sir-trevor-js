@@ -1,9 +1,9 @@
 "use strict";
 
-var _ = require('./lodash');
-var utils = require('./utils');
+const _ = require('./lodash');
+const utils = require('./utils');
 
-var EventBus = require('./event-bus');
+const EventBus = require('./event-bus');
 
 module.exports = {
 
@@ -26,7 +26,7 @@ module.exports = {
    * Serialize the block and save the data into the store
    */
   save: function() {
-    var data = this._serializeData();
+    const data = this._serializeData();
 
     if (!_.isEmpty(data)) {
       this.setData(data);

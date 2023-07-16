@@ -1,11 +1,11 @@
 "use strict";
 
-var _ = require('./lodash');
-var Dom = require('./packages/dom');
+const _ = require('./lodash');
+const Dom = require('./packages/dom');
 
-var TYPE = 'application/vnd.sirtrevor+json'
+const TYPE = 'application/vnd.sirtrevor+json';
 
-var SelectionHandler = function(wrapper, mediator, editor) {
+const SelectionHandler = function (wrapper, mediator, editor) {
   this.wrapper = wrapper;
   this.mediator = mediator;
   this.editor = editor;
@@ -40,11 +40,11 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
 
   canSelect: function() {
     // Don't select if within an input field
-    var editorEl1 = Dom.getClosest(document.activeElement, 'input');
+    const editorEl1 = Dom.getClosest(document.activeElement, 'input');
 
     if (editorEl1 !== document.body) return false;
 
-    var editorEl2 = Dom.getClosest(document.activeElement, '.st-outer');
+    const editorEl2 = Dom.getClosest(document.activeElement, '.st-outer');
 
     // Don't select all if focused on element outside of the editor.
     if (this.options.selectionLimitToEditor) {
@@ -142,7 +142,7 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
 
     this.removeNativeSelection();
 
-    var blocks = this.editor.getBlocks();
+    const blocks = this.editor.getBlocks();
     this.selecting = true;
     this.startIndex = 0;
     this.endIndex = blocks.length - 1;
@@ -156,7 +156,7 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
   },
 
   removeNativeSelection: function() {
-    var sel = window.getSelection ? window.getSelection() : document.selection;
+    const sel = window.getSelection ? window.getSelection() : document.selection;
     if (sel) {
       if (sel.removeAllRanges) {
         sel.removeAllRanges();
@@ -168,7 +168,7 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
   },
 
   render: function() {
-    var visible = this.selecting;
+    const visible = this.selecting;
 
     this.editor.getBlocks().forEach((block, idx) => {
       block.select(visible && this.indexSelected(idx));
@@ -178,14 +178,14 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
   getClipboardData: function() {
     this.editor.getData();
 
-    var htmlOutput = [];
-    var textOutput = [];
-    var dataOutput =  [];
+    const htmlOutput = [];
+    const textOutput = [];
+    const dataOutput = [];
 
     this.editor.getBlocks().forEach((block, idx) => {
       if (this.indexSelected(idx)) {
-        var html = block.asClipboardHTML();
-        var text = html;
+        const html = block.asClipboardHTML();
+        const text = html;
         htmlOutput.push(html);
         textOutput.push(text);
         dataOutput.push(block.getData());
@@ -200,11 +200,11 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
   },
 
   copy: function() {
-    var copyArea = this.createFakeCopyArea();
+    const copyArea = this.createFakeCopyArea();
     copyArea.innerHTML = this.getClipboardData().html;
 
-    var selection = window.getSelection();
-    var range = document.createRange();
+    const selection = window.getSelection();
+    const range = document.createRange();
     range.selectNodeContents(copyArea);
     selection.removeAllRanges();
     selection.addRange(range);
@@ -219,7 +219,7 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
   },
 
   createFakeCopyArea: function() {
-    var copyArea = document.body.querySelector(".st-copy-area");
+    let copyArea = document.body.querySelector(".st-copy-area");
     if (!copyArea) {
       copyArea = Dom.createElement("div", {
         contenteditable: true,
@@ -251,7 +251,7 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
   },
 
   block: function(block) {
-    var blockPosition = this.editor.blockManager.getBlockPosition(block.el);
+    const blockPosition = this.editor.blockManager.getBlockPosition(block.el);
 
     this.mediator.trigger("formatter:hide");
     this.removeNativeSelection();
@@ -277,8 +277,8 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
 
   onKeyDown: function(ev) {
     ev = ev || window.event;
-    var ctrlKey = ev.ctrlKey || ev.metaKey;
-    var key = ev.key;
+    const ctrlKey = ev.ctrlKey || ev.metaKey;
+    const key = ev.key;
 
     if (this.selecting && key === "Backspace") {
       ev.preventDefault();
@@ -337,7 +337,7 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
   },
 
   copySelection: function(ev) {
-    var content = this.getClipboardData();
+    const content = this.getClipboardData();
 
     ev.clipboardData.setData(TYPE, JSON.stringify(content.data));
     ev.clipboardData.setData('text/html', content.html);
@@ -360,7 +360,7 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
 
   onPaste: function(ev) {
     // Fix Edge types DomStringList.
-    var types = [].slice.call(ev.clipboardData.types);
+    const types = [].slice.call(ev.clipboardData.types);
     if (types.includes(TYPE)) {
       if (!this.selecting && !this.canSelect()) return;
 

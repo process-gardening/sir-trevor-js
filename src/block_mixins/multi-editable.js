@@ -1,11 +1,11 @@
 "use strict";
 
-var selectionRange = require('selection-range');
+const selectionRange = require('selection-range');
 
-var _ = require('../lodash');
-var ScribeInterface = require('../scribe-interface');
+const _ = require('../lodash');
+const ScribeInterface = require('../scribe-interface');
 
-var { trimScribeContent } = require('../blocks/scribe-plugins/shared');
+let {trimScribeContent} = require('../blocks/scribe-plugins/shared');
 
 module.exports = {
   mixinName: 'MultiEditable',
@@ -15,7 +15,7 @@ module.exports = {
   },
 
   newTextEditor: function(template_or_node, content) {
-    var editor, isTextTemplate, wrapper;
+    let editor, isTextTemplate, wrapper;
 
     isTextTemplate = (template_or_node.tagName === undefined);
 
@@ -29,20 +29,20 @@ module.exports = {
       editor = template_or_node;
     }
 
-    var id = _.uniqueId('editor-');
+    const id = _.uniqueId('editor-');
     editor.setAttribute('data-editorId', id);
     editor.addEventListener('keyup', this.getSelectionForFormatter);
     editor.addEventListener('mouseup', this.getSelectionForFormatter);
 
-    var configureScribe =
+    const configureScribe =
       _.isFunction(this.configureScribe) ? this.configureScribe.bind(this) : null;
-    var scribe = ScribeInterface.initScribeInstance(
+    const scribe = ScribeInterface.initScribeInstance(
       editor, this.scribeOptions, configureScribe, this.editorOptions
     );
 
     scribe.setContent(content);
 
-    var editorObject = {
+    const editorObject = {
       node: isTextTemplate ? wrapper.removeChild(wrapper.firstChild) : editor,
       el: editor,
       scribe: scribe,
@@ -55,8 +55,8 @@ module.exports = {
   },
 
   getCurrentTextEditor: function() {
-    var id = document.activeElement.getAttribute('data-editorId');
-    var editor = this.getTextEditor(id);
+    const id = document.activeElement.getAttribute('data-editorId');
+    const editor = this.getTextEditor(id);
 
     if (editor) {
       this.currentEditor = editor;
@@ -66,18 +66,18 @@ module.exports = {
   },
 
   appendToTextEditor: function(id, content) {
-    var scribe = this.getTextEditor(id).scribe;
+    const scribe = this.getTextEditor(id).scribe;
 
     trimScribeContent(scribe);
 
-    var range = document.createRange();
+    const range = document.createRange();
     range.selectNodeContents(scribe.el);
     range.collapse(false);
-    var selection = new scribe.api.Selection();
+    const selection = new scribe.api.Selection();
     selection.selection.removeAllRanges();
     selection.selection.addRange(range);
 
-    var caretPosition = selectionRange(scribe.el);
+    const caretPosition = selectionRange(scribe.el);
 
     if (content) {
       scribe.insertHTML(content);

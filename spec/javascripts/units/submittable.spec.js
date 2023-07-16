@@ -1,11 +1,11 @@
 "use strict";
 
-var utils = require('../../../src/packages/dom');
+const utils = require('../../../src/packages/dom');
 
 describe("SirTrevor.Submittable", function() {
 
-  var submittable;
-  var formTemplate = "<form><input type='submit' value='Go!'></form>";
+  let submittable;
+  const formTemplate = "<form><input type='submit' value='Go!'></form>";
 
   beforeEach(function() {
     submittable = new SirTrevor.Submittable(utils.createDocumentFragmentFromString(formTemplate));

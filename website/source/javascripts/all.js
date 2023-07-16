@@ -2,7 +2,7 @@ require('../stylesheets/all.scss');
 require('jquery.typer');
 
 $(function(){
-  var $typer = $('.typer-target');
+  const $typer = $('.typer-target');
 
   $.typer.options.highlightSpeed = 10;
   $.typer.options.typeSpeed = 75;

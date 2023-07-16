@@ -40,10 +40,10 @@
         if (this.startContainer.ownerDocument !== node.ownerDocument) return false;
         if (!node.parentNode) return true;
 
-        var targetRange = document.createRange();
+        const targetRange = document.createRange();
         targetRange.selectNode(node);
-        var startEnd = this.compareBoundaryPoints(Range.START_TO_END, targetRange);
-        var endStart = this.compareBoundaryPoints(Range.END_TO_START, targetRange);
+        const startEnd = this.compareBoundaryPoints(Range.START_TO_END, targetRange);
+        const endStart = this.compareBoundaryPoints(Range.END_TO_START, targetRange);
 
         return startEnd === 1 && endStart === -1;
       }

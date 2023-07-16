@@ -4,14 +4,14 @@
   Block Quote
 */
 
-var _ = require('../lodash');
+const _ = require('../lodash');
 
-var Block = require('../block');
-var stToHTML = require('../to-html');
-var ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
-var ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
+const Block = require('../block');
+const stToHTML = require('../to-html');
+const ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
+const ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
 
-var template = _.template([
+const template = _.template([
   '<blockquote class="st-required st-text-block st-text-block--quote" contenteditable="true"></blockquote>',
   '<label class="st-input-label"> <%= i18n.t("blocks:quote:credit_field") %></label>',
   '<input maxlength="140" name="cite" placeholder="<%= i18n.t("blocks:quote:credit_field") %>"',
@@ -50,7 +50,7 @@ module.exports = Block.extend({
   },
 
   asClipboardHTML: function() {
-    var data = this.getBlockData();
+    const data = this.getBlockData();
 
     return `<blockquote>${data.text}<cite>- ${data.cite}</cite></blockquote>`;
   }

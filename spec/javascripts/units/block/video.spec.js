@@ -1,15 +1,15 @@
 "use strict";
 
-var utils = require('../../../../src/utils');
+const utils = require('../../../../src/utils');
 
 describe('Blocks: Video block', function() {
 
-  var createBlock = function(type, data) {
-    var element = global.createBaseElement();
-    var editor = new SirTrevor.Editor({ el: element });
-    var options = editor.blockManager.blockOptions;
-    var Klass = SirTrevor.Blocks[utils.classify(type)];
-    var block = new Klass(data, editor.id, editor.mediator, options);
+  const createBlock = function (type, data) {
+    const element = global.createBaseElement();
+    const editor = new SirTrevor.Editor({el: element});
+    const options = editor.blockManager.blockOptions;
+    const Klass = SirTrevor.Blocks[utils.classify(type)];
+    const block = new Klass(data, editor.id, editor.mediator, options);
     editor.blockManager.renderBlock(block);
 
     return block;
@@ -17,13 +17,13 @@ describe('Blocks: Video block', function() {
 
   describe('initialize', function() {
     it('creates a video block', function() {
-      var block = createBlock('video');
+      const block = createBlock('video');
       expect(block).not.toBe(undefined);
     });
 
     it('test URL formats', function() {
 
-      var urls = {
+      const urls = {
         youtube: [
           'http://www.youtube.com/watch?v=-wtIMTCHWuI',
           'http://www.youtube.com/v/-wtIMTCHWuI?version=3&autohide=1',
@@ -48,12 +48,12 @@ describe('Blocks: Video block', function() {
         ]
       };
 
-      var block = createBlock('video', urls[0]);
+      const block = createBlock('video', urls[0]);
 
-      for (var provider in block.providers) {
+      for (let provider in block.providers) {
         if (typeof urls[provider] !== 'undefined') {
-          var regex = block.providers[provider].regex;
-          for (var i = 0; i < urls[provider].length; i++) {
+          const regex = block.providers[provider].regex;
+          for (let i = 0; i < urls[provider].length; i++) {
             expect(urls[provider][i]).toMatch(regex);
           }
         }

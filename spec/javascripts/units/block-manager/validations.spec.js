@@ -2,13 +2,13 @@
 
 describe("BlockManager::Validations", function(){
 
-  var manager;
+  let manager;
 
   describe("required block types", function(){
 
     beforeEach(function(){
-      var element = global.createBaseElement();
-      var editor  = new SirTrevor.Editor({
+      const element = global.createBaseElement();
+      const editor = new SirTrevor.Editor({
         el: element,
         blockTypes: ["Text"],
         defaultType: false,

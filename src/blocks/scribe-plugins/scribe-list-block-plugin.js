@@ -1,8 +1,8 @@
 "use strict";
 
-var selectionRange = require('selection-range');
+const selectionRange = require('selection-range');
 
-var {
+let {
   getTotalLength,
   isAtStart,
   isAtEnd,
@@ -12,20 +12,20 @@ var {
   selectToEnd
 } = require('./shared.js');
 
-var ScribeListBlockPlugin = function(block) {
-  return function(scribe) {
-    scribe.el.addEventListener('keydown', function(ev) {
+const ScribeListBlockPlugin = function (block) {
+  return function (scribe) {
+    scribe.el.addEventListener('keydown', function (ev) {
 
       if (block.supressKeyListeners) {
         return;
       }
 
-      var content;
+      let content;
 
       if (ev.key === "Enter" && !ev.shiftKey) {
         ev.preventDefault();
 
-        block.splitListItem(scribe, { createTextBlock: true });
+        block.splitListItem(scribe, {createTextBlock: true});
       } else if (["Left", "ArrowLeft", "Up", "ArrowUp"].indexOf(ev.key) > -1) {
         if (ev.shiftKey && isSelectedFromStart(scribe)) {
           ev.preventDefault();
@@ -36,9 +36,9 @@ var ScribeListBlockPlugin = function(block) {
         } else if (isAtStart(scribe)) {
           ev.preventDefault();
 
-          var previousListItem = block.previousListItem();
+          const previousListItem = block.previousListItem();
           if (previousListItem) {
-            block.focusOn(previousListItem, { focusAtEnd: true });
+            block.focusOn(previousListItem, {focusAtEnd: true});
           } else {
             block.mediator.trigger("block:focusPrevious", block.blockID);
           }
@@ -53,7 +53,7 @@ var ScribeListBlockPlugin = function(block) {
         } else if (isAtEnd(scribe)) {
           ev.preventDefault();
 
-          var nextListItem = block.nextListItem();
+          const nextListItem = block.nextListItem();
           if (nextListItem) {
             block.focusOn(nextListItem);
           } else {
@@ -68,12 +68,12 @@ var ScribeListBlockPlugin = function(block) {
           block.removeCurrentListItem();
           block.appendToCurrentItem(content);
         } else {
-          var data = {
+          const data = {
             format: 'html',
             text: scribe.getContent()
           };
           block.removeCurrentListItem();
-          block.mediator.trigger("block:createBefore", 'Text', data, block, { autoFocus: true });
+          block.mediator.trigger("block:createBefore", 'Text', data, block, {autoFocus: true});
           if (block.isLastListItem()) {
             block.mediator.trigger('block:remove', block.blockID);
           }

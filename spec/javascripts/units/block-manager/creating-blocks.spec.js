@@ -2,15 +2,15 @@
 
 describe("BlockManager::Creating blocks", function(){
 
-  var manager;
+  let manager;
 
   Object.keys(SirTrevor.Blocks).forEach(function createBlockTest(blockName, i, blocks){
 
     describe("create " + blockName + "  with no editor options", function(){
 
       beforeEach(function(){
-        var element = global.createBaseElement();
-        var editor  = new SirTrevor.Editor({
+        const element = global.createBaseElement();
+        const editor = new SirTrevor.Editor({
           el: element,
           blockTypes: [blockName]
         });
@@ -33,7 +33,7 @@ describe("BlockManager::Creating blocks", function(){
       });
 
       it("fires a create:new block event", function() {
-        var lastEvent = SirTrevor.EventBus.trigger.calls.mostRecent();
+        const lastEvent = SirTrevor.EventBus.trigger.calls.mostRecent();
         expect(lastEvent.args[0]).toBe('block:create:new');
       });
 
@@ -44,8 +44,8 @@ describe("BlockManager::Creating blocks", function(){
   describe("createBlock with overall block limit", function(){
 
     beforeEach(function(){
-      var element = global.createBaseElement();
-      var editor  = new SirTrevor.Editor({
+      const element = global.createBaseElement();
+      const editor = new SirTrevor.Editor({
         el: element,
         defaultType: false,
         blockLimit: 1,
@@ -66,8 +66,8 @@ describe("BlockManager::Creating blocks", function(){
   describe("createBlock with blockTypes set", function(){
 
     beforeEach(function(){
-      var element = global.createBaseElement();
-      var editor  = new SirTrevor.Editor({
+      const element = global.createBaseElement();
+      const editor = new SirTrevor.Editor({
         el: element,
         defaultType: false,
         blockTypes: ["Text"]
@@ -88,11 +88,11 @@ describe("BlockManager::Creating blocks", function(){
   describe("createBlock with blockTypeLimits set", function(){
 
     beforeEach(function(){
-      var element = global.createBaseElement();
-      var editor  = new SirTrevor.Editor({
+      const element = global.createBaseElement();
+      const editor = new SirTrevor.Editor({
         el: element,
         defaultType: false,
-        blockTypeLimits: { 'Text': 1 },
+        blockTypeLimits: {'Text': 1},
         blockTypes: ["Text"]
       });
       manager = editor.blockManager;

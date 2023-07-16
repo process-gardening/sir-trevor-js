@@ -1,17 +1,17 @@
 "use strict";
 
 describe("Block Mixin: MultiEditable", function() {
-  var element, editor, block;
-  var tpl = '<div class="st-block__editor"></div>';
+  let element, editor, block;
+  const tpl = '<div class="st-block__editor"></div>';
 
   beforeEach(function() {
     element = global.createBaseElement();
-    editor = new SirTrevor.Editor({ 
+    editor = new SirTrevor.Editor({
       el: element,
       blockTypes: ["Text"]
     });
 
-    var options = editor.blockManager.blockOptions;
+    const options = editor.blockManager.blockOptions;
 
     SirTrevor.Blocks.MultiBlock = SirTrevor.Block.extend({
       multi_editable: true
@@ -41,43 +41,43 @@ describe("Block Mixin: MultiEditable", function() {
   describe('managing multiple editors', function() {
     describe('adding', function() {
       it('returns deattached rendered template', function() {
-        var editorObj = block.newTextEditor(tpl, '');
-        var node = editorObj.node;
+        const editorObj = block.newTextEditor(tpl, '');
+        const node = editorObj.node;
 
         expect(node.nodeType).toEqual(Node.ELEMENT_NODE);
       });
 
       it('returns variable with editor div', function() {
-        var editorObj = block.newTextEditor(tpl, '');
-        var editor = editorObj.el;
+        const editorObj = block.newTextEditor(tpl, '');
+        const editor = editorObj.el;
 
         expect(editor.nodeType).toEqual(Node.ELEMENT_NODE);
       });
 
       it('instantiates scribe within template', function() {
-        var editorObj = block.newTextEditor(tpl, '');
-        var editor = editorObj.el;
+        const editorObj = block.newTextEditor(tpl, '');
+        const editor = editorObj.el;
 
         expect(editor.contentEditable).toEqual('true');
       });
 
       it('returns scribe instance', function() {
-        var editorObj = block.newTextEditor(tpl, '');
-        var scribe = editorObj.scribe;
+        const editorObj = block.newTextEditor(tpl, '');
+        const scribe = editorObj.scribe;
 
         expect(scribe).toBeDefined();
         expect(scribe.getContent).toBeDefined();
       });
 
       it('adds editor to the list', function() {
-        var editorObj = block.newTextEditor(tpl, '');
+        const editorObj = block.newTextEditor(tpl, '');
 
         expect(Object.keys(block.editors).length).toEqual(1);
         expect(block.editors[editorObj.id]).toEqual(editorObj);
       });
 
       it('sets editor content if provided', function() {
-        var editorObj = block.newTextEditor(tpl, 'Hello world!');
+        const editorObj = block.newTextEditor(tpl, 'Hello world!');
 
         expect(editorObj.scribe.getContent()).toEqual('Hello world!');
       });
@@ -85,7 +85,7 @@ describe("Block Mixin: MultiEditable", function() {
 
     describe('removing', function() {
       it('removes editor from the list using the id', function() {
-        var editorObj = block.newTextEditor(tpl);
+        const editorObj = block.newTextEditor(tpl);
         block.removeTextEditor(editorObj.id);
 
         expect(Object.keys(block.editors).length).toEqual(0);
@@ -99,8 +99,8 @@ describe("Block Mixin: MultiEditable", function() {
       });
       it('returns currently focused scribe instance');
       it('returns editor object using the id', function() {
-        var editorObj1 = block.newTextEditor(tpl);
-        var editorObj2 = block.newTextEditor(tpl);
+        const editorObj1 = block.newTextEditor(tpl);
+        const editorObj2 = block.newTextEditor(tpl);
 
         expect(block.getTextEditor(editorObj1.id)).toEqual(editorObj1);
         expect(block.getTextEditor(editorObj2.id)).toEqual(editorObj2);

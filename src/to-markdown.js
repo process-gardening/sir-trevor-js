@@ -1,17 +1,17 @@
 "use strict";
 
-var _ = require('./lodash');
-var utils = require('./utils');
+const _ = require('./lodash');
+const utils = require('./utils');
 
 module.exports = function(content, type) {
 
   // Deferring requiring these to sidestep a circular dependency:
   // Block -> this -> Blocks -> Block
-  var Blocks = require('./blocks');
+  const Blocks = require('./blocks');
 
   type = utils.classify(type);
 
-  var markdown = content;
+  let markdown = content;
 
   //Normalise whitespace
   markdown = markdown.replace(/&nbsp;/g," ");
@@ -23,8 +23,8 @@ module.exports = function(content, type) {
                      .replace(/\/\*(.*?)\*\//g, '')
                      .replace(/<(\/)*(meta|link|span|\\?xml:|st1:|o:|font)(.*?)>/gi, '');
 
-  var badTags = ['style', 'script', 'applet', 'embed', 'noframes', 'noscript'],
-      tagStripper, i;
+  const badTags = ['style', 'script', 'applet', 'embed', 'noframes', 'noscript'];
+  let tagStripper, i;
 
   for (i = 0; i< badTags.length; i++) {
     tagStripper = new RegExp('<'+badTags[i]+'.*?'+badTags[i]+'(.*?)>', 'gi');
@@ -41,7 +41,7 @@ module.exports = function(content, type) {
                     .replace(/\)/g, "\\)")
                     .replace(/\-/g, "\\-");
 
-  var inlineTags = ["em", "i", "strong", "b"];
+  const inlineTags = ["em", "i", "strong", "b"];
 
   for (i = 0; i< inlineTags.length; i++) {
     tagStripper = new RegExp('<'+inlineTags[i]+'><br></'+inlineTags[i]+'>', 'gi');
@@ -79,7 +79,7 @@ module.exports = function(content, type) {
                  .replace(/&lt;/g,"<").replace(/&gt;/g,">");                                 // Encoding
 
   // Use custom block toMarkdown functions (if any exist)
-  var block;
+  let block;
   if (Blocks.hasOwnProperty(type)) {
     block = Blocks[type];
     // Do we have a toMarkdown function?

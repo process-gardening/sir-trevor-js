@@ -1,14 +1,14 @@
 "use strict";
 
-var _ = require('./lodash');
-var Scribe = require('scribe-editor');
-var config = require('./config');
+const _ = require('./lodash');
+const Scribe = require('scribe-editor');
+const config = require('./config');
 
-var scribePluginFormatterPlainTextConvertNewLinesToHTML = require('scribe-plugin-formatter-plain-text-convert-new-lines-to-html');
-var scribePluginLinkPromptCommand = require('./blocks/scribe-plugins/scribe-link-prompt-plugin');
-var scribePluginSanitizer = require('scribe-plugin-sanitizer');
+const scribePluginFormatterPlainTextConvertNewLinesToHTML = require('scribe-plugin-formatter-plain-text-convert-new-lines-to-html');
+const scribePluginLinkPromptCommand = require('./blocks/scribe-plugins/scribe-link-prompt-plugin');
+const scribePluginSanitizer = require('scribe-plugin-sanitizer');
 
-var sanitizeDefaults = {
+const sanitizeDefaults = {
   p: true,
   a: {
     href: true,
@@ -28,14 +28,14 @@ module.exports = {
 
     scribeOptions = scribeOptions || {};
 
-    var scribeConfig = {debug: config.scribeDebug};
-    var tags = sanitizeDefaults;
+    let scribeConfig = {debug: config.scribeDebug};
+    let tags = sanitizeDefaults;
 
     if (_.isObject(scribeOptions)) {
       scribeConfig = Object.assign(scribeConfig, scribeOptions);
     }
 
-    var scribe = new Scribe(el, scribeConfig);
+    const scribe = new Scribe(el, scribeConfig);
 
     if (scribeOptions.hasOwnProperty("tags")) {
       tags = Object.assign(sanitizeDefaults, scribeOptions.tags);
@@ -57,7 +57,7 @@ module.exports = {
       throw "No Scribe instance found to query command";
     }
 
-    var cmd = scribeInstance.getCommand(cmdName);
+    const cmd = scribeInstance.getCommand(cmdName);
     scribeInstance.el.focus();
     return cmd.execute();
   },
@@ -67,8 +67,8 @@ module.exports = {
       throw "No Scribe instance found to query command";
     }
 
-    var cmd = scribeInstance.getCommand(cmdName),
-        sel = new scribeInstance.api.Selection();
+    const cmd = scribeInstance.getCommand(cmdName),
+      sel = new scribeInstance.api.Selection();
     return sel.range && cmd.queryState();
   },
 };

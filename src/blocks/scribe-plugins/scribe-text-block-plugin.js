@@ -1,6 +1,6 @@
 "use strict";
 
-var {
+let {
   createBlocksFromParagraphs,
   isAtStart,
   isAtEnd,
@@ -9,11 +9,11 @@ var {
   selectToEnd
 } = require('./shared.js');
 
-var ScribeTextBlockPlugin = function(block) {
-  return function(scribe) {
-    var isAtStartBoolean = false;
+const ScribeTextBlockPlugin = function (block) {
+  return function (scribe) {
+    let isAtStartBoolean = false;
 
-    scribe.el.addEventListener('keydown', function(ev) {
+    scribe.el.addEventListener('keydown', function (ev) {
 
       if (block.supressKeyListeners) {
         return;
@@ -26,7 +26,7 @@ var ScribeTextBlockPlugin = function(block) {
 
           // Remove any bad characters after current selection.
           selectToEnd(scribe).extractContents();
-          block.mediator.trigger("block:create", 'Text', null, block.el, { autoFocus: true });
+          block.mediator.trigger("block:create", 'Text', null, block.el, {autoFocus: true});
         } else {
           createBlocksFromParagraphs(block, scribe);
         }
@@ -67,7 +67,7 @@ var ScribeTextBlockPlugin = function(block) {
       }
     });
 
-    scribe.el.addEventListener('keyup', function(ev) {
+    scribe.el.addEventListener('keyup', function (ev) {
 
       if (block.supressKeyListeners) {
         return;

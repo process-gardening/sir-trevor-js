@@ -1,4 +1,4 @@
-var SirTrevor = require('../../node_modules/sir-trevor');
+const SirTrevor = require('../../node_modules/sir-trevor');
 require('../stylesheets/example.scss');
 
 (function() {

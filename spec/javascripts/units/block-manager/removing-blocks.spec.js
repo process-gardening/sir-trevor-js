@@ -2,11 +2,11 @@
 
 describe("BlockManager::Removing blocks", function(){
 
-  var manager;
+  let manager;
 
   beforeEach(function(){
-    var element = global.createBaseElement();
-    var editor  = new SirTrevor.Editor({
+    const element = global.createBaseElement();
+    const editor = new SirTrevor.Editor({
       el: element,
       blockTypes: ["Text"]
     });

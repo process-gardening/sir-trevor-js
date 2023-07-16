@@ -1,19 +1,19 @@
 "use strict";
 
-var _ = require('./lodash');
-var utils = require('./utils');
+const _ = require('./lodash');
+const utils = require('./utils');
 
 module.exports = function(markdown, type) {
 
   // Deferring requiring these to sidestep a circular dependency:
   // Block -> this -> Blocks -> Block
-  var Blocks = require('./blocks');
+  const Blocks = require('./blocks');
 
   // MD -> HTML
   type = utils.classify(type);
 
-  var html = markdown,
-      shouldWrap = type === "Text";
+  let html = markdown,
+    shouldWrap = type === "Text";
 
   if(_.isUndefined(shouldWrap)) { shouldWrap = false; }
 
@@ -42,7 +42,7 @@ module.exports = function(markdown, type) {
   html =  html.replace(/^\> (.+)$/mg,"$1");
 
   // Use custom block toHTML functions (if any exist)
-  var block;
+  let block;
   if (Blocks.hasOwnProperty(type)) {
     block = Blocks[type];
     // Do we have a toHTML function?

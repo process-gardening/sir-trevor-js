@@ -1,16 +1,16 @@
-var webpack = require("webpack");
-var webpackConfigMerger = require("webpack-config-merger");
-var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
+const webpackConfigMerger = require("webpack-config-merger");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-var banner = [
-  "/*!",
-  " * Sir Trevor JS v<%= pkg.version %>",
-  " *",
-  " * Released under the MIT license",
-  " * www.opensource.org/licenses/MIT",
-  " *",
-  ' * <%= grunt.template.today("yyyy-mm-dd") %>',
-  " */\n\n"
+const banner = [
+    "/*!",
+    " * Sir Trevor JS v<%= pkg.version %>",
+    " *",
+    " * Released under the MIT license",
+    " * www.opensource.org/licenses/MIT",
+    " *",
+    ' * <%= grunt.template.today("yyyy-mm-dd") %>',
+    " */\n\n"
 ].join("\n");
 
 module.exports = webpackConfigMerger(require("./config"), {

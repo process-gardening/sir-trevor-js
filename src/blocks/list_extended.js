@@ -1,13 +1,13 @@
 "use strict";
 
-var Block = require('../block');
-var stToHTML = require('../to-html');
+const Block = require('../block');
+const stToHTML = require('../to-html');
 
-var ScribeListBlockPlugin = require('./scribe-plugins/scribe-list-block-plugin');
+const ScribeListBlockPlugin = require('./scribe-plugins/scribe-list-block-plugin');
 
 //module.exports = Block.extend({
 module.exports = (function () {
-  var set_ul, set_ol, set_type;
+  let set_ul, set_ol, set_type;
   set_ul = function () {
     set_type(this, 'ul');
   };
@@ -17,7 +17,7 @@ module.exports = (function () {
   set_type = function (block, list_type) {
     //console.log('list_extended::set_type: ' + list_type);
 
-    var list_old = block.el.getElementsByClassName('st-list-block__list')[0];
+    const list_old = block.el.getElementsByClassName('st-list-block__list')[0];
 
     if (block.list_type === list_old.tagName.toLowerCase() &&
       block.list_type === list_type) {
@@ -28,13 +28,13 @@ module.exports = (function () {
     // set new type first
     block.list_type = list_type;
 
-    var existing_data = block._serializeData();
+    const existing_data = block._serializeData();
 
     // remove all existing items with their editors
     block.removeAllItems();
 
     if (list_old !== null) {
-      var list = document.createElement(list_type);
+      const list = document.createElement(list_type);
       //list.innerHTML = list_old.innerHTML; set by load data
       list.id = list_old.id;
       list.classList = list_old.classList;
@@ -104,8 +104,8 @@ module.exports = (function () {
     },
 
     highlightControls: function () {
-      var cs = this.control_ui.children;
-      for (var i = 0; i < cs.length; ++i) {
+      const cs = this.control_ui.children;
+      for (let i = 0; i < cs.length; ++i) {
         if (cs[i].getAttribute("data-icon") === this.list_type) {
           cs[i].classList.add("st-block-control-ui-btn--selected");
         } else {
@@ -117,7 +117,7 @@ module.exports = (function () {
     loadData: function (data) {
       //console.log('loadData()');
       //console.log(data);
-      var block = this;
+      const block = this;
       if (this.options.convertFromMarkdown && data.format !== "html") {
         data = this.parseFromMarkdown(data.text);
       }
@@ -140,7 +140,7 @@ module.exports = (function () {
     },
 
     parseFromMarkdown: function (markdown) {
-      var listItems = markdown.replace(/^ - (.+)$/mg, "$1").split("\n");
+      let listItems = markdown.replace(/^ - (.+)$/mg, "$1").split("\n");
       listItems = listItems.filter(function (item) {
         return item.length;
       }).map(function (item) {
@@ -151,10 +151,10 @@ module.exports = (function () {
     },
 
     _serializeData: function () {
-      var data = {format: 'html', list_type: this.list_type, listItems: []};
+      const data = {format: 'html', list_type: this.list_type, listItems: []};
 
       this.editorIds.forEach(function (editorId) {
-        var listItem = {content: this.getTextEditor(editorId).scribe.getContent()};
+        const listItem = {content: this.getTextEditor(editorId).scribe.getContent()};
         data.listItems.push(listItem);
       }.bind(this));
 
@@ -172,13 +172,13 @@ module.exports = (function () {
         content = '';
       }
 
-      var editor = this.newTextEditor(this.listItemEditorHTML, content);
+      const editor = this.newTextEditor(this.listItemEditorHTML, content);
 
       if (after && this.ul.lastchild !== after.node) {
-        var before = after.node.nextSibling;
+        const before = after.node.nextSibling;
         this.ul.insertBefore(editor.node, before);
 
-        var idx = this.editorIds.indexOf(after.id) + 1;
+        const idx = this.editorIds.indexOf(after.id) + 1;
         this.editorIds.splice(idx, 0, editor.id);
       } else {
         this.ul.appendChild(editor.node);
@@ -189,7 +189,7 @@ module.exports = (function () {
     },
 
     focusOnNeighbor: function (item) {
-      var neighbor = this.previousListItem() || this.nextListItem();
+      const neighbor = this.previousListItem() || this.nextListItem();
 
       if (neighbor) {
         this.focusOn(neighbor);
@@ -197,10 +197,10 @@ module.exports = (function () {
     },
 
     focusOn: function (editor) {
-      var scribe = editor.scribe;
-      var selection = new scribe.api.Selection();
-      var lastChild = scribe.el.lastChild;
-      var range;
+      const scribe = editor.scribe;
+      const selection = new scribe.api.Selection();
+      const lastChild = scribe.el.lastChild;
+      let range;
       if (selection.range) {
         range = selection.range.cloneRange();
       }
@@ -214,7 +214,7 @@ module.exports = (function () {
     },
 
     focusAtEnd: function () {
-      var lastEditorId = this.editorIds[this.editorIds.length - 1];
+      const lastEditorId = this.editorIds[this.editorIds.length - 1];
       this.appendToTextEditor(lastEditorId);
     },
 
@@ -223,8 +223,8 @@ module.exports = (function () {
         return;
       }
 
-      var item = this.getCurrentTextEditor();
-      var idx = this.editorIds.indexOf(item.id);
+      const item = this.getCurrentTextEditor();
+      const idx = this.editorIds.indexOf(item.id);
 
       this.focusOnNeighbor(item);
       this.editorIds.splice(idx, 1);
@@ -241,8 +241,8 @@ module.exports = (function () {
     },
 
     nextListItem: function () {
-      var idx = this.editorIds.indexOf(this.getCurrentTextEditor().id);
-      var editorId = this.editorIds[idx + 1];
+      const idx = this.editorIds.indexOf(this.getCurrentTextEditor().id);
+      const editorId = this.editorIds[idx + 1];
 
       if (editorId !== undefined) {
         return this.getTextEditor(editorId);
@@ -252,8 +252,8 @@ module.exports = (function () {
     },
 
     previousListItem: function () {
-      var idx = this.editorIds.indexOf(this.getCurrentTextEditor().id);
-      var editorId = this.editorIds[idx - 1];
+      const idx = this.editorIds.indexOf(this.getCurrentTextEditor().id);
+      const editorId = this.editorIds[idx - 1];
 
       if (editorId !== undefined) {
         return this.getTextEditor(editorId);

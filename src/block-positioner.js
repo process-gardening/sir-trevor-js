@@ -21,8 +21,8 @@ let BlockPositioner = function (block, mediator) {
 let renderPositionList_debounced = _.debounce(renderPositionList_global, 250);
 
 function renderPositionList_global(positioner) {
-  var inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
-  for (var i = 1; i <= positioner.total_blocks; i++) {
+  let inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
+  for (let i = 1; i <= positioner.total_blocks; i++) {
     inner += "<option value=" + i + ">" + i + "</option>";
   }
   positioner.select.innerHTML = inner;
@@ -61,7 +61,7 @@ Object.assign(BlockPositioner.prototype, require('./function-bind'), require('./
   },
 
   onSelectChange: function () {
-    var val = this.select.value;
+    const val = this.select.value;
     if (val !== 0) {
       this.mediator.trigger(
         "block:changePosition", this.block, val,
@@ -77,8 +77,8 @@ Object.assign(BlockPositioner.prototype, require('./function-bind'), require('./
 
   renderPositionList: function () {
     //console.log('renderPositionList()');
-    var inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
-    for (var i = 1; i <= this.total_blocks; i++) {
+    let inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
+    for (let i = 1; i <= this.total_blocks; i++) {
       inner += "<option value=" + i + ">" + i + "</option>";
     }
     this.select.innerHTML = inner;

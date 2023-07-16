@@ -1,28 +1,28 @@
 "use strict";
 
-var _ = require('./lodash');
+const _ = require('./lodash');
 
-var ScribeInterface = require('./scribe-interface');
+const ScribeInterface = require('./scribe-interface');
 
-var config = require('./config');
-var utils = require('./utils');
-var Dom = require('./packages/dom');
-var Events = require('./packages/events');
-var BlockMixins = require('./block_mixins');
+const config = require('./config');
+const utils = require('./utils');
+const Dom = require('./packages/dom');
+const Events = require('./packages/events');
+const BlockMixins = require('./block_mixins');
 
-var SimpleBlock = require('./simple-block');
-var BlockReorder = require('./block-reorder');
-var BlockDeletion = require('./block-deletion');
-var BlockPositioner = require('./block-positioner');
-var EventBus = require('./event-bus');
+const SimpleBlock = require('./simple-block');
+const BlockReorder = require('./block-reorder');
+const BlockDeletion = require('./block-deletion');
+const BlockPositioner = require('./block-positioner');
+const EventBus = require('./event-bus');
 
-var { Spinner } = require('spin.js');
+let {Spinner} = require('spin.js');
 
-var { trimScribeContent } = require('./blocks/scribe-plugins/shared');;
+let {trimScribeContent} = require('./blocks/scribe-plugins/shared');;
 
 const DELETE_TEMPLATE = require("./templates/delete");
 
-var Block = function(data, instance_id, mediator, options, editorOptions) {
+const Block = function (data, instance_id, mediator, options, editorOptions) {
   SimpleBlock.apply(this, arguments);
 };
 
@@ -83,7 +83,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   withMixin: function(mixin) {
     if (!_.isObject(mixin)) { return; }
 
-    var initializeMethod = "initialize" + mixin.mixinName;
+    const initializeMethod = "initialize" + mixin.mixinName;
 
     if (_.isUndefined(this[initializeMethod])) {
       Object.assign(this, mixin);
@@ -104,7 +104,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     this.mixinsRequireInputs = false;
     this.availableMixins.forEach(function(mixin) {
       if (this[mixin]) {
-        var blockMixin = BlockMixins[utils.classify(mixin)];
+        const blockMixin = BlockMixins[utils.classify(mixin)];
         if (!_.isUndefined(blockMixin.requireInputs) && blockMixin.requireInputs) {
           this.mixinsRequireInputs = true;
         }
@@ -112,7 +112,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     }, this);
 
     if(this.mixinsRequireInputs) {
-      var input_html = document.createElement("div");
+      const input_html = document.createElement("div");
       input_html.classList.add('st-block__inputs');
 
 
@@ -170,7 +170,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   _serializeData: function() {
     utils.log("toData for " + this.blockID);
 
-    var data = {};
+    const data = {};
 
     //[> Simple to start. Add conditions later <]
     if (this.hasTextBlock()) {
@@ -179,7 +179,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
     }
 
     // Add any inputs to the data attr
-    var matcher = [
+    const matcher = [
       'input:not([class="st-paste-block"])',
       'textarea:not([class="st-paste-block"])',
       'select:not([class="st-paste-block"])',
@@ -193,14 +193,14 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
         // which require a unique reference per group of elements a `data-name` attribute can
         // be used to provide the same `name` per block.
 
-        var name = input.getAttribute('data-name') || input.getAttribute('name');
+        const name = input.getAttribute('data-name') || input.getAttribute('name');
 
         if (name) {
           if (input.getAttribute('type') === 'number') {
             data[name] = parseInt(input.value);
           }
           else if (input.getAttribute('type') === 'checkbox') {
-            var value = "";
+            let value = "";
             if (input.getAttribute('data-toggle')) {
               value = "off";
               if (input.checked === true) {
@@ -448,12 +448,12 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
 
     // add id/position to ui_drawer
-    var pos_info = `
+    const pos_info = `
     <div class="st-block__ui-position-info">
       <p class="st-block__ui-position-info">id: ${this.blockID} ed: ${this.instanceID}
       #<span class="st-block__ui-position-info">set me</span></p>
     </div>
-    `
+    `;
     this.ui_drawer.insertAdjacentHTML("beforeend", pos_info);
   },
 
@@ -468,7 +468,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   _initFormatting: function () {
 
     // Enable formatting keyboard input
-    var block = this;
+    const block = this;
 
     if (!this.options.formatBar) {
       return;
@@ -495,10 +495,10 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
       el.addEventListener('DOMNodeInserted', this.clearInsertedStyles);
     });
 
-    var textBlock = this.getTextBlock()[0];
+    const textBlock = this.getTextBlock()[0];
     if (!_.isUndefined(textBlock) && _.isUndefined(this._scribe)) {
 
-      var configureScribe =
+      const configureScribe =
         _.isFunction(this.configureScribe) ? this.configureScribe.bind(this) : null;
       this._scribe = ScribeInterface.initScribeInstance(
         textBlock, this.scribeOptions, configureScribe, this.editorOptions
@@ -507,7 +507,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   addMouseupListener: function addMouseupListener() {
-    var listener = () => {
+    const listener = () => {
       this.getSelectionForFormatter();
       window.removeEventListener('mouseup', listener);
     };
@@ -516,7 +516,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
   getSelectionForFormatter: function () {
     setTimeout(() => {
-      var selection = window.getSelection(),
+      const selection = window.getSelection(),
         selectionStr = selection.toString().trim(),
         en = 'formatter:' + ((selectionStr === '') ? 'hide' : 'position');
 
@@ -526,7 +526,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   clearInsertedStyles: function (e) {
-    var target = e.target;
+    let target = e.target;
     if (_.isUndefined(target.tagName)) {
       target = target.parentNode;
     }
@@ -550,7 +550,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   },
 
   setTextBlockHTML: function (html) {
-    var returnVal = this._scribe.setContent(html);
+    const returnVal = this._scribe.setContent(html);
 
     trimScribeContent(this._scribe);
 

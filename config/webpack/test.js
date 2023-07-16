@@ -1,6 +1,6 @@
-var webpack = require("webpack");
-var webpackConfigMerger = require("webpack-config-merger");
-var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
+const webpackConfigMerger = require("webpack-config-merger");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = webpackConfigMerger(require("./config"), {
   mode: "development",

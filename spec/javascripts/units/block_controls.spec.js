@@ -4,10 +4,10 @@ describe("BlockControls", function(){
 
   describe("creating a new instance", function(){
 
-    var blockControls, editor;
+    let blockControls, editor;
 
     beforeEach(function(){
-      var element = global.createBaseElement();
+      const element = global.createBaseElement();
       editor  = new SirTrevor.Editor({
         el: element
       });

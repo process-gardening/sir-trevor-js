@@ -6,16 +6,15 @@
  * Displayed on focus on a text area.
  * Renders with all available options for the editor instance
  */
+const _ = require('./lodash');
 
-var _ = require('./lodash');
-
-var config = require('./config');
-var Dom = require('./packages/dom');
-var Events = require('./packages/events');
+const config = require('./config');
+const Dom = require('./packages/dom');
+const Events = require('./packages/events');
 
 const FORMAT_BUTTON_TEMPLATE = require("./templates/format-button");
 
-var FormatBar = function(options, mediator, editor) {
+const FormatBar = function (options, mediator, editor) {
   this.editor = editor;
   this.options = Object.assign({}, config.defaults.formatBar, options || {});
   this.commands = this.options.commands;
@@ -45,7 +44,7 @@ Object.assign(FormatBar.prototype, require('./function-bind'), require('./mediat
 
   initialize: function() {
 
-    var buttons = this.commands.reduce(function(memo, format) {
+    const buttons = this.commands.reduce(function (memo, format) {
       return memo += FORMAT_BUTTON_TEMPLATE(format);
     }, "");
 
@@ -84,12 +83,12 @@ Object.assign(FormatBar.prototype, require('./function-bind'), require('./mediat
   },
 
   calculatePosition: function() {
-    var selection = window.getSelection(),
-        range = selection.getRangeAt(0),
-        boundary = range.getBoundingClientRect(),
-        coords = {},
-        outer = this.editor.outer,
-        outerBoundary = outer.getBoundingClientRect();
+    const selection = window.getSelection(),
+      range = selection.getRangeAt(0),
+      boundary = range.getBoundingClientRect(),
+      coords = {},
+      outer = this.editor.outer,
+      outerBoundary = outer.getBoundingClientRect();
 
     coords.top = (boundary.top - outerBoundary.top) + 'px';
     coords.left = (((boundary.left + boundary.right) / 2) -
@@ -101,8 +100,8 @@ Object.assign(FormatBar.prototype, require('./function-bind'), require('./mediat
 
   highlightSelectedButtons: function() {
     [].forEach.call(this.el.querySelectorAll(".st-format-btn"), (btn) => {
-      var cmd = btn.getAttribute('data-cmd');
-      var state = this.block.queryTextBlockCommandState(cmd)
+      const cmd = btn.getAttribute('data-cmd');
+      const state = this.block.queryTextBlockCommandState(cmd);
       btn.classList.toggle("st-format-btn--is-active", Boolean(state));
       btn.dataset.state = state;
 
@@ -118,8 +117,8 @@ Object.assign(FormatBar.prototype, require('./function-bind'), require('./mediat
       throw "Associated block not found";
     }
 
-    var btn = ev.currentTarget,
-        cmd = btn.getAttribute('data-cmd');
+    const btn = ev.currentTarget,
+      cmd = btn.getAttribute('data-cmd');
 
     if (_.isUndefined(cmd)) {
       return false;

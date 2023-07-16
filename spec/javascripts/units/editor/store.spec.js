@@ -2,7 +2,7 @@
 
 describe("EditorStore", function(){
 
-  var mediator, store;
+  let mediator, store;
 
   beforeEach(function(){
     mediator = Object.assign({}, SirTrevor.Events);
@@ -16,7 +16,7 @@ describe("EditorStore", function(){
     });
 
     it("uses the value of the textarea if there is data in it", function(){
-      var data = '{ "data": [{ "type": "Text", "data": { "text": "test" }}]}';
+      const data = '{ "data": [{ "type": "Text", "data": { "text": "test" }}]}';
 
       store = new SirTrevor.EditorStore(data, mediator);
 
@@ -38,8 +38,8 @@ describe("EditorStore", function(){
     });
 
     it("contains the data given", function(){
-      var data = store.retrieve(),
-          item = data.data[0];
+      const data = store.retrieve(),
+        item = data.data[0];
 
       expect(item.data).toBe('OHHAI');
       expect(item.type).toBe('Text');
@@ -83,12 +83,12 @@ describe("EditorStore", function(){
     });
 
     it("produces a string of the data", function(){
-      var str = store.toString();
+      const str = store.toString();
       expect(typeof str === "string").toBe(true);
     });
 
     it("has the correct data", function(){
-      var json = JSON.parse(store.toString());
+      const json = JSON.parse(store.toString());
       expect(json.data[0].data).toBe("OHHAI");
     });
 

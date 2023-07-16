@@ -1,27 +1,27 @@
 "use strict";
 
-var cancellablePromise = function(promise) {
-  var resolve, reject;
+const cancellablePromise = function (promise) {
+  let resolve, reject;
 
-  var proxyPromise = new Promise(function(res, rej) {
+  const proxyPromise = new Promise(function (res, rej) {
     resolve = res;
     reject = rej;
   });
 
   promise.then(
-    function(value) {
-      if(!proxyPromise.cancelled) {
+    function (value) {
+      if (!proxyPromise.cancelled) {
         resolve(value);
       }
     },
-    function(value) {
-      if(!proxyPromise.cancelled) {
+    function (value) {
+      if (!proxyPromise.cancelled) {
         reject(value);
       }
     }
   );
 
-  proxyPromise.cancel = function() {
+  proxyPromise.cancel = function () {
     this.cancelled = true;
   };
 

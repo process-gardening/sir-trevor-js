@@ -21,11 +21,11 @@ function generateBlocksHTML(Blocks, availableTypes) {
 }
 
 function render(Blocks, availableTypes) {
-  var el = document.createElement('div');
+  const el = document.createElement('div');
   el.className = "st-block-controls__buttons";
   el.innerHTML = generateBlocksHTML.apply(null, arguments);
 
-  var elButtons = document.createElement('div');
+  const elButtons = document.createElement('div');
   elButtons.className = "st-block-controls";
   elButtons.appendChild(el);
   return elButtons;
@@ -34,7 +34,7 @@ function render(Blocks, availableTypes) {
 module.exports.create = function (SirTrevor) {
 
   // REFACTOR - should probably not know about blockManager
-  var el = render(Blocks, SirTrevor.blockManager.blockTypes);
+  let el = render(Blocks, SirTrevor.blockManager.blockTypes);
 
   function replaceBlock(e) {
     //console.log('block-controls::replace()');
@@ -49,7 +49,7 @@ module.exports.create = function (SirTrevor) {
   function insert(e) {
     e.stopPropagation(); // we don't want el to be removed by the window click
     /*jshint validthis:true */
-    var parent = this.parentNode;
+    const parent = this.parentNode;
     if (!parent || hide() === parent) {
       return;
     }
@@ -59,7 +59,7 @@ module.exports.create = function (SirTrevor) {
 
   // Public
   function hide() {
-    var parent = el.parentNode;
+    const parent = el.parentNode;
     if (!parent) {
       return;
     }

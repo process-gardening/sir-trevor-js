@@ -1,9 +1,9 @@
 "use strict";
 
 require('whatwg-fetch');
-var fetchJsonP = require('jsonp-promise');
-var cancellablePromise = require('./cancellable-promise');
-var config = require('../config');
+const fetchJsonP = require('jsonp-promise');
+const cancellablePromise = require('./cancellable-promise');
+const config = require('../config');
 
 let Ajax = Object.create(null);
 
@@ -11,7 +11,7 @@ Ajax.fetch = (url, options = {}) => {
 
   options = Object.assign({}, config.defaults.ajaxOptions, options);
 
-  var promise;
+  let promise;
   if (options.jsonp) {
     promise = fetchJsonP(url).promise;
   } else {

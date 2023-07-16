@@ -1,8 +1,8 @@
 "use strict";
 
-var scribeHeadingPlugin = function(block) {
-  return function(scribe) {
-    let { defaultHeadingLevel, headingLevels } = block.editorOptions;
+const scribeHeadingPlugin = function (block) {
+  return function (scribe) {
+    let {defaultHeadingLevel, headingLevels} = block.editorOptions;
     headingLevels = headingLevels.sort();
     const minHeadingLevel = headingLevels[0];
     const maxHeadingLevel = headingLevels[headingLevels.length - 1];
@@ -24,7 +24,7 @@ var scribeHeadingPlugin = function(block) {
       const level = headingLevels[nextIndex];
       const blockType = level ? 'Heading' : 'Text';
 
-      var data = {
+      const data = {
         format: 'html',
         level: level,
         text: block.getScribeInnerContent()

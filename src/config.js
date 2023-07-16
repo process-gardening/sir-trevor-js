@@ -1,8 +1,8 @@
 "use strict";
 
-var _ = require('./lodash');
+const _ = require('./lodash');
 
-var drop_options = {
+const drop_options = {
   title: (block) => {
     return i18n.t(`blocks:${block.type}:drop_title`) || _.result(block, "title");
   },
@@ -21,7 +21,7 @@ var drop_options = {
 };
 
 
-var paste_options = {
+const paste_options = {
   html: `
     <input type="text" placeholder="<%= i18n.t("general:paste") %>" class="st-block__paste-input st-paste-block">
   `
@@ -36,7 +36,7 @@ var paste_options = {
   ].join('\n')
 };*/
 
-var upload_options = {
+const upload_options = {
   html: `
     <div class="st-block__upload-container">
       <input type="file" type="st-file-upload">

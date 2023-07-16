@@ -6,11 +6,11 @@ paragraph that has been added.
 */
 
 function createListBlock(block, listItems) {
-  var listItemContent = listItems.map(function(listItemNode) {
-    var content = listItemNode.innerHTML.substr(2);
+  const listItemContent = listItems.map(function (listItemNode) {
+    const content = listItemNode.innerHTML.substr(2);
     return {content: content};
   });
-  var listData = {
+  const listData = {
     format: 'html',
     listItems: listItemContent.reverse()
   };
@@ -26,11 +26,11 @@ function handleListItems(block, listItemsToCreate) {
 
 // In firefox when you paste any text is wraps in a paragraph block which we don't want.
 function removeWrappingParagraphForFirefox(value) {
-  var fakeContent = document.createElement('div');
+  const fakeContent = document.createElement('div');
   fakeContent.innerHTML = value;
 
   if (fakeContent.childNodes.length === 1) {
-    var node = [].slice.call(fakeContent.childNodes)[0];
+    const node = [].slice.call(fakeContent.childNodes)[0];
     if (node && node.nodeName === "P") {
       value = node.innerHTML;
     }
@@ -39,18 +39,18 @@ function removeWrappingParagraphForFirefox(value) {
   return value;
 }
 
-var scribePastePlugin = function(block) {
+const scribePastePlugin = function (block) {
 
   function isMsWordListParagraph(node) {
     if (block.editorOptions.blockTypes.indexOf("List") === -1) return false;
-    var matchingClassnames = node.className.split(" ").filter(function(className) {
+    const matchingClassnames = node.className.split(" ").filter(function (className) {
       return className.startsWith("MsoListParagraph");
     });
     return matchingClassnames.length > 0;
   }
 
-  return function(scribe) {
-    var insertHTMLCommandPatch = new scribe.api.CommandPatch('insertHTML');
+  return function (scribe) {
+    const insertHTMLCommandPatch = new scribe.api.CommandPatch('insertHTML');
 
     insertHTMLCommandPatch.execute = function (value) {
       scribe.transactionManager.run(() => {
@@ -59,32 +59,32 @@ var scribePastePlugin = function(block) {
 
         scribe.api.CommandPatch.prototype.execute.call(this, value);
 
-        var fakeContent = document.createElement('div');
+        const fakeContent = document.createElement('div');
         fakeContent.innerHTML = scribe.getContent();
 
         if (fakeContent.childNodes.length > 1) {
-          var nodes = [].slice.call(fakeContent.childNodes);
-          var listItemsToCreate = [];
-          var listIsFirstItem = false;
+          const nodes = [].slice.call(fakeContent.childNodes);
+          let listItemsToCreate = [];
+          let listIsFirstItem = false;
 
-          var blockToFocus;
+          let blockToFocus;
 
           function assignBlockToFocus(focusBlock) {
             blockToFocus = focusBlock;
             block.mediator.off("block:created", assignBlockToFocus);
           }
 
-          var firstNode = nodes[0];
+          const firstNode = nodes[0];
           if (isMsWordListParagraph(firstNode)) {
             listIsFirstItem = true;
             scribe.setContent("");
           } else {
-            scribe.setContent( nodes.shift().innerHTML );
+            scribe.setContent(nodes.shift().innerHTML);
           }
 
           block.mediator.on("block:created", assignBlockToFocus);
 
-          nodes.reverse().forEach(function(node) {
+          nodes.reverse().forEach(function (node) {
             if (isMsWordListParagraph(node)) {
               // Start building list
               listItemsToCreate.push(node);
@@ -93,11 +93,11 @@ var scribePastePlugin = function(block) {
               listItemsToCreate = handleListItems(block, listItemsToCreate);
 
               // Now create the text block
-              var data = {
+              const data = {
                 format: 'html',
                 text: node.innerHTML
               };
-              block.mediator.trigger("block:create", 'Text', data, block.el, { autoFocus: true });
+              block.mediator.trigger("block:create", 'Text', data, block.el, {autoFocus: true});
             }
           });
 
@@ -112,7 +112,7 @@ var scribePastePlugin = function(block) {
           blockToFocus.focusAtEnd();
 
         } else {
-          var node = fakeContent.firstChild;
+          const node = fakeContent.firstChild;
 
           if (isMsWordListParagraph(node)) {
             scribe.setContent("");

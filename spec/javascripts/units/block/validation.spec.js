@@ -1,7 +1,7 @@
 "use strict";
 
 describe("Block:Validation", function(){
-  var element, editor, block;
+  let element, editor, block;
 
   beforeEach(function(){
     element = global.createBaseElement();
@@ -57,7 +57,7 @@ describe("Block:Validation", function(){
 
   describe("validateField", function(){
 
-    var field;
+    let field;
 
     beforeEach(function(){
       field = document.createElement("input");

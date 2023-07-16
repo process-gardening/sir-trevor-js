@@ -1,9 +1,9 @@
 "use strict";
 
-var driver = require('selenium-webdriver');
+const driver = require('selenium-webdriver');
 
-var APP_URL = 'http://localhost:8000/spec/app/index.html';
-var USE_SAUCELABS = true;
+const APP_URL = 'http://localhost:8000/spec/app/index.html';
+const USE_SAUCELABS = true;
 
 exports.findElementByCss = function(css, parent) {
   return (parent || exports.browser).findElement(driver.By.css(css));
@@ -100,8 +100,8 @@ exports.createBlock = function(blockType, cb) {
 
   exports.findBlocks().then( function(blocks) {
     if (blocks.length > 0) {
-      var element = blocks[blocks.length-1];
-      var classes, type;
+      const element = blocks[blocks.length - 1];
+      let classes, type;
       element.getAttribute('class').then( function(className) {
         classes = className.split(' ');
         return element.getAttribute('data-type');
@@ -167,7 +167,7 @@ exports.focusOnListBlock = function(index) {
 };
 
 exports.initSirTrevor = function(data) {
-  var javascriptString = [];
+  const javascriptString = [];
 
   if (data) {
     data = JSON.stringify(data).replace("'", "\\'");
@@ -197,7 +197,7 @@ exports.catchError = function(err) { return false; };
 
 exports.completeAlertPopup = function(text) {
   return exports.browser.wait(driver.until.alertIsPresent()).then( function() {
-    var alert = exports.browser.switchTo().alert();
+    const alert = exports.browser.switchTo().alert();
     alert.sendKeys(text);
     return alert.accept();
   });
@@ -205,9 +205,9 @@ exports.completeAlertPopup = function(text) {
 
 beforeAll(function() {
 
-  var serverUrl = null;
+  let serverUrl = null;
 
-  var capabilities = {
+  const capabilities = {
     browserName: 'chrome'
   };
 

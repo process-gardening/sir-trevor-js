@@ -1,13 +1,13 @@
 "use strict";
 
-var dropEvents = require('./helpers/drop-events');
+const dropEvents = require('./helpers/drop-events');
 
-var EventBus = require('./event-bus');
-var Dom = require('./packages/dom');
+const EventBus = require('./event-bus');
+const Dom = require('./packages/dom');
 
-var config = require('./config');
+const config = require('./config');
 
-var BlockReorder = function (block_element, mediator) {
+const BlockReorder = function (block_element, mediator) {
   this.block = block_element;
   this.blockID = this.block.getAttribute('id');
   this.mediator = mediator;
@@ -28,7 +28,7 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
   attributes: function () {
     return {
       'html': `
-        
+
           <svg role="img" class="st-icon">
             <use xlink:href="${config.defaults.iconUrl}#drag-handle"/>
           </svg>
@@ -61,7 +61,7 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
     ev.preventDefault();
     ev.stopPropagation(); // only once
 
-    var dropped_on = this.block,
+    const dropped_on = this.block,
       item_id = ev.dataTransfer.getData("text/plain"),
       block_div = document.querySelector('#' + item_id);
 
@@ -88,7 +88,7 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
       let editor_from = SirTrevor.getInstance(editor_from_id);
 
       // create new one
-      var block = editor_from.blockManager.findBlockById(block_div.getAttribute("id"));
+      const block = editor_from.blockManager.findBlockById(block_div.getAttribute("id"));
       console.log(block);
       this.mediator.trigger("block:create", block.type, block._serializeData(),
         dropped_on, { autoFocus: true });
@@ -107,9 +107,8 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
     // set drop zone i18n text
 
 
-
-    var block = this.block;  // st-block__card-inner to skip margin
-    var card = this.block.querySelector('.st-block__card-upper');
+    const block = this.block;  // st-block__card-inner to skip margin
+    const card = this.block.querySelector('.st-block__card-upper');
     console.log(`width: ${card.clientWidth} height: ${card.clientHeight}`);
 
     //this.dragEl = block.cloneNode(true);

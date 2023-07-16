@@ -1,7 +1,7 @@
 "use strict";
 
-var _ = require('./lodash');
-var Dom = require('./packages/dom');
+const _ = require('./lodash');
+const Dom = require('./packages/dom');
 
 module.exports = {
   tagName: 'div',
@@ -23,11 +23,11 @@ module.exports = {
 
   _ensureElement: function() {
     if (!this.el) {
-      var attrs = Object.assign({}, _.result(this, 'attributes'));
+      const attrs = Object.assign({}, _.result(this, 'attributes'));
       if (this.id) { attrs.id = this.id; }
       if (this.className) { attrs['class'] = this.className; }
 
-      var el = Dom.createElement(this.tagName, attrs);
+      const el = Dom.createElement(this.tagName, attrs);
       this._setElement(el);
     } else {
       this._setElement(this.el);

@@ -6,11 +6,11 @@
  * We can easily extend this and store it on some server or something
  */
 
-var _ = require('../lodash');
-var utils = require('../utils');
+const _ = require('../lodash');
+const utils = require('../utils');
 
 
-var EditorStore = function(data, mediator) {
+const EditorStore = function (data, mediator) {
   this.mediator = mediator;
   this.initialize(data ? data.trim() : '');
 };
@@ -40,13 +40,13 @@ Object.assign(EditorStore.prototype, {
   },
 
   _parseData: function(data) {
-    var result;
+    let result;
 
     if (data.length === 0) { return result; }
 
     try {
       // Ensure the JSON string has a data element that's an array
-      var jsonStr = JSON.parse(data);
+      const jsonStr = JSON.parse(data);
       if (!_.isUndefined(jsonStr.data)) {
         result = jsonStr;
       }

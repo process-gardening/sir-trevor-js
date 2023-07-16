@@ -2,7 +2,7 @@
 
 describe("Controllable Block", function(){
 
-  var element, editor, block, testHandler;
+  let element, editor, block, testHandler;
 
   beforeEach(function(){
     element = global.createBaseElement();
@@ -45,7 +45,7 @@ describe("Controllable Block", function(){
     });
 
     xit("runs the handler on click", function(){
-      var event = new MouseEvent("click");
+      const event = new MouseEvent("click");
 
       block.control_ui.querySelector('.st-block-control-ui-btn').dispatchEvent(event);
       expect(testHandler)

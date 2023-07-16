@@ -1,8 +1,8 @@
 "use strict";
 
-var _ = require('../lodash');
-var utils = require('../utils');
-var Block = require('../block');
+const _ = require('../lodash');
+const utils = require('../utils');
+const Block = require('../block');
 
 module.exports = Block.extend({
 
@@ -30,12 +30,12 @@ module.exports = Block.extend({
   loadData: function(data){
     if (!this.providers.hasOwnProperty(data.source)) { return; }
 
-    var source = this.providers[data.source];
+    const source = this.providers[data.source];
 
-    var protocol = window.location.protocol === "file:" ?
+    const protocol = window.location.protocol === "file:" ?
       "http:" : window.location.protocol;
 
-    var aspectRatioClass = source.square ?
+    const aspectRatioClass = source.square ?
       'with-square-media' : 'with-sixteen-by-nine-media';
 
     this.editor.classList.add('st-block__editor--' + aspectRatioClass);
@@ -51,7 +51,7 @@ module.exports = Block.extend({
   },
 
   matchVideoProvider: function(provider, index, url) {
-    var match = provider.regex.exec(url);
+    const match = provider.regex.exec(url);
     if(match == null || _.isUndefined(match[1])) { return {}; }
 
     return {
@@ -63,7 +63,7 @@ module.exports = Block.extend({
   handleDropPaste: function(url){
     if (!utils.isURI(url)) { return; }
 
-    for(var key in this.providers) {
+    for(let key in this.providers) {
       if (!this.providers.hasOwnProperty(key)) { continue; }
       this.setAndLoadData(
         this.matchVideoProvider(this.providers[key], key, url)
@@ -72,14 +72,14 @@ module.exports = Block.extend({
   },
 
   onDrop: function(transferData){
-    var url = transferData.getData('text/plain');
+    const url = transferData.getData('text/plain');
     this.handleDropPaste(url);
   },
 
   asClipboardHTML: function() {
-    var data = this.getBlockData();
-    var source = this.providers[data.source];
-    var src = source.url(data.remote_id);
+    const data = this.getBlockData();
+    const source = this.providers[data.source];
+    const src = source.url(data.remote_id);
     return `<p>${src}</p>`;
   }
 });

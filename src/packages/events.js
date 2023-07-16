@@ -1,32 +1,32 @@
 "use strict";
 
-var Dom = require("./dom");
+const Dom = require("./dom");
 
-var fixEvent = function(e, target) {
-  var obj = {};
+const fixEvent = function (e, target) {
+  const obj = {};
 
   // Events don't work as normal objects, so need to copy properties directly.
   // List and matchers taken from jQuery.Event.fix.
   // For other properties refer to the originalEvent object.
 
-  var props = {
-    shared: ( "altKey bubbles cancelable ctrlKey currentTarget detail eventPhase " +
-      "metaKey relatedTarget shiftKey target timeStamp view which" ).split(" "),
-    mouseEvent: ( "button buttons clientX clientY offsetX offsetY pageX pageY " +
-        "screenX screenY toElement" ).split(" "),
+  const props = {
+    shared: ("altKey bubbles cancelable ctrlKey currentTarget detail eventPhase " +
+      "metaKey relatedTarget shiftKey target timeStamp view which").split(" "),
+    mouseEvent: ("button buttons clientX clientY offsetX offsetY pageX pageY " +
+      "screenX screenY toElement").split(" "),
     keyEvent: "char charCode key keyCode".split(" ")
   };
 
-  var rkeyEvent = /^key/,
-      rmouseEvent = /^(?:mouse|pointer|contextmenu|drag|drop)|click/;
+  const rkeyEvent = /^key/,
+    rmouseEvent = /^(?:mouse|pointer|contextmenu|drag|drop)|click/;
 
-  var propsToCopy =
-    rmouseEvent.test( e.type ) ? props.shared.concat(props.mouseEvent) :
-    rkeyEvent.test( e.type ) ? props.shared.concat(props.keyEvent) :
-          props.shared;
+  const propsToCopy =
+    rmouseEvent.test(e.type) ? props.shared.concat(props.mouseEvent) :
+      rkeyEvent.test(e.type) ? props.shared.concat(props.keyEvent) :
+        props.shared;
 
-  var prop;
-  for(var i = 0; i < propsToCopy.length; i++) {
+  let prop;
+  for (let i = 0; i < propsToCopy.length; i++) {
     prop = propsToCopy[i];
     obj[prop] = e[prop];
   }
@@ -34,14 +34,14 @@ var fixEvent = function(e, target) {
   obj.currentTarget = target;
   obj.originalEvent = e;
 
-  obj.preventDefault = function() {
-    if ( this.originalEvent ) {
+  obj.preventDefault = function () {
+    if (this.originalEvent) {
       this.originalEvent.preventDefault();
     }
   };
 
-  obj.stopPropagation = function() {
-    if ( this.originalEvent ) {
+  obj.stopPropagation = function () {
+    if (this.originalEvent) {
       this.originalEvent.stopPropagation();
     }
   };
@@ -52,7 +52,7 @@ var fixEvent = function(e, target) {
 module.exports.delegate =
   function delegate(el, selector, event, fn, useCapture = false) {
     el.addEventListener(event, (e) => {
-      var target = e.target;
+      let target = e.target;
       for (target; target && target !== el; target = target.parentNode) {
         if (Dom.matches(target, selector)) {
           fn.call(target, fixEvent(e, target));

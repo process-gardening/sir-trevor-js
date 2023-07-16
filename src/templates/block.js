@@ -1,6 +1,6 @@
 "use strict";
 
-var config = require('../config');
+const config = require('../config');
 const BLOCK_ADDITION_TOP_TEMPLATE = require("./block-addition-top");
 //const BLOCK_ADDITION_TEMPLATE = require("./block-addition");
 const BLOCK_ADDITION_FULL_TEMPLATE = require("./block-addition-full");
@@ -17,9 +17,9 @@ module.exports = (editor_html) => {
         </div>
       </div>
     </div>
-        
+
     ${ (config.defaults.editorMode === 'document') ? BLOCK_REPLACER_TEMPLATE() : '' }
-    
+
     ${ (config.defaults.editorMode === 'document') ? BLOCK_ADDITION_TOP_TEMPLATE() : BLOCK_ADDITION_FULL_TEMPLATE() }
   `;
 };

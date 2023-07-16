@@ -1,15 +1,15 @@
 "use strict";
 
-var config = require('./config');
-var utils = require('./utils');
+const config = require('./config');
+const utils = require('./utils');
 
-var EventBus = require('./event-bus');
-var Submittable = require('./extensions/submittable');
+const EventBus = require('./event-bus');
+const Submittable = require('./extensions/submittable');
 
-var formBound = false; // Flag to tell us once we've bound our submit event
+let formBound = false; // Flag to tell us once we've bound our submit event
 
-var FormEvents = {
-  bindFormSubmit: function(form) {
+const FormEvents = {
+  bindFormSubmit: function (form) {
     if (!formBound) {
       // XXX: should we have a formBound and submittable per-editor?
       // telling JSHint to ignore as it'll complain we shouldn't be creating
@@ -21,10 +21,10 @@ var FormEvents = {
     }
   },
 
-  onBeforeSubmit: function(shouldValidate) {
+  onBeforeSubmit: function (shouldValidate) {
     // Loop through all of our instances and do our form submits on them
-    var errors = 0;
-    config.instances.forEach(function(inst, i) {
+    let errors = 0;
+    config.instances.forEach(function (inst, i) {
       errors += inst.onFormSubmit(shouldValidate);
     });
     utils.log("Total errors: " + errors);
@@ -32,10 +32,10 @@ var FormEvents = {
     return errors;
   },
 
-  onFormSubmit: function(ev) {
-    var errors = FormEvents.onBeforeSubmit();
+  onFormSubmit: function (ev) {
+    const errors = FormEvents.onBeforeSubmit();
 
-    if(errors > 0) {
+    if (errors > 0) {
       EventBus.trigger("onError");
       ev.preventDefault();
     }

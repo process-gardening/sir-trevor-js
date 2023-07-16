@@ -1,16 +1,16 @@
 'use strict';
 
-var helpers = require('./helpers');
-var driver = require('selenium-webdriver');
+const helpers = require('./helpers');
+const driver = require('selenium-webdriver');
 
-var getClipboardData = function() {
-  var str = "return document.body.querySelector('.st-copy-area').innerHTML;";
+const getClipboardData = function () {
+  const str = "return document.body.querySelector('.st-copy-area').innerHTML;";
   return helpers.browser.executeScript(str);
 };
 
 describe('Selection', function() {
 
-  var data = {
+  const data = {
     "data": [
       {
         "type": "text",
@@ -25,7 +25,7 @@ describe('Selection', function() {
             {"content": "T<b>w</b>o"},
             {"content": "T<b>hre</b>e"}
           ],
-          "format":"html",
+          "format": "html",
         }
       },
       {

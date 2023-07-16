@@ -4,15 +4,15 @@
   Text Block
 */
 
-var Block = require('../block');
-var stToHTML = require('../to-html');
+const Block = require('../block');
+const stToHTML = require('../to-html');
 
-var ScribeTextBlockPlugin = require('./scribe-plugins/scribe-text-block-plugin');
-var ScribePastePlugin = require('./scribe-plugins/scribe-paste-plugin');
-var ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
-var ScribeLinkPromptPlugin = require('./scribe-plugins/scribe-link-prompt-plugin');
-var ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
-var ScribeSuperscriptPromptPlugin = require('./scribe-plugins/scribe-superscript-prompt-plugin');
+const ScribeTextBlockPlugin = require('./scribe-plugins/scribe-text-block-plugin');
+const ScribePastePlugin = require('./scribe-plugins/scribe-paste-plugin');
+const ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
+const ScribeLinkPromptPlugin = require('./scribe-plugins/scribe-link-prompt-plugin');
+const ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
+const ScribeSuperscriptPromptPlugin = require('./scribe-plugins/scribe-superscript-prompt-plugin');
 
 module.exports = Block.extend({
 
@@ -65,7 +65,7 @@ module.exports = Block.extend({
   },
 
   asClipboardHTML: function() {
-    var data = this.getBlockData();
+    const data = this.getBlockData();
     return `${data.text}`;
   }
 });

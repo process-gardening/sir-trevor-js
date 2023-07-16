@@ -1,7 +1,7 @@
 // Karma configuration
 //
 
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = function(config) {
   config.set({

@@ -13,9 +13,9 @@ require('./vendor/custom-event')
 require('./vendor/ie-classlist-toggle');
 require('./vendor/dom-shims');
 
-var utils = require('./utils');
+const utils = require('./utils');
 
-var SirTrevor = {
+const SirTrevor = {
 
   config: require('./config'),
 
@@ -50,14 +50,14 @@ var SirTrevor = {
   toMarkdown: require('./to-markdown'),
   toHTML: require('./to-html'),
 
-  setDefaults: function(options) {
+  setDefaults: function (options) {
     Object.assign(SirTrevor.config.defaults, options || {});
   },
 
   getInstance: utils.getInstance,
 
-  setBlockOptions: function(type, options) {
-    var block = SirTrevor.Blocks[type];
+  setBlockOptions: function (type, options) {
+    const block = SirTrevor.Blocks[type];
 
     if (typeof block === "undefined") {
       return;
@@ -66,10 +66,10 @@ var SirTrevor = {
     Object.assign(block.prototype, options || {});
   },
 
-  runOnAllInstances: function(method) {
+  runOnAllInstances: function (method) {
     if (SirTrevor.Editor.prototype.hasOwnProperty(method)) {
-      var methodArgs = Array.prototype.slice.call(arguments, 1);
-      Array.prototype.forEach.call(SirTrevor.config.instances, function(i) {
+      const methodArgs = Array.prototype.slice.call(arguments, 1);
+      Array.prototype.forEach.call(SirTrevor.config.instances, function (i) {
         i[method].apply(null, methodArgs);
       });
     } else {

@@ -1,13 +1,13 @@
 "use strict";
 
-var _ = require('./lodash');
-var Dom = require('./packages/dom');
+const _ = require('./lodash');
+const Dom = require('./packages/dom');
 
-var ErrorHandler = function(wrapper, mediator, container) {
+const ErrorHandler = function (wrapper, mediator, container) {
   this.wrapper = wrapper;
   this.mediator = mediator;
   this.el = container;
-  
+
   if (_.isUndefined(this.el)) {
     this._ensureElement();
     this.wrapper.insertBefore(this.el, this.wrapper.firstChild);
@@ -34,8 +34,8 @@ Object.assign(ErrorHandler.prototype, require('./function-bind'), require('./med
   },
 
   initialize: function() {
-    var list = document.createElement("ul");
-    var p = document.createElement("p");
+    const list = document.createElement("ul");
+    const p = document.createElement("p");
     p.innerHTML = i18n.t("errors:title");
 
     this.el.appendChild(p)
@@ -50,7 +50,7 @@ Object.assign(ErrorHandler.prototype, require('./function-bind'), require('./med
   },
 
   createErrorItem: function(errorObj) {
-    var error = document.createElement("li");
+    const error = document.createElement("li");
     error.classList.add("st-errors__msg");
     error.innerHTML = errorObj.text;
     this.list.appendChild(error);

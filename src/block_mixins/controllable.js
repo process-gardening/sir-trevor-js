@@ -1,9 +1,9 @@
 "use strict";
 
-var utils = require('../utils');
-var config = require('../config');
-var Dom = require('../packages/dom');
-var Events = require('../packages/events');
+const utils = require('../utils');
+const config = require('../config');
+const Dom = require('../packages/dom');
+const Events = require('../packages/events');
 
 module.exports = {
 
@@ -45,7 +45,7 @@ module.exports = {
   },
 
   selectUiControl: function(cmd) {
-    var selectedClass = 'st-block-control-ui-btn--selected';
+    const selectedClass = 'st-block-control-ui-btn--selected';
     Object.keys(this.controls).forEach(control => {
       this.getControlUiBtn(control).classList.remove(selectedClass);
     });

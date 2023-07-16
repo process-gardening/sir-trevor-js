@@ -2,10 +2,10 @@
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
-var helpers = require('./helpers');
+const helpers = require('./helpers');
 
 // Only set to blocks that are controllable.
-var blockTypes = ["list", "image", "video", "tweet"]; // jshint ignore:line
+const blockTypes = ["list", "image", "video", "tweet"]; // jshint ignore:line
 
 describe('Empty data', function() {
 
@@ -26,7 +26,7 @@ describe('Empty data', function() {
         done();
         return;
       }
-      var blockType = blockTypes[currentBlock];
+      const blockType = blockTypes[currentBlock];
       helpers.createBlock(blockType, function() {
         createNextBlock(currentBlock+1);
       });
@@ -35,7 +35,8 @@ describe('Empty data', function() {
   });
 
   it('should allow removal of block', function(done) {
-    var classes, type;
+    let classes, type;
+
     function deleteBlock(currentBlock) {
       if (currentBlock === blockTypes.length) {
         done();
@@ -96,7 +97,7 @@ describe('Existing data', function() {
 
   beforeEach(function(done) {
 
-    var data = {
+    const data = {
       "data": [
         {
           "type": "text",
@@ -125,7 +126,7 @@ describe('Existing data', function() {
 
   describe('should allow reordering of blocks', function() {
 
-    var blocks;
+    let blocks;
 
     beforeEach(function(done) {
       helpers.findBlocks().then( function(elements) {
@@ -135,7 +136,7 @@ describe('Existing data', function() {
     });
 
     it('with select box', function(done) {
-      var id;
+      let id;
       blocks[1].getAttribute('id').then( function(res) {
         id = res;
       }).then( function() {
@@ -153,13 +154,13 @@ describe('Existing data', function() {
     });
 
     it('with drag and drop', function(done) {
-      var id;
+      let id;
       return blocks[1].getAttribute('id').then( function(res) {
         id = res;
       }).then( function() {
         return helpers.browser.executeScript( function() {
-          var elements = document.querySelectorAll('.st-block');
-          var topControls = document.querySelector('.st-top-controls');
+          const elements = document.querySelectorAll('.st-block');
+          const topControls = document.querySelector('.st-top-controls');
           window.simulateDragDrop(elements[1].querySelector('.st-block-ui-btn__reorder'), {dropTarget: topControls});
         });
       }).then(helpers.findBlocks)

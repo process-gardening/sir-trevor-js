@@ -11,17 +11,16 @@ String.prototype.rightChars = function(n){
 };
 
 (function($) {
-  var
-    options = {
-      highlightSpeed    : 20,
-      typeSpeed         : 100,
-      clearDelay        : 500,
-      typeDelay         : 200,
-      clearOnHighlight  : true,
-      typerDataAttr     : 'data-typer-targets',
-      typerInterval     : 2000
-    },
-    highlight,
+  const options = {
+    highlightSpeed: 20,
+    typeSpeed: 100,
+    clearDelay: 500,
+    typeDelay: 200,
+    clearOnHighlight: true,
+    typerDataAttr: 'data-typer-targets',
+    typerInterval: 2000
+  };
+  let highlight,
     clearText,
     backspace,
     type,
@@ -62,8 +61,7 @@ String.prototype.rightChars = function(n){
   };
 
   type = function ($e) {
-    var
-      // position = $e.data('typePosition'),
+    const // position = $e.data('typePosition'),
       text = $e.data('text'),
       oldLeft = $e.data('oldLeft'),
       oldRight = $e.data('oldRight');
@@ -104,8 +102,7 @@ String.prototype.rightChars = function(n){
   };
 
   highlight = function ($e) {
-    var
-      position = $e.data('highlightPosition'),
+    let position = $e.data('highlightPosition'),
       leftText,
       highlightedText,
       rightText;
@@ -144,7 +141,7 @@ String.prototype.rightChars = function(n){
   };
 
   typeWithAttribute = function ($e) {
-    var targets;
+    let targets;
 
     if ($e.data('typing')) {
       return;
@@ -160,8 +157,8 @@ String.prototype.rightChars = function(n){
       });
     }
 
-    var prevItem = $e.data("typeIndex"),
-        nextItem = (typeof prevItem === "undefined") ? 0 : (prevItem + 1 < targets.length) ? prevItem + 1 : 0;
+    const prevItem = $e.data("typeIndex"),
+      nextItem = (typeof prevItem === "undefined") ? 0 : (prevItem + 1 < targets.length) ? prevItem + 1 : 0;
 
     $e.data('typeIndex', nextItem);
     $e.typeTo(targets[nextItem]);
@@ -179,14 +176,14 @@ String.prototype.rightChars = function(n){
   //-- Methods to attach to jQuery sets
 
   $.fn.typer = function() {
-    var $elements = $(this);
+    let $elements = $(this);
 
     $elements = $elements.filter(function () {
       return typeof $(this).attr($.typer.options.typerDataAttr) !== "undefined";
     });
 
     $elements.each(function () {
-      var $e = $(this);
+      const $e = $(this);
 
       typeWithAttribute($e);
       setInterval(function () {
@@ -196,10 +193,9 @@ String.prototype.rightChars = function(n){
   };
 
   $.fn.typeTo = function (newString) {
-    var
-      $e = $(this),
-      currentText = $e.text(),
-      i = 0,
+    const $e = $(this),
+      currentText = $e.text();
+    let i = 0,
       j = 0;
 
     if (currentText === newString) {

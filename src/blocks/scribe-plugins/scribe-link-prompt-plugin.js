@@ -1,10 +1,10 @@
 "use strict";
 
-var selectionRange = require('selection-range');
-var Modal = require('../../packages/modal');
+const selectionRange = require('selection-range');
+const Modal = require('../../packages/modal');
 
-var MODAL_FORM_TEMPLATE = ({ enableExternalLinks, modal, new_tab, url }) => {
-  var checkbox = enableExternalLinks ? `
+const MODAL_FORM_TEMPLATE = ({enableExternalLinks, modal, new_tab, url}) => {
+  const checkbox = enableExternalLinks ? `
     <p>
       <label>
         <input id="${modal.id}-target" type="checkbox" ${new_tab ? 'checked="checked"' : ""} />
@@ -18,12 +18,12 @@ var MODAL_FORM_TEMPLATE = ({ enableExternalLinks, modal, new_tab, url }) => {
     </p>
     ${checkbox}
   `;
-}
+};
 
 const scribeLinkPromptPlugin = function(block) {
   // ===== INIT ===== //
-  var block = block || {};
-  var modal = new Modal();
+  block = block || {};
+  const modal = new Modal();
 
   if (!block.transforms) {
     block.transforms = {};
@@ -36,38 +36,38 @@ const scribeLinkPromptPlugin = function(block) {
   });
 
   // ===== PROMPTS ===== //
-  var userPrompts = [
+  const userPrompts = [
     {
       // For emails we just look for a `@` symbol as it is easier.
       regexp: /@/,
-      message: i18n.t("formatters:link:message", { type: i18n.t("formatters:link:types:email"), prefix: 'mailto:' }),
-      action: function(link) {
+      message: i18n.t("formatters:link:message", {type: i18n.t("formatters:link:types:email"), prefix: 'mailto:'}),
+      action: function (link) {
         return 'mailto:' + link;
       }
     },
     {
       // For tel numbers check for + and numerical values
       regexp: /\+?\d+/,
-      message: i18n.t("formatters:link:message", { type: i18n.t("formatters:link:types:telephone"), prefix: 'tel:' }),
-      action: function(link) {
+      message: i18n.t("formatters:link:message", {type: i18n.t("formatters:link:types:telephone"), prefix: 'tel:'}),
+      action: function (link) {
         return 'tel:' + link;
       }
     },
     {
       regexp: /.+/,
-      message: i18n.t("formatters:link:message", { type: i18n.t("formatters:link:types:url"), prefix: 'http://' }),
-      action: function(link) {
+      message: i18n.t("formatters:link:message", {type: i18n.t("formatters:link:types:url"), prefix: 'http://'}),
+      action: function (link) {
         return 'http://' + link;
       }
     }
   ];
 
   function processPrompt(window, link) {
-    for (var i = 0; i < userPrompts.length; i++) {
-      var prompt = userPrompts[i];
+    for (let i = 0; i < userPrompts.length; i++) {
+      const prompt = userPrompts[i];
 
       if (prompt.regexp.test(link)) {
-        var userResponse = window.confirm(prompt.message);
+        const userResponse = window.confirm(prompt.message);
 
         if (userResponse) {
           // Only process the first prompt
@@ -81,10 +81,10 @@ const scribeLinkPromptPlugin = function(block) {
   }
 
   // ===== CHECKS ===== //
-  var urlProtocolRegExp = /^https?\:\/\//;
-  var mailtoProtocolRegExp = /^mailto\:/;
-  var telProtocolRegExp = /^tel\:/;
-  var knownProtocols = [urlProtocolRegExp, mailtoProtocolRegExp, telProtocolRegExp];
+  const urlProtocolRegExp = /^https?\:\/\//;
+  const mailtoProtocolRegExp = /^mailto\:/;
+  const telProtocolRegExp = /^tel\:/;
+  const knownProtocols = [urlProtocolRegExp, mailtoProtocolRegExp, telProtocolRegExp];
 
   function emptyLink(string) {
     return /\w/.test(string);
@@ -116,16 +116,16 @@ const scribeLinkPromptPlugin = function(block) {
        * the `createLink` and `unlink` commands are not supported.
        * As per: http://jsbin.com/OCiJUZO/1/edit?js,console,output
        */
-      var selection = new scribe.api.Selection();
+      const selection = new scribe.api.Selection();
       return !! selection.getContaining(function(node) {
         return node.nodeName === linkPromptCommand.nodeName;
       });
     };
 
     linkPromptCommand.execute = function linkPromptCommandExecute(passedLink) {
-      var selection = new scribe.api.Selection();
-      var range = selection.range;
-      var anchorNode = selection.getContaining(function(node) {
+      const selection = new scribe.api.Selection();
+      const range = selection.range;
+      const anchorNode = selection.getContaining(function (node) {
         return node.nodeName === linkPromptCommand.nodeName;
       });
 
@@ -135,10 +135,10 @@ const scribeLinkPromptPlugin = function(block) {
         selection.selection.addRange(range);
       }
 
-      var initialLink = anchorNode ? anchorNode.href : '';
-      var initialTabState = anchorNode && anchorNode.target == '_blank';
+      const initialLink = anchorNode ? anchorNode.href : '';
+      const initialTabState = anchorNode && anchorNode.target == '_blank';
 
-      var form = MODAL_FORM_TEMPLATE({
+      const form = MODAL_FORM_TEMPLATE({
         modal: modal,
         url: passedLink || initialLink,
         new_tab: initialTabState,
@@ -149,10 +149,10 @@ const scribeLinkPromptPlugin = function(block) {
         title: i18n.t("formatters:link:prompt"),
         content: form
       }, function(modal) {
-        var link = modal.el.querySelector(`#${modal.id}-url`).value;
-        var targetEl = modal.el.querySelector(`#${modal.id}-target`);
+        let link = modal.el.querySelector(`#${modal.id}-url`).value;
+        const targetEl = modal.el.querySelector(`#${modal.id}-target`);
 
-        var target = targetEl && targetEl.checked ? ' target="_blank"' : "";
+        const target = targetEl && targetEl.checked ? ' target="_blank"' : "";
         link = runTransforms(block.transforms.pre, link);
 
         if (!emptyLink(link)) {
@@ -161,7 +161,7 @@ const scribeLinkPromptPlugin = function(block) {
         }
 
         if (block && block.validation) {
-          var validationResult = block.validation(link);
+          const validationResult = block.validation(link);
 
           if (!validationResult.valid) {
             window.alert(validationResult.message ||  i18n.t("errors:link_invalid"));
@@ -176,11 +176,11 @@ const scribeLinkPromptPlugin = function(block) {
 
           link = runTransforms(block.transforms.post, link);
 
-          var selection = window.getSelection();
+          const selection = window.getSelection();
           selection.removeAllRanges();
           selection.addRange(range);
 
-          var html = `<a href="${link}"${target}>${selection}</a>`;
+          const html = `<a href="${link}"${target}>${selection}</a>`;
           document.execCommand('insertHTML', false, html);
         }
 

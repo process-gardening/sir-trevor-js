@@ -1,13 +1,13 @@
 "use strict";
 
-var Dom = require('./packages/dom');
+const Dom = require('./packages/dom');
 
-var template = [
+const template = [
   "<span class='st-block-positioner__selected-value'></span>",
   "<select class='st-block-positioner__select'></select>"
 ].join("\n");
 
-var BlockPositionerSelect = function(mediator) {
+const BlockPositionerSelect = function (mediator) {
   this.mediator = mediator;
 
   this._ensureElement();
@@ -40,7 +40,7 @@ Object.assign(BlockPositionerSelect.prototype, require('./function-bind'), requi
   },
 
   onSelectChange: function() {
-    var val = this.select.value;
+    const val = this.select.value;
     if (val !== 0) {
       this.mediator.trigger(
         "block:changePosition", this.positioner.block, val,
@@ -50,8 +50,8 @@ Object.assign(BlockPositionerSelect.prototype, require('./function-bind'), requi
   },
 
   renderPositionList: function() {
-    var inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
-    for(var i = 1; i <= this.total_blocks; i++) {
+    let inner = "<option value='0'>" + i18n.t("general:position") + "</option>";
+    for(let i = 1; i <= this.total_blocks; i++) {
       inner += "<option value="+i+">"+i+"</option>";
     }
     this.select.innerHTML = inner;

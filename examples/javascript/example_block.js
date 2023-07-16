@@ -105,7 +105,7 @@ SirTrevor.Blocks.Example = (function(){
 
     // Example custom validator
     myCustomValidator: function() {
-      var field = this.$('.a-field');
+      const field = this.$('.a-field');
 
       if (field.val() === 'herp derp') {
         this.setError(field, "A validation fail message");
@@ -124,9 +124,9 @@ SirTrevor.Blocks.Example = (function(){
     // The default toData function provides a pretty comprehensive way of turning data into JSON
     // In this example we take the text data and save it to the data object on the block
     toData: function(){
-      var dataObj = {};
+      const dataObj = {};
 
-      var content = this.getTextBlock().html();
+      const content = this.getTextBlock().html();
       if (content.length > 0) {
         dataObj.text = SirTrevor.toMarkdown(content, this.type);
       }

@@ -2,7 +2,7 @@
 
 describe("Editor:Submission", function(){
 
-  var element, editor;
+  let element, editor;
 
   beforeEach(function(){
     SirTrevor.instances = [];

@@ -2,14 +2,14 @@
 
 /* Adds drop functionality to this block */
 
-var _ = require('../lodash');
-var config = require('../config');
-var utils = require('../utils');
-var Dom = require('../packages/dom');
+const _ = require('../lodash');
+const config = require('../config');
+const utils = require('../utils');
+const Dom = require('../packages/dom');
 
-var dropEvents = require('../helpers/drop-events');
+const dropEvents = require('../helpers/drop-events');
 
-var EventBus = require('../event-bus');
+const EventBus = require('../event-bus');
 
 module.exports = {
 
@@ -27,7 +27,7 @@ module.exports = {
       Dom.hide(this.editor);
     }
 
-    var target = this.el.querySelector('#'+_.result(this, 'inputs_container'));
+    let target = this.el.querySelector('#' + _.result(this, 'inputs_container'));
     //var target = document.getElementById(_.result(this, 'insert_dropzone_into'));
     //var target = document.getElementById(this.drop_options.insert_dropzone_into);
     //console.log('target func: ' + _.result(this, 'inputs_container'));
@@ -58,7 +58,7 @@ module.exports = {
     e.preventDefault();
     e.stopPropagation();
 
-    var el = e.target,
+    const el = e.target,
       types = [].slice.call(e.dataTransfer.types);
 
     el.classList.remove('st-dropzone--dragover');

@@ -1,16 +1,16 @@
 "use strict";
 
-var utils = require('../../../../src/utils');
+const utils = require('../../../../src/utils');
 
 describe('Blocks: Markdown support', function() {
-  var data, block;
+  let data, block;
 
-  var createBlock = function(type, data) {
-    var element = global.createBaseElement();
-    var editor = new SirTrevor.Editor({ el: element });
-    var options = editor.blockManager.blockOptions;
-    var Klass = SirTrevor.Blocks[utils.classify(type)];
-    var block = new Klass(data, editor.id, editor.mediator, options, editor.options);
+  const createBlock = function (type, data) {
+    const element = global.createBaseElement();
+    const editor = new SirTrevor.Editor({el: element});
+    const options = editor.blockManager.blockOptions;
+    const Klass = SirTrevor.Blocks[utils.classify(type)];
+    const block = new Klass(data, editor.id, editor.mediator, options, editor.options);
 
     block.render();
     return block;
@@ -36,7 +36,7 @@ describe('Blocks: Markdown support', function() {
 
         it('calls toHtml on objects without format = "html"', function() {
           block = createBlock('Text', data);
-          var serializedData = block.getBlockData();
+          const serializedData = block.getBlockData();
 
           expect(block.toHTML).toHaveBeenCalled();
           expect(serializedData.text).toEqual('<p>test</p>');
@@ -45,7 +45,7 @@ describe('Blocks: Markdown support', function() {
         it('doesn\'t call toHtml on objects with format = "html"', function() {
           data.format = 'html';
           block = createBlock('Text', data);
-          var serializedData = block.getBlockData();
+          const serializedData = block.getBlockData();
 
           expect(serializedData.text).toEqual(data.text);
           expect(block.toHTML).not.toHaveBeenCalled();
@@ -62,7 +62,7 @@ describe('Blocks: Markdown support', function() {
 
         it('doesn\'t call toHtml', function() {
           block = createBlock('Text', data);
-          var serializedData = block.getBlockData();
+          const serializedData = block.getBlockData();
 
           expect(block.toHTML).not.toHaveBeenCalled();
           expect(serializedData.text).toEqual(data.text);
@@ -72,7 +72,7 @@ describe('Blocks: Markdown support', function() {
           data.format = 'html';
 
           block = createBlock('Text', data);
-          var serializedData = block.getBlockData();
+          const serializedData = block.getBlockData();
 
           expect(block.toHTML).not.toHaveBeenCalled();
           expect(serializedData.text).toEqual(data.text);
@@ -82,7 +82,7 @@ describe('Blocks: Markdown support', function() {
   });
 
   describe('QuoteBlock', function() {
-    var quote;
+    let quote;
 
     beforeEach(function() {
       quote = "Well, what if there is no tomorrow? There wasn't one today";
@@ -104,7 +104,7 @@ describe('Blocks: Markdown support', function() {
 
         it('calls toHtml on objects without format = "html"', function() {
           block = createBlock('Quote', data);
-          var serializedData = block.getBlockData();
+          const serializedData = block.getBlockData();
 
           expect(block.toHTML).toHaveBeenCalled();
           expect(serializedData.text).
@@ -115,7 +115,7 @@ describe('Blocks: Markdown support', function() {
           data.format = 'html';
 
           block = createBlock('Quote', data);
-          var serializedData = block.getBlockData();
+          const serializedData = block.getBlockData();
 
           expect(block.toHTML).not.toHaveBeenCalled();
           expect(serializedData.text).toEqual(data.text);
@@ -132,7 +132,7 @@ describe('Blocks: Markdown support', function() {
 
         it('doesn\'t call toHtml', function() {
           block = createBlock('Quote', data);
-          var serializedData = block.getBlockData();
+          const serializedData = block.getBlockData();
 
           expect(block.toHTML).not.toHaveBeenCalled();
           expect(serializedData.text).toEqual(data.text);
@@ -141,7 +141,7 @@ describe('Blocks: Markdown support', function() {
         it('ignores format value', function() {
           data.format = 'html';
           block = createBlock('Quote', data);
-          var serializedData = block.getBlockData();
+          const serializedData = block.getBlockData();
 
           expect(block.toHTML).not.toHaveBeenCalled();
           expect(serializedData.text).toEqual(data.text);

@@ -1,12 +1,12 @@
 'use strict';
 
-var helpers = require('./helpers');
-var driver = require('selenium-webdriver');
+const helpers = require('./helpers');
+const driver = require('selenium-webdriver');
 
 describe('Format Bar', function() {
 
   beforeEach( function() {
-    var data = {
+    const data = {
       "data": [
         {
           "type": "text",
@@ -28,9 +28,9 @@ describe('Format Bar', function() {
 
   xit('should allow formatting of text', function(done) {
 
-    var testUrl = 'http://www.example.com';
-    var expectedHtmlWithoutLink = '<p><b>Bold</b>, <i>Italic</i>, Link</p>';
-    var expectedFullHtml = '<p><b>Bold</b>, <i>Italic</i>, <a href="' + testUrl + '">Link</a></p>';
+    const testUrl = 'http://www.example.com';
+    const expectedHtmlWithoutLink = '<p><b>Bold</b>, <i>Italic</i>, Link</p>';
+    const expectedFullHtml = '<p><b>Bold</b>, <i>Italic</i>, <a href="' + testUrl + '">Link</a></p>';
 
     function selectBoldText() {
       return helpers.browser.actions()
@@ -79,7 +79,7 @@ describe('Format Bar', function() {
                 });
     }
 
-    var parent;
+    let parent;
     helpers.findElementByCss('.st-text-block').then( function(element) {
       parent = element;
     }).then(function() {

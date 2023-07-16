@@ -8,26 +8,26 @@
  * BlockTypes are global however.
  */
 
-var _ = require('./lodash');
-var config = require('./config');
-var utils = require('./utils');
-var Dom = require('./packages/dom');
+const _ = require('./lodash');
+const config = require('./config');
+const utils = require('./utils');
+const Dom = require('./packages/dom');
 
-var Events = require('./events');
-var EventBus = require('./event-bus');
-var FormEvents = require('./form-events');
-var BlockControls = require('./block-controls');
-var BlockAddition = require('./block-addition');
-var BlockAdditionTop = require('./block-addition-top');
-var BlockAdditionFull = require('./block-addition-full');
-var BlockManager = require('./block-manager');
-var FormatBar = require('./format-bar');
-var EditorStore = require('./extensions/editor-store');
-var ErrorHandler = require('./error-handler');
-var BlockPositionerSelect = require('./block-positioner-select');
-var SelectionHandler = require('./selection-handler');
+const Events = require('./events');
+const EventBus = require('./event-bus');
+const FormEvents = require('./form-events');
+const BlockControls = require('./block-controls');
+const BlockAddition = require('./block-addition');
+const BlockAdditionTop = require('./block-addition-top');
+const BlockAdditionFull = require('./block-addition-full');
+const BlockManager = require('./block-manager');
+const FormatBar = require('./format-bar');
+const EditorStore = require('./extensions/editor-store');
+const ErrorHandler = require('./error-handler');
+const BlockPositionerSelect = require('./block-positioner-select');
+const SelectionHandler = require('./selection-handler');
 
-var Editor = function (options) {
+const Editor = function (options) {
   this.initialize(options);
 };
 
@@ -127,7 +127,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   },
 
   createBlocks: function () {
-    var store = this.store.retrieve();
+    const store = this.store.retrieve();
 
     //console.log('createBlocks()');
 
@@ -146,10 +146,10 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
       }
 
     if (this.options.focusOnInit) {
-      var blockElement = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.ID}"]`)[0];
+      const blockElement = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.ID}"]`)[0];
 
-        if (blockElement) {
-          var block = this.blockManager.findBlockById(blockElement.getAttribute('id'));
+      if (blockElement) {
+          const block = this.blockManager.findBlockById(blockElement.getAttribute('id'));
           block.focus();
         }
       }
@@ -207,11 +207,11 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   blockOrderUpdated: function () {
     //console.log('editor::blockOrderUpdated()');
     // Detect first block and decide whether to hide top controls
-    var blockElement = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.ID}"]`)[0];
-    var hideTopControls = false;
+    const blockElement = this.wrapper.querySelectorAll(`.st-block[data-instance="${this.ID}"]`)[0];
+    let hideTopControls = false;
 
     if (blockElement) {
-      var block = this.blockManager.findBlockById(
+      const block = this.blockManager.findBlockById(
         blockElement.getAttribute('id')
       );
       hideTopControls = block && block.textable;
@@ -284,7 +284,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   },
 
   removeBlockDragOver: function() {
-    var dragOver = this.outer.querySelector('.st-drag-over');
+    const dragOver = this.outer.querySelector('.st-drag-over');
     if (!dragOver) { return; }
     dragOver.classList.remove('st-drag-over');
   },
@@ -353,7 +353,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
 
   validateBlocks: function(shouldValidate) {
     Array.prototype.forEach.call(this.wrapper.querySelectorAll(`.st-block[data-instance="${this.ID}"]`), (block, idx) => {
-      var _block = this.blockManager.findBlockById(block.getAttribute('id'));
+      const _block = this.blockManager.findBlockById(block.getAttribute('id'));
       if (!_.isUndefined(_block)) {
         this.validateAndSaveBlock(_block, shouldValidate);
       }
@@ -377,7 +377,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
       return;
     }
 
-    var blockData = block.getData();
+    const blockData = block.getData();
     utils.log("Adding data for block " + block.blockID + " to block store:",
               blockData);
     this.store.addData(blockData);
@@ -388,7 +388,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
    * pressing backspace multiple times doesn't close the page.
    */
   disableBackButton: function(e) {
-    var target = e.target || e.srcElement;
+    const target = e.target || e.srcElement;
     if (e.keyCode === 8) {
       if (target.getAttribute('contenteditable') ||
           target.tagName === 'INPUT' ||
@@ -436,12 +436,13 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
     this.el = this.options.el;
     this.form = Dom.getClosest(this.el, 'form');
 
-    var outer = Dom.createElement("div", {
-                  'id': this.ID,
-                  'class': 'st-outer notranslate',
-                  'dropzone': 'copy link move'});
+    const outer = Dom.createElement("div", {
+      'id': this.ID,
+      'class': 'st-outer notranslate',
+      'dropzone': 'copy link move'
+    });
 
-    var wrapper = Dom.createElement("div", { 'class': 'st-blocks' });
+    const wrapper = Dom.createElement("div", {'class': 'st-blocks'});
 
     // Wrap our element in lots of containers *eww*
 

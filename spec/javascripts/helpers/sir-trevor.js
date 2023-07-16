@@ -3,8 +3,8 @@
 global.SirTrevor = require('../../../');
 
 global.createBaseElement = function() {
-  var form = document.createElement("form");
-  var element = document.createElement("textarea");
+  const form = document.createElement("form");
+  const element = document.createElement("textarea");
   form.appendChild(element);
   return element;
 };

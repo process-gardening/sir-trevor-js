@@ -4,12 +4,12 @@
   Heading Block
 */
 
-var Block = require('../block');
-var stToHTML = require('../to-html');
+const Block = require('../block');
+const stToHTML = require('../to-html');
 
-var ScribeTextBlockPlugin = require('./scribe-plugins/scribe-text-block-plugin');
-var ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
-var ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
+const ScribeTextBlockPlugin = require('./scribe-plugins/scribe-text-block-plugin');
+const ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
+const ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
 
 module.exports = Block.extend({
 
@@ -60,7 +60,7 @@ module.exports = Block.extend({
   },
 
   asClipboardHTML: function() {
-    var data = this.getBlockData();
+    const data = this.getBlockData();
     return `<h${data.level}>${data.text}</h${data.level}>`;
   }
 });

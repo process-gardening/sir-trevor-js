@@ -2,44 +2,44 @@
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
 
-var helpers = require('./helpers');
-var driver = require('selenium-webdriver');
+const helpers = require('./helpers');
+const driver = require('selenium-webdriver');
 
-var getTextFromBlock = function(blocks) {
-  var str = 'return [';
-  str += blocks.map( function(index) {
+const getTextFromBlock = function (blocks) {
+  let str = 'return [';
+  str += blocks.map(function (index) {
     return 'window.editor.blockManager.blocks[' + index + '].getTextBlockHTML()';
   }).join(',');
   str += '];';
   return helpers.browser.executeScript(str);
 };
 
-var getTextBeforeCaret = function(index) {
+const getTextBeforeCaret = function (index) {
   index = index || 0;
-  var str = "var currentSelection = function(scribe) {";
-      str += "var selection = new scribe.api.Selection();";
-      str += "var range = selection.range.cloneRange();";
-      str += "range.setStartBefore(scribe.el.firstChild, 0);";
-      str += "return range.toString();";
-      str += "};";
-      str += "return currentSelection(window.editor.blockManager.blocks[" + index + "]._scribe);";
+  let str = "var currentSelection = function(scribe) {";
+  str += "var selection = new scribe.api.Selection();";
+  str += "var range = selection.range.cloneRange();";
+  str += "range.setStartBefore(scribe.el.firstChild, 0);";
+  str += "return range.toString();";
+  str += "};";
+  str += "return currentSelection(window.editor.blockManager.blocks[" + index + "]._scribe);";
   return helpers.browser.executeScript(str);
 };
 
-var textblockHasFocus = function(textBlock) {
-  var str = "return document.activeElement === arguments[0];";
+const textblockHasFocus = function (textBlock) {
+  const str = "return document.activeElement === arguments[0];";
   return helpers.browser.executeScript(str, textBlock);
 };
 
-var getBlockData = function(index) {
-  var str = 'return window.editor.blockManager.blocks[' + index + '].getData()';
+const getBlockData = function (index) {
+  const str = 'return window.editor.blockManager.blocks[' + index + '].getData()';
   return helpers.browser.executeScript(str);
-}
+};
 
 describe('Text block', function() {
 
   beforeEach( function() {
-    var data = {
+    const data = {
       "data": [
         {
           "type": "text",
@@ -210,7 +210,7 @@ describe('Text block', function() {
     });
 
     it('should at the end of the block move to the next block', function(done) {
-      var textfield;
+      let textfield;
       helpers.focusOnTextBlock().then(helpers.pressRight).then(helpers.pressRight).then(helpers.pressRight)
         .then( function() {
           helpers.createBlock('text', function() {
@@ -249,7 +249,7 @@ describe('Text block', function() {
 describe('List block', function() {
 
   beforeEach( function() {
-    var data = {
+    const data = {
       "data": [
         {
           "type": "text",
@@ -264,7 +264,7 @@ describe('List block', function() {
               {"content": "T<b>w</b>o"},
               {"content": "T<b>hre</b>e"}
             ],
-            "format":"html",
+            "format": "html",
           }
         },
         {
