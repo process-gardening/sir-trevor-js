@@ -20,7 +20,7 @@ SirTrevor.Locales.cn = {
   },
   formatters: {
     link: {
-      'prompt': 请填写要插入的链接",
+      'prompt': "请填写要插入的链接",
       'new_tab': "Opens in a new tab",
       'message': "The URL you entered appears to be __type__. Do you want to add the required “__prefix__” prefix?",
       types: {
