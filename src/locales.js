@@ -18,8 +18,8 @@ var Locales = {
       'yes': 'Yes',
       'no': 'No',
       'delete': 'Delete',
-      'cancel': 'Cancel'
-      'submit':           'Submit'
+      'cancel': 'Cancel',
+      'submit': 'Submit'
     },
     errors: {
       'title': "You have the following errors:",
