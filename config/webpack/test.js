@@ -19,8 +19,7 @@ module.exports = webpackConfigMerger(require("./config"), {
             options: {}
           },
           {
-            loader: "sass-loader",
-            options: { sassOptions: { outputStyle: "compressed" } }
+            loader: "sass-loader"
           }
         ]
       },

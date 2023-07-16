@@ -24,7 +24,6 @@ var config = webpackConfigMerger(require("./config"), {
             loader: "sass-loader",
             options: {
               sourceMap: true,
-              sassOptions: { outputStyle: "expanded" }
             }
           }
         ]

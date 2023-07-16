@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "grunt test",
+    "unit": "grunt test-unit",
     "integration": "grunt test-integration",
     "dist": "grunt",
     "dev": "grunt dev watch",

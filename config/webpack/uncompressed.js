@@ -23,7 +23,6 @@ var config = webpackConfigMerger(require("./config"), {
           },
           {
             loader: "sass-loader",
-            options: { sassOptions: { outputStyle: "expanded" } }
           }
         ]
       },

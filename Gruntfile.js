@@ -129,6 +129,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', ['svgstore', 'webpack:uncompressed', 'webpack:dist']);
+  grunt.registerTask('test-unit', ['clean:all', 'karma']);
   grunt.registerTask('test', ['clean:all', 'jshint', 'karma', 'svgstore', 'test-integration']);
   grunt.registerTask('test-integration', ['webpack:test', 'connect', 'jasmine_nodejs']);
   grunt.registerTask('dev', ['svgstore', 'webpack-dev-server:start']);
