@@ -1,12 +1,14 @@
 "use strict";
 
-const config = require('../config');
-const BLOCK_ADDITION_TOP_TEMPLATE = require("./block-addition-top");
-//const BLOCK_ADDITION_TEMPLATE = require("./block-addition");
-const BLOCK_ADDITION_FULL_TEMPLATE = require("./block-addition-full");
-const BLOCK_REPLACER_TEMPLATE = require("./block-replacer");
+import config from "../config";
 
-module.exports = (editor_html) => {
+import BLOCK_ADDITION_TOP_TEMPLATE from "./block-addition-top";
+//const BLOCK_ADDITION_TEMPLATE = require("./block-addition");
+import BLOCK_ADDITION_FULL_TEMPLATE from "./block-addition-full";
+
+import BLOCK_REPLACER_TEMPLATE from "./block-replacer";
+
+export default (editor_html) => {
   return `
     <div class="st-block__card">
       <div class='st-block__card-upper'>
@@ -22,4 +24,4 @@ module.exports = (editor_html) => {
 
     ${ (config.defaults.editorMode === 'document') ? BLOCK_ADDITION_TOP_TEMPLATE() : BLOCK_ADDITION_FULL_TEMPLATE() }
   `;
-};
+}

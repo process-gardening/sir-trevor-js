@@ -1,8 +1,8 @@
 "use strict";
 
-const config = require('../config');
+import config from "../config";
 
-module.exports = (block) => {
+export default (block) => {
   return `
     <button class="st-block-controls__button" data-type="${block.type}" type="button">
       <svg role="img" class="st-icon">
@@ -11,4 +11,4 @@ module.exports = (block) => {
       ${block.title()}
     </button>
   `;
-};
+}

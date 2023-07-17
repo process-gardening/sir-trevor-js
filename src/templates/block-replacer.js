@@ -1,8 +1,8 @@
 "use strict";
 
-const config = require('../config');
+import config from "../config";
 
-module.exports = () => {
+export default () => {
   return `
     <button class="st-block-replacer" type="button">
       <span class="st-block-replacer__button">
@@ -12,4 +12,4 @@ module.exports = () => {
       </span>
     </button>
   `;
-};
+}

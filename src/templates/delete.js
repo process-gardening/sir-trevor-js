@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = () => {
+export default () => {
   return `
     <div id="ui-delete-modal" class="st-block__ui-delete-card">
       <div class="st-block__ui-delete-label-div">
@@ -18,4 +18,4 @@ module.exports = () => {
       </div>
     </div>
   `;
-};
+}

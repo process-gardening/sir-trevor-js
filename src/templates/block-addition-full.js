@@ -1,8 +1,8 @@
 "use strict";
 
-const config = require('../config');
+import config from "../config";
 
-module.exports = () => {
+export default () => {
   return `
   <div class="st-block-addition-full">
       <div class="st-block-addition-full__button" type="button"></div>
@@ -13,4 +13,4 @@ module.exports = () => {
       </div>
     </div>
   `;
-};
+}

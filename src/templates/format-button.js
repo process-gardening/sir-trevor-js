@@ -1,8 +1,8 @@
 "use strict";
 
-const config = require('../config');
+import config from "../config";
 
-module.exports = function({name, text, cmd, iconName}) {
+export default function ({name, text, cmd, iconName}) {
   return `
     <button type="button" class="st-format-btn st-format-btn--${name}" data-cmd="${cmd}">
       <svg role="img" class="st-icon">
@@ -10,4 +10,4 @@ module.exports = function({name, text, cmd, iconName}) {
       </svg>
     </button>
   `;
-};
+}
