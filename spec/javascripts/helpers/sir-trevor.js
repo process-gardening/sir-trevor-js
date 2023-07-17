@@ -1,6 +1,8 @@
 "use strict";
 
-global.SirTrevor = require('../../../');
+import generated from "../../../src/index";
+
+global.SirTrevor = generated;
 
 global.createBaseElement = function() {
   const form = document.createElement("form");

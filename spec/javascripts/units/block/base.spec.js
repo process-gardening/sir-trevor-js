@@ -1,6 +1,7 @@
 "use strict";
 
-require('../../../../locales/fr');
+import locales from "../../../../locales/fr";
+import SirTrevor from "../../../../src";
 
 describe("Block", function(){
 

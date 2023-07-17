@@ -1,6 +1,6 @@
 "use strict";
 
-const utils = require('../../../../src/utils');
+import utils from "../../../../src/utils";
 
 describe('Blocks: List block', function () {
   const createBlock = function (type, data) {

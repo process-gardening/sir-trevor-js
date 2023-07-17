@@ -5,7 +5,7 @@ describe("Controllable Block", function(){
   let element, editor, block, testHandler;
 
   beforeEach(function(){
-    element = global.createBaseElement();
+    element = createBaseElement();
     editor  = new SirTrevor.Editor({
       el: element,
       blockTypes: ["Text"]

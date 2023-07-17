@@ -1,6 +1,6 @@
 "use strict";
 
-const utils = require('../../../../src/utils');
+import utils from "../../../../src/utils";
 
 describe('Blocks: Markdown support', function() {
   let data, block;

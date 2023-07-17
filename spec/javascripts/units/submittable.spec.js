@@ -1,6 +1,6 @@
 "use strict";
 
-const utils = require('../../../src/packages/dom');
+import utils from "../../../src/packages/dom";
 
 describe("SirTrevor.Submittable", function() {
 

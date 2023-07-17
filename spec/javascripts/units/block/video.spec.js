@@ -1,6 +1,6 @@
 "use strict";
 
-const utils = require('../../../../src/utils');
+import utils from "../../../../src/utils";
 
 describe('Blocks: Video block', function() {
 
