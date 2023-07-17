@@ -44,7 +44,7 @@ function render(Blocks, availableTypes) {
 }
 
 
-module.exports.create = function (SirTrevor) {
+export function create(SirTrevor) {
 
   // REFACTOR - should probably not know about blockManager
   //console.log(SirTrevor.blockManager.blockTypes);
@@ -126,4 +126,4 @@ module.exports.create = function (SirTrevor) {
   );
 
   return {destroy, hide};
-};
+}

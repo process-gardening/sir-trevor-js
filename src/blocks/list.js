@@ -11,7 +11,7 @@ import ScribeListBlockPlugin from "./scribe-plugins/scribe-list-block-plugin";
 import {getTotalLength, rangeToHTML, selectToEnd} from "./scribe-plugins/shared";
 
 
-module.exports = Block.extend({
+export default Block.extend({
   type: 'list',
   icon_name: 'list',
 
@@ -25,7 +25,7 @@ module.exports = Block.extend({
     }
   },
 
-  configureScribe: function(scribe) {
+  configureScribe: function (scribe) {
     scribe.use(new ScribeListBlockPlugin(this));
     scribe.on('content-changed', () => {
       setTimeout(() => {
