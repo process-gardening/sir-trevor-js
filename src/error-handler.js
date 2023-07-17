@@ -4,6 +4,12 @@ import _ from "./lodash";
 
 import Dom from "./packages/dom";
 
+import function_bind from "./function-bind";
+
+import mediated_events from "./mediated-events";
+
+import renderable from "./renderable";
+
 const ErrorHandler = function (wrapper, mediator, container) {
   this.wrapper = wrapper;
   this.mediator = mediator;
@@ -22,7 +28,7 @@ const ErrorHandler = function (wrapper, mediator, container) {
   this.initialize();
 };
 
-Object.assign(ErrorHandler.prototype, require('./function-bind'), require('./mediated-events'), require('./renderable'), {
+Object.assign(ErrorHandler.prototype, function_bind, mediated_events, renderable, {
 
   errors: [],
   className: "st-errors",

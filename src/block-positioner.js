@@ -1,6 +1,10 @@
 "use strict";
 import _ from "./lodash";
 
+import function_bind from "./function-bind";
+
+import renderable from "./renderable";
+
 let template = [
   "<div class='st-block-positioner__inner'>",
   "<span class='st-block-positioner__selected-value'></span>",
@@ -29,7 +33,7 @@ function renderPositionList_global(positioner) {
 }
 
 
-Object.assign(BlockPositioner.prototype, require('./function-bind'), require('./renderable'), {
+Object.assign(BlockPositioner.prototype, function_bind, renderable, {
 
   total_blocks: 0,
 

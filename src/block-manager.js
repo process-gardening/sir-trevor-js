@@ -14,6 +14,12 @@ import Blocks from "./blocks";
 
 import Dom from "./packages/dom";
 
+import function_bind from "./function-bind";
+
+import mediated_events from "./mediated-events";
+
+import events from "./events";
+
 const BLOCK_OPTION_KEYS =
   ['convertToMarkdown', 'convertFromMarkdown', 'formatBar'];
 
@@ -42,7 +48,7 @@ const BlockManager = function (SirTrevor) {
   this.initialize();
 };
 
-Object.assign(BlockManager.prototype, require('./function-bind'), require('./mediated-events'), require('./events'), {
+Object.assign(BlockManager.prototype, function_bind, mediated_events, events, {
 
   eventNamespace: 'block',
 

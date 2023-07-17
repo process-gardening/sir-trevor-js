@@ -6,7 +6,8 @@ import cancellablePromise from "./cancellable-promise";
 
 import config from "../config";
 
-require('whatwg-fetch');
+import whatwg_fetch from "whatwg-fetch";
+
 let Ajax = Object.create(null);
 
 Ajax.fetch = (url, options = {}) => {

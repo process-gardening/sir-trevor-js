@@ -2,6 +2,10 @@
 
 import Dom from "./packages/dom";
 
+import function_bind from "./function-bind";
+
+import renderable from "./renderable";
+
 const template = [
   "<span class='st-block-positioner__selected-value'></span>",
   "<select class='st-block-positioner__select'></select>"
@@ -16,7 +20,7 @@ const BlockPositionerSelect = function (mediator) {
   this.initialize();
 };
 
-Object.assign(BlockPositionerSelect.prototype, require('./function-bind'), require('./renderable'), {
+Object.assign(BlockPositionerSelect.prototype, function_bind, renderable, {
 
   total_blocks: 0,
 

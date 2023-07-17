@@ -2,14 +2,17 @@
 
 /* Adds drop functionality to this block */
 
-const _ = require('../lodash');
-const config = require('../config');
-const utils = require('../utils');
-const Dom = require('../packages/dom');
+import _ from "../lodash";
 
-const dropEvents = require('../helpers/drop-events');
+import config from "../config";
 
-const EventBus = require('../event-bus');
+import utils from "../utils";
+
+import Dom from "../packages/dom";
+
+import dropEvents from "../helpers/drop-events";
+
+import EventBus from "../event-bus";
 
 export default {
 

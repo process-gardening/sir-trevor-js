@@ -33,6 +33,8 @@ import DELETE_TEMPLATE from "./templates/delete";
 
 import helpers from "./helpers/extend";
 
+import block_validations from "./block-validations";
+
 ;
 const Block = function (data, instance_id, mediator, options, editorOptions) {
   SimpleBlock.apply(this, arguments);
@@ -41,7 +43,7 @@ const Block = function (data, instance_id, mediator, options, editorOptions) {
 Block.prototype = Object.create(SimpleBlock.prototype);
 Block.prototype.constructor = Block;
 
-Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
+Object.assign(Block.prototype, SimpleBlock.fn, block_validations, {
 
   bound: [
     "_handleContentPaste", "_onFocus", "_onBlur", "onDrop", "onDeleteClick",

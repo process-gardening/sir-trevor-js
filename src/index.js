@@ -20,40 +20,85 @@ import "./vendor/dom-shims";
 
 import utils from "./utils";
 
+import config0 from "./config";
+
+import locales from "./locales";
+
+import events from "./events";
+
+import event_bus from "./event-bus";
+
+import editorStore from "./extensions/editor-store";
+
+import submittable from "./extensions/submittable";
+import fileUploader from "./extensions/file-uploader";
+
+import block_mixins from "./block_mixins";
+
+import block_positioner from "./block-positioner";
+
+import block_positioner_select from "./block-positioner-select";
+
+import block_reorder from "./block-reorder";
+
+import block_deletion from "./block-deletion";
+
+import block_validations from "./block-validations";
+
+import block_store from "./block-store";
+
+import block_manager from "./block-manager";
+
+import simple_block from "./simple-block";
+
+import block from "./block";
+
+import blocks from "./blocks";
+
+import format_bar from "./format-bar";
+
+import editor from "./editor";
+
+import to_markdown from "./to-markdown";
+
+import to_html from "./to-html";
+
+import form_events from "./form-events";
+
 const SirTrevor = {
 
-  config: require('./config'),
+  config: config0,
 
   log: utils.log,
 
-  Locales: require('./locales'),
+  Locales: locales,
 
-  Events: require('./events'),
-  EventBus: require('./event-bus'),
+  Events: events,
+  EventBus: event_bus,
 
-  EditorStore: require('./extensions/editor-store'),
-  Submittable: require('./extensions/submittable'),
-  FileUploader: require('./extensions/file-uploader'),
+  EditorStore: editorStore,
+  Submittable: submittable,
+  FileUploader: fileUploader,
 
-  BlockMixins: require('./block_mixins'),
-  BlockPositioner: require('./block-positioner'),
-  BlockPositionerSelect: require('./block-positioner-select'),
-  BlockReorder: require('./block-reorder'),
-  BlockDeletion: require('./block-deletion'),
-  BlockValidations: require('./block-validations'),
-  BlockStore: require('./block-store'),
-  BlockManager: require('./block-manager'),
+  BlockMixins: block_mixins,
+  BlockPositioner: block_positioner,
+  BlockPositionerSelect: block_positioner_select,
+  BlockReorder: block_reorder,
+  BlockDeletion: block_deletion,
+  BlockValidations: block_validations,
+  BlockStore: block_store,
+  BlockManager: block_manager,
 
-  SimpleBlock: require('./simple-block'),
-  Block: require('./block'),
+  SimpleBlock: simple_block,
+  Block: block,
 
-  Blocks: require('./blocks'),
+  Blocks: blocks,
 
-  FormatBar: require('./format-bar'),
-  Editor: require('./editor'),
+  FormatBar: format_bar,
+  Editor: editor,
 
-  toMarkdown: require('./to-markdown'),
-  toHTML: require('./to-html'),
+  toMarkdown: to_markdown,
+  toHTML: to_html,
 
   setDefaults: function (options) {
     Object.assign(SirTrevor.config.defaults, options || {});
@@ -84,7 +129,7 @@ const SirTrevor = {
 
 };
 
-Object.assign(SirTrevor, require('./form-events'));
+Object.assign(SirTrevor, form_events);
 
 
 export default SirTrevor;

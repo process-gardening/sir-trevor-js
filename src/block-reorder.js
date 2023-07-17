@@ -8,6 +8,10 @@ import Dom from "./packages/dom";
 
 import config from "./config";
 
+import function_bind from "./function-bind";
+
+import renderable from "./renderable";
+
 const BlockReorder = function (block_element, mediator) {
   this.block = block_element;
   this.blockID = this.block.getAttribute('id');
@@ -19,7 +23,7 @@ const BlockReorder = function (block_element, mediator) {
   this.initialize();
 };
 
-Object.assign(BlockReorder.prototype, require('./function-bind'), require('./renderable'), {
+Object.assign(BlockReorder.prototype, function_bind, renderable, {
 
   bound: ['onMouseDown', 'onDragStart', 'onDragEnd', 'onDrop'],
 

@@ -3,7 +3,6 @@
 import config from "../config";
 
 import BLOCK_ADDITION_TOP_TEMPLATE from "./block-addition-top";
-//const BLOCK_ADDITION_TEMPLATE = require("./block-addition");
 import BLOCK_ADDITION_FULL_TEMPLATE from "./block-addition-full";
 
 import BLOCK_REPLACER_TEMPLATE from "./block-replacer";

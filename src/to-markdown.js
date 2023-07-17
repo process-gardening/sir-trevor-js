@@ -4,12 +4,12 @@ import _ from "./lodash";
 
 import utils from "./utils";
 
+
+// Deferring requiring these to sidestep a circular dependency:
+// Block -> this -> Blocks -> Block
+import Blocks from "./blocks";
+
 export default function (content, type) {
-
-  // Deferring requiring these to sidestep a circular dependency:
-  // Block -> this -> Blocks -> Block
-  const Blocks = require('./blocks');
-
   type = utils.classify(type);
 
   let markdown = content;

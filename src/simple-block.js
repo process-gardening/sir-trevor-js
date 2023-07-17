@@ -20,6 +20,8 @@ import renderable from "./renderable";
 
 import block_store from "./block-store";
 
+import helpers from "./helpers/extend";
+
 const SimpleBlock = function (data, instance_id, mediator, options, editorOptions) {
   this.createStore(data);
   this.blockID = _.uniqueId('st-block-');
@@ -171,6 +173,6 @@ Object.assign(SimpleBlock.prototype, function_bind, events, renderable, block_st
 SimpleBlock.fn = SimpleBlock.prototype;
 
 // Allow our Block to be extended.
-SimpleBlock.extend = require('./helpers/extend');
+SimpleBlock.extend = helpers;
 
 export default SimpleBlock;

@@ -8,6 +8,8 @@ import utils from "../utils";
 
 import fileUploader from "../extensions/file-uploader";
 
+import ajaxable from "./ajaxable";
+
 export default {
 
   mixinName: "Uploadable",
@@ -17,7 +19,7 @@ export default {
 
   initializeUploadable: function () {
     utils.log("Adding uploadable to block " + this.blockID);
-    this.withMixin(require('./ajaxable'));
+    this.withMixin(ajaxable);
 
     this.upload_options = Object.assign({}, config.defaults.Block.upload_options, this.upload_options);
 

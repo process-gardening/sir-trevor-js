@@ -4,12 +4,14 @@ import _ from "../lodash";
 
 import Ajax from "../packages/ajax";
 
+import ajaxable from "./ajaxable";
+
 export default {
 
   mixinName: "Fetchable",
 
   initializeFetchable: function(){
-    this.withMixin(require('./ajaxable'));
+    this.withMixin(ajaxable);
   },
 
   fetch: function(url, options, success, failure){

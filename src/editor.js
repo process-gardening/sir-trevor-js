@@ -42,11 +42,13 @@ import BlockPositionerSelect from "./block-positioner-select";
 
 import SelectionHandler from "./selection-handler";
 
+import function_bind from "./function-bind";
+
 const Editor = function (options) {
   this.initialize(options);
 };
 
-Object.assign(Editor.prototype, require('./function-bind'), require('./events'), {
+Object.assign(Editor.prototype, function_bind, Events, {
 
   bound: ['onFormSubmit', 'hideAllTheThings', 'changeBlockPosition',
     'removeBlockDragOver',
