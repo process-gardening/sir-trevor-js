@@ -28,4 +28,4 @@ const cancellablePromise = function (promise) {
   return proxyPromise;
 };
 
-module.exports = cancellablePromise;
+export default cancellablePromise;

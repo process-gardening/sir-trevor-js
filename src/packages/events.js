@@ -1,6 +1,6 @@
 "use strict";
 
-const Dom = require("./dom");
+import Dom from "./dom";
 
 const fixEvent = function (e, target) {
   const obj = {};
@@ -49,16 +49,15 @@ const fixEvent = function (e, target) {
   return obj;
 };
 
-module.exports.delegate =
-  function delegate(el, selector, event, fn, useCapture = false) {
-    el.addEventListener(event, (e) => {
-      let target = e.target;
-      for (target; target && target !== el; target = target.parentNode) {
-        if (Dom.matches(target, selector)) {
-          fn.call(target, fixEvent(e, target));
-          break;
-        }
+export function delegate(el, selector, event, fn, useCapture = false) {
+  el.addEventListener(event, (e) => {
+    let target = e.target;
+    for (target; target && target !== el; target = target.parentNode) {
+      if (Dom.matches(target, selector)) {
+        fn.call(target, fixEvent(e, target));
+        break;
       }
-      target = null;
-    }, useCapture);
-  };
+    }
+    target = null;
+  }, useCapture);
+}

@@ -1,10 +1,12 @@
 "use strict";
 
-require('whatwg-fetch');
-const fetchJsonP = require('jsonp-promise');
-const cancellablePromise = require('./cancellable-promise');
-const config = require('../config');
+import fetchJsonP from "jsonp-promise";
 
+import cancellablePromise from "./cancellable-promise";
+
+import config from "../config";
+
+require('whatwg-fetch');
 let Ajax = Object.create(null);
 
 Ajax.fetch = (url, options = {}) => {
@@ -25,4 +27,4 @@ Ajax.fetch = (url, options = {}) => {
   return cancellablePromise(promise);
 };
 
-module.exports = Ajax;
+export default Ajax;

@@ -1,7 +1,6 @@
 "use strict";
 
-const _ = require('../lodash');
-
+import _ from "../lodash";
 // disabling undefined warnings until jshint can handle argument destructing
 
 let Dom = Object.create(null);
@@ -110,4 +109,4 @@ Dom.createElementFromString = function(html) {
   return elem.childNodes[0];
 };
 
-module.exports = Dom;
+export default Dom;

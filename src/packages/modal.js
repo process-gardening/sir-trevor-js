@@ -5,9 +5,11 @@
  * --
  * Displayed for extra options.
  */
-const MicroModal = require('micromodal/lib/src/index').default;
-const Dom = require('./dom');
-const _ = require('../lodash');
+import MicroModal from "micromodal/lib/src/index";
+
+import Dom from "./dom";
+
+import _ from "../lodash";
 
 const template = [
   '<div class="st-modal st-micromodal-slide" id="<%= id %>" aria-hidden="true">',
@@ -93,4 +95,4 @@ Object.assign(Modal.prototype, {
 
 });
 
-module.exports = Modal;
+export default Modal;
