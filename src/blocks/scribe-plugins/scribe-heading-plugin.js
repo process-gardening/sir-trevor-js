@@ -37,4 +37,4 @@ const scribeHeadingPlugin = function (block) {
   };
 };
 
-module.exports = scribeHeadingPlugin;
+export default scribeHeadingPlugin;

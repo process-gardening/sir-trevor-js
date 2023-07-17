@@ -1,8 +1,8 @@
 "use strict";
 
-const selectionRange = require('selection-range');
+import selectionRange from "selection-range";
 
-const utils = require('../../utils');
+import utils from "../../utils";
 
 const selectToEnd = function (scribe) {
   const selection = new scribe.api.Selection();

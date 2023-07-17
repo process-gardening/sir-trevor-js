@@ -1,12 +1,14 @@
 "use strict";
 
-const config = require('../config');
-const _ = require('../lodash');
-const Block = require('../block');
-const stToHTML = require('../to-html');
+import config from "../config";
 
+import _ from "../lodash";
+
+import Block from "../block";
+
+import stToHTML from "../to-html";
 //module.exports = Block.extend({
-module.exports = (function () {
+export default (function () {
   let set_info, set_notice, set_caution, set_warning, set_danger, set_type;
   set_info = function () {
     set_type(this, 'info');

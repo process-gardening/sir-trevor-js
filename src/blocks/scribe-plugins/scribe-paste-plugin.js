@@ -127,4 +127,4 @@ const scribePastePlugin = function (block) {
   };
 };
 
-module.exports = scribePastePlugin;
+export default scribePastePlugin;

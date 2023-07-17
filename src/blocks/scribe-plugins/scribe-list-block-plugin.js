@@ -1,16 +1,17 @@
 "use strict";
 
-const selectionRange = require('selection-range');
+import selectionRange from "selection-range";
 
-let {
+import {
   getTotalLength,
-  isAtStart,
   isAtEnd,
+  isAtStart,
   isSelectedFromStart,
   isSelectedToEnd,
   rangeToHTML,
   selectToEnd
-} = require('./shared.js');
+} from "./shared.js";
+
 
 const ScribeListBlockPlugin = function (block) {
   return function (scribe) {
@@ -83,4 +84,4 @@ const ScribeListBlockPlugin = function (block) {
   };
 };
 
-module.exports = ScribeListBlockPlugin;
+export default ScribeListBlockPlugin;

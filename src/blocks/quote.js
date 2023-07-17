@@ -4,12 +4,15 @@
   Block Quote
 */
 
-const _ = require('../lodash');
+import _ from "../lodash";
 
-const Block = require('../block');
-const stToHTML = require('../to-html');
-const ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
-const ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
+import Block from "../block";
+
+import stToHTML from "../to-html";
+
+import ScribeHeadingPlugin from "./scribe-plugins/scribe-heading-plugin";
+
+import ScribeQuotePlugin from "./scribe-plugins/scribe-quote-plugin";
 
 const template = _.template([
   '<blockquote class="st-required st-text-block st-text-block--quote" contenteditable="true"></blockquote>',
@@ -18,7 +21,7 @@ const template = _.template([
   ' class="st-input-string js-cite-input" type="text" />'
 ].join("\n"));
 
-module.exports = Block.extend({
+export default Block.extend({
 
   type: "quote",
 
@@ -28,7 +31,7 @@ module.exports = Block.extend({
   textable: true,
   toolbarEnabled: false,
 
-  editorHTML: function() {
+  editorHTML: function () {
     return template(this);
   },
 

@@ -1,9 +1,10 @@
 "use strict";
 
-const Dom = require('../packages/dom');
-const Block = require('../block');
+import Dom from "../packages/dom";
 
-module.exports = Block.extend({
+import Block from "../block";
+
+export default Block.extend({
 
   type: "image",
 
@@ -12,7 +13,7 @@ module.exports = Block.extend({
 
   icon_name: 'image',
 
-  loadData: function(data){
+  loadData: function (data) {
     // Create our image tag
     this.editor.innerHTML = '';
     this.editor.appendChild(Dom.createElement('img', { src: data.file.url }));

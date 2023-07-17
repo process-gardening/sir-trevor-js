@@ -1,13 +1,14 @@
 "use strict";
 
-let {
+import {
   createBlocksFromParagraphs,
-  isAtStart,
   isAtEnd,
+  isAtStart,
   isSelectedFromStart,
   isSelectedToEnd,
   selectToEnd
-} = require('./shared.js');
+} from "./shared.js";
+
 
 const ScribeTextBlockPlugin = function (block) {
   return function (scribe) {
@@ -86,4 +87,4 @@ const ScribeTextBlockPlugin = function (block) {
   };
 };
 
-module.exports = ScribeTextBlockPlugin;
+export default ScribeTextBlockPlugin;

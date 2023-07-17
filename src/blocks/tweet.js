@@ -1,10 +1,12 @@
 "use strict";
 
-const _ = require('../lodash');
-const utils = require('../utils');
-const Dom = require('../packages/dom');
+import _ from "../lodash";
 
-const Block = require('../block');
+import utils from "../utils";
+
+import Dom from "../packages/dom";
+
+import Block from "../block";
 
 const tweet_template = _.template([
   "<blockquote class='twitter-tweet' align='center'>",
@@ -14,7 +16,7 @@ const tweet_template = _.template([
   "</blockquote>"
 ].join("\n"));
 
-module.exports = Block.extend({
+export default Block.extend({
 
   type: "tweet",
   icon_name: "tweet",
@@ -26,7 +28,7 @@ module.exports = Block.extend({
     re_render_on_reorder: true
   },
 
-  fetchUrl: function(tweetID) {
+  fetchUrl: function (tweetID) {
     return "/tweets/?tweet_id=" + tweetID;
   },
 

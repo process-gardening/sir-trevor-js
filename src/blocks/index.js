@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = {
+export default {
   Text: require('./text'),
   Quote: require('./quote'),
   Image: require('./image'),

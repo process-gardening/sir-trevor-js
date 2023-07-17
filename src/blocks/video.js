@@ -1,10 +1,12 @@
 "use strict";
 
-const _ = require('../lodash');
-const utils = require('../utils');
-const Block = require('../block');
+import _ from "../lodash";
 
-module.exports = Block.extend({
+import utils from "../utils";
+
+import Block from "../block";
+
+export default Block.extend({
 
   // more providers at https://gist.github.com/jeffling/a9629ae28e076785a14f
   providers: {
@@ -27,7 +29,7 @@ module.exports = Block.extend({
 
   icon_name: 'video',
 
-  loadData: function(data){
+  loadData: function (data) {
     if (!this.providers.hasOwnProperty(data.source)) { return; }
 
     const source = this.providers[data.source];

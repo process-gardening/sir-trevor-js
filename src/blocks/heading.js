@@ -4,20 +4,23 @@
   Heading Block
 */
 
-const Block = require('../block');
-const stToHTML = require('../to-html');
+import Block from "../block";
 
-const ScribeTextBlockPlugin = require('./scribe-plugins/scribe-text-block-plugin');
-const ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
-const ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
+import stToHTML from "../to-html";
 
-module.exports = Block.extend({
+import ScribeTextBlockPlugin from "./scribe-plugins/scribe-text-block-plugin";
+
+import ScribeQuotePlugin from "./scribe-plugins/scribe-quote-plugin";
+
+import ScribeHeadingPlugin from "./scribe-plugins/scribe-heading-plugin";
+
+export default Block.extend({
 
   type: 'heading',
 
   editorHTML: '<h2 class="st-required st-text-block st-text-block--heading" contenteditable="true"></h2>',
 
-  configureScribe: function(scribe) {
+  configureScribe: function (scribe) {
     scribe.use(new ScribeHeadingPlugin(this));
     scribe.use(new ScribeTextBlockPlugin(this));
     scribe.use(new ScribeQuotePlugin(this));

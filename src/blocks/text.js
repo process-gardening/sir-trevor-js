@@ -4,17 +4,23 @@
   Text Block
 */
 
-const Block = require('../block');
-const stToHTML = require('../to-html');
+import Block from "../block";
 
-const ScribeTextBlockPlugin = require('./scribe-plugins/scribe-text-block-plugin');
-const ScribePastePlugin = require('./scribe-plugins/scribe-paste-plugin');
-const ScribeHeadingPlugin = require('./scribe-plugins/scribe-heading-plugin');
-const ScribeLinkPromptPlugin = require('./scribe-plugins/scribe-link-prompt-plugin');
-const ScribeQuotePlugin = require('./scribe-plugins/scribe-quote-plugin');
-const ScribeSuperscriptPromptPlugin = require('./scribe-plugins/scribe-superscript-prompt-plugin');
+import stToHTML from "../to-html";
 
-module.exports = Block.extend({
+import ScribeTextBlockPlugin from "./scribe-plugins/scribe-text-block-plugin";
+
+import ScribePastePlugin from "./scribe-plugins/scribe-paste-plugin";
+
+import ScribeHeadingPlugin from "./scribe-plugins/scribe-heading-plugin";
+
+import ScribeLinkPromptPlugin from "./scribe-plugins/scribe-link-prompt-plugin";
+
+import ScribeQuotePlugin from "./scribe-plugins/scribe-quote-plugin";
+
+import ScribeSuperscriptPromptPlugin from "./scribe-plugins/scribe-superscript-prompt-plugin";
+
+export default Block.extend({
 
   type: "text",
 
@@ -26,7 +32,7 @@ module.exports = Block.extend({
   textable: true,
   toolbarEnabled: false,
 
-  configureScribe: function(scribe) {
+  configureScribe: function (scribe) {
     scribe.use(new ScribeTextBlockPlugin(this));
     scribe.use(new ScribePastePlugin(this));
     scribe.use(new ScribeHeadingPlugin(this));

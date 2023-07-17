@@ -1,8 +1,10 @@
 "use strict";
 
-const selectionRange = require('selection-range');
-const Modal = require('../../packages/modal');
-const Dom = require('../../packages/dom');
+import selectionRange from "selection-range";
+
+import Modal from "../../packages/modal";
+
+import Dom from "../../packages/dom";
 
 const MODAL_FORM_TEMPLATE = ({modal, title}) => {
   return `
@@ -126,4 +128,4 @@ const scribeSuperscriptPromptPlugin = function(block) {
   };
 };
 
-module.exports = scribeSuperscriptPromptPlugin;
+export default scribeSuperscriptPromptPlugin;

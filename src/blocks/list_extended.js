@@ -1,12 +1,12 @@
 "use strict";
 
-const Block = require('../block');
-const stToHTML = require('../to-html');
+import Block from "../block";
 
-const ScribeListBlockPlugin = require('./scribe-plugins/scribe-list-block-plugin');
+import stToHTML from "../to-html";
 
+import ScribeListBlockPlugin from "./scribe-plugins/scribe-list-block-plugin";
 //module.exports = Block.extend({
-module.exports = (function () {
+export default (function () {
   let set_ul, set_ol, set_type;
   set_ul = function () {
     set_type(this, 'ul');

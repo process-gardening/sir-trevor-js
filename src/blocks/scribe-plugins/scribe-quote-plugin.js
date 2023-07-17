@@ -28,4 +28,4 @@ const scribeQuotePlugin = function (block) {
   };
 };
 
-module.exports = scribeQuotePlugin;
+export default scribeQuotePlugin;

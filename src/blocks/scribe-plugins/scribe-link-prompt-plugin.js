@@ -1,7 +1,8 @@
 "use strict";
 
-const selectionRange = require('selection-range');
-const Modal = require('../../packages/modal');
+import selectionRange from "selection-range";
+
+import Modal from "../../packages/modal";
 
 const MODAL_FORM_TEMPLATE = ({enableExternalLinks, modal, new_tab, url}) => {
   const checkbox = enableExternalLinks ? `
@@ -192,4 +193,4 @@ const scribeLinkPromptPlugin = function(block) {
   };
 };
 
-module.exports = scribeLinkPromptPlugin;
+export default scribeLinkPromptPlugin;
