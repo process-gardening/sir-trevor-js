@@ -21,7 +21,7 @@ function dragLeave(e) {
   e.stopPropagation();
 }
 
-module.exports = {
+export default {
 
   dropArea: function (el) {
     el.addEventListener("dragenter", dragEnter);

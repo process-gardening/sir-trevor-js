@@ -8,7 +8,7 @@
   (c) 2010-2012 Jeremy Ashkenas, DocumentCloud Inc.
 */
 
-module.exports = function(protoProps, staticProps) {
+export default function (protoProps, staticProps) {
   const parent = this;
   let child;
 
@@ -43,4 +43,4 @@ module.exports = function(protoProps, staticProps) {
   child.__super__ = parent.prototype;
 
   return child;
-};
+}
