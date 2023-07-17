@@ -16,7 +16,7 @@ import Events from "./packages/events";
 
 import TOP_CONTROLS_TEMPLATE from "./templates/top-controls";
 
-export function create(editor) {
+function create(editor) {
 
   function createBlock(e) {
     // REFACTOR: mediator so that we can trigger events directly on instance?
@@ -95,4 +95,8 @@ export function create(editor) {
   );
 
   return {destroy, hide};
+}
+
+export default {
+  create
 }

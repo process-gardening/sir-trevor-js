@@ -8,7 +8,7 @@
 
 import Events from "./packages/events";
 
-export function create(SirTrevor) {
+function create(SirTrevor) {
 
   function createBlock(e) {
     // REFACTOR: mediator so that we can trigger events directly on instance?
@@ -37,4 +37,8 @@ export function create(SirTrevor) {
   );
 
   return {destroy, hide};
+}
+
+export default {
+  create
 }

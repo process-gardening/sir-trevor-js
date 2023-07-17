@@ -2,16 +2,16 @@
 
 import _ from "./lodash";
 
-import Scribe from "scribe-editor";
+import * as Scribe from "scribe-editor";
 
 import config from "./config";
 
-import scribePluginFormatterPlainTextConvertNewLinesToHTML
+import * as scribePluginFormatterPlainTextConvertNewLinesToHTML
   from "scribe-plugin-formatter-plain-text-convert-new-lines-to-html";
 
-import scribePluginLinkPromptCommand from "./blocks/scribe-plugins/scribe-link-prompt-plugin";
+import * as scribePluginLinkPromptCommand from "./blocks/scribe-plugins/scribe-link-prompt-plugin";
 
-import scribePluginSanitizer from "scribe-plugin-sanitizer";
+import * as scribePluginSanitizer from "scribe-plugin-sanitizer";
 
 const sanitizeDefaults = {
   p: true,

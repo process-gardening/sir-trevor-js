@@ -1,7 +1,7 @@
 "use strict";
 
 // TODO why??
-export {
+import {
   debounce,
   findIndex,
   isEmpty,
@@ -13,3 +13,16 @@ export {
   template,
   uniqueId
 } from "lodash";
+
+export default {
+  debounce,
+  findIndex,
+  isEmpty,
+  isFunction,
+  isObject,
+  isString,
+  isUndefined,
+  result,
+  template,
+  uniqueId
+}

@@ -32,7 +32,7 @@ function render(Blocks, availableTypes) {
   return elButtons;
 }
 
-export function create(SirTrevor) {
+function create(SirTrevor) {
 
   // REFACTOR - should probably not know about blockManager
   let el = render(Blocks, SirTrevor.blockManager.blockTypes);
@@ -84,4 +84,8 @@ export function create(SirTrevor) {
   );
 
   return {el, hide, destroy};
+}
+
+export default {
+  create
 }

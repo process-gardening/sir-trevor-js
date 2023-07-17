@@ -1,6 +1,7 @@
 "use strict";
 
 import "./icons/sir-trevor-icons.svg";
+import "./sass/main.scss";
 
 // ES6 shims
 import {shim as objectAssignShim} from "object.assign";

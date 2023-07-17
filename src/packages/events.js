@@ -49,7 +49,7 @@ const fixEvent = function (e, target) {
   return obj;
 };
 
-export function delegate(el, selector, event, fn, useCapture = false) {
+function delegate(el, selector, event, fn, useCapture = false) {
   el.addEventListener(event, (e) => {
     let target = e.target;
     for (target; target && target !== el; target = target.parentNode) {
@@ -60,4 +60,8 @@ export function delegate(el, selector, event, fn, useCapture = false) {
     }
     target = null;
   }, useCapture);
+}
+
+export default {
+  delegate
 }
