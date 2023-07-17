@@ -1,9 +1,8 @@
 'use strict';
 
+import helpers from "./helpers";
+
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
-
-const helpers = require('./helpers');
-
 // Only set to blocks that are controllable.
 const blockTypes = ["list", "image", "video", "tweet"]; // jshint ignore:line
 

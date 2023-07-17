@@ -1,10 +1,10 @@
 'use strict';
 
+import helpers from "./helpers";
+
+import driver from "selenium-webdriver";
+
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
-
-const helpers = require('./helpers');
-const driver = require('selenium-webdriver');
-
 const getTextFromBlock = function (blocks) {
   let str = 'return [';
   str += blocks.map(function (index) {

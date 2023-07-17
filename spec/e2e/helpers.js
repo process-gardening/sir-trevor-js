@@ -1,104 +1,116 @@
 "use strict";
 
-const driver = require('selenium-webdriver');
+import driver from "selenium-webdriver";
+
+
+let browser =  {}
+
 
 const APP_URL = 'http://localhost:8000/spec/app/index.html';
 const USE_SAUCELABS = true;
 
-exports.findElementByCss = function(css, parent) {
-  return (parent || exports.browser).findElement(driver.By.css(css));
-};
+function findElementByCss(css, parent) {
+  return (parent || browser).findElement(driver.By.css(css));
+}
 
-exports.findElementsByCss = function(css, parent) {
-  return (parent || exports.browser).findElements(driver.By.css(css));
-};
+function findElementsByCss(css, parent) {
+  return (parent || browser).findElements(driver.By.css(css));
+}
 
-exports.findBlocks = function() {
-  return exports.findElementsByCss('.st-block');
-};
+function findBlocks() {
+  return findElementsByCss('.st-block');
+}
 
-exports.hasClassName = function(element, className) {
+function hasClassName(element, className) {
   return element.getAttribute('class').then( function(classes) {
     return classes.split(' ').indexOf(className) > -1;
   });
-};
+}
 
-exports.pressBackSpace = function() {
-  return exports.browser.actions()
+function pressBackSpace() {
+  return browser.actions()
     .sendKeys(driver.Key.BACK_SPACE)
     .perform();
-};
+}
 
-exports.pressShift = function() {
-  return exports.browser.actions()
+function pressShift() {
+  return browser.actions()
     .sendKeys(driver.Key.SHIFT)
     .perform();
-};
-exports.pressEnter = function() {
-  return exports.browser.actions()
+}
+
+function pressEnter() {
+  return browser.actions()
     .sendKeys(driver.Key.ENTER)
     .perform();
-};
-exports.pressShiftEnter = function() {
-  return exports.browser.actions()
+}
+
+function pressShiftEnter() {
+  return browser.actions()
     .sendKeys(driver.Key.SHIFT)
     .sendKeys(driver.Key.ENTER)
     .perform();
-};
-exports.pressLeft = function() {
-  return exports.browser.actions()
+}
+
+function pressLeft() {
+  return browser.actions()
     .sendKeys(driver.Key.ARROW_LEFT)
     .perform();
-};
-exports.pressRight = function() {
-  return exports.browser.actions()
+}
+
+function pressRight() {
+  return browser.actions()
     .sendKeys(driver.Key.ARROW_RIGHT)
     .perform();
-};
-exports.pressDown = function() {
-  return exports.browser.actions()
+}
+
+function pressDown() {
+  return browser.actions()
     .sendKeys(driver.Key.ARROW_DOWN)
     .perform();
-};
-exports.pressCtrlA = function() {
-  return exports.browser.actions()
+}
+
+function pressCtrlA() {
+  return browser.actions()
     .keyDown(driver.Key.CONTROL)
     .sendKeys("a")
     .keyUp(driver.Key.CONTROL)
     .perform();
 };
-exports.pressCtrlC = function() {
-  return exports.browser.actions()
+
+function pressCtrlC() {
+  return browser.actions()
     .keyDown(driver.Key.CONTROL)
     .sendKeys("c")
     .keyUp(driver.Key.CONTROL)
     .perform();
-};
-exports.pressCtrlV = function() {
-  return exports.browser.actions()
+}
+
+function pressCtrlV() {
+  return browser.actions()
     .keyDown(driver.Key.CONTROL)
     .sendKeys("v")
     .keyUp(driver.Key.CONTROL)
     .perform();
-};
+}
 
-exports.enterText = function(text) {
-  return exports.browser.actions()
+function enterText(text) {
+  return browser.actions()
                 .sendKeys(text)
                 .perform();
-};
+}
 
-exports.createBlock = function(blockType, cb) {
+function createBlock(blockType, cb) {
 
   function createBlock(parent) {
-    exports.findElementByCss('.st-block-replacer', parent).click().then( function() {
-      return exports.findElementByCss('.st-block-controls__button[data-type="'+blockType+'"]', parent).click();
+    findElementByCss('.st-block-replacer', parent).click().then( function() {
+      return findElementByCss('.st-block-controls__button[data-type="'+blockType+'"]', parent).click();
     }).then( function() {
-      return exports.findElementByCss('.st-block[data-type="'+blockType+'"]');
+      return findElementByCss('.st-block[data-type="'+blockType+'"]');
     }).then(cb);
   }
 
-  exports.findBlocks().then( function(blocks) {
+  findBlocks().then( function(blocks) {
     if (blocks.length > 0) {
       const element = blocks[blocks.length - 1];
       let classes, type;
@@ -109,64 +121,64 @@ exports.createBlock = function(blockType, cb) {
         type = res;
         if (classes.indexOf('st-block--textable') > -1) {
           if (blockType === 'text') {
-            return exports.pressEnter().then(cb);
+            return pressEnter().then(cb);
           } else {
             return createBlock(element);
           }
         } else if (type === 'list') {
-          return exports.pressEnter()
-            .then(exports.findBlocks)
+          return pressEnter()
+            .then(findBlocks)
             .then( function(blocks2) {
               return createBlock(blocks2[blocks2.length-1]);
             });
         } else if (classes.indexOf('st-block--droppable') > -1) {
-          return exports.findElementByCss('.st-block__inner--droppable', element).click()
-            .then(exports.pressEnter)
-            .then(exports.findBlocks)
+          return findElementByCss('.st-block__inner--droppable', element).click()
+            .then(pressEnter)
+            .then(findBlocks)
             .then(function(blocks2) {
               return createBlock(blocks2[blocks2.length-1]);
             });
         }
       });
     } else {
-      exports.findElementByCss('.st-top-controls > .st-block-addition').click()
-        .then(exports.findBlocks)
+      findElementByCss('.st-top-controls > .st-block-addition').click()
+        .then(findBlocks)
         .then(function(elements) {
           createBlock(elements[0]);
         });
     }
   });
-};
+}
 
-exports.hasBlockCount = function(count) {
-  return exports.findBlocks().then( function(blocks) {
+function hasBlockCount(count) {
+  return findBlocks().then( function(blocks) {
     expect(blocks.length === count);
   });
-};
+}
 
-exports.focusOnTextBlock = function(index) {
+function focusOnTextBlock(index) {
   index = index || 0;
-  return exports.findElementsByCss('.st-text-block').then(function(elements) {
-    return exports.browser.actions()
+  return findElementsByCss('.st-text-block').then(function(elements) {
+    return browser.actions()
               .mouseMove(elements[index], {x: 5, y: 10})
               .click()
               .perform();
   });
-};
+}
 
-exports.focusOnListBlock = function(index) {
+function focusOnListBlock(index) {
   index = index || 0;
-  return exports.findElementsByCss('.st-list-block__list').then(function(elements) {
-    return exports.findElementsByCss('.st-list-block__editor', elements[index]);
+  return findElementsByCss('.st-list-block__list').then(function(elements) {
+    return findElementsByCss('.st-list-block__editor', elements[index]);
   }).then(function(elements) {
-    return exports.browser.actions()
+    return browser.actions()
               .mouseMove(elements[0], {x: 5, y: 10})
               .click()
               .perform();
   });
-};
+}
 
-exports.initSirTrevor = function(data) {
+function initSirTrevor(data) {
   const javascriptString = [];
 
   if (data) {
@@ -188,20 +200,20 @@ exports.initSirTrevor = function(data) {
     });"
   );
 
-  return exports.browser.executeScript(javascriptString.join("")).then( function() {
-    return exports.findElementByCss('.st-outer');
+  return browser.executeScript(javascriptString.join("")).then( function() {
+    return findElementByCss('.st-outer');
   });
-};
+}
 
-exports.catchError = function(err) { return false; };
+function catchError(err) { return false; }
 
-exports.completeAlertPopup = function(text) {
-  return exports.browser.wait(driver.until.alertIsPresent()).then( function() {
-    const alert = exports.browser.switchTo().alert();
+function completeAlertPopup(text) {
+  return browser.wait(driver.until.alertIsPresent()).then( function() {
+    const alert = browser.switchTo().alert();
     alert.sendKeys(text);
     return alert.accept();
   });
-};
+}
 
 beforeAll(function() {
 
@@ -238,14 +250,39 @@ beforeAll(function() {
     }
   }
 
-  exports.browser = new driver.Builder().usingServer(serverUrl).withCapabilities(capabilities).build();
-  exports.browser.manage().timeouts().setScriptTimeout(20000);
+  browser = new driver.Builder().usingServer(serverUrl).withCapabilities(capabilities).build();
+  browser.manage().timeouts().setScriptTimeout(20000);
 });
 
 beforeEach(function(done) {
-  exports.browser.get(APP_URL).then(done);
+  browser.get(APP_URL).then(done);
 });
 
 afterAll(function(done) {
-  exports.browser.quit().then(done);
+  browser.quit().then(done);
 });
+
+export default {
+  findElementsByCss,
+  findElementByCss,
+  findBlocks,
+  hasClassName,
+  pressBackSpace,
+  pressShift,
+  pressEnter,
+  pressShiftEnter,
+  pressLeft,
+  pressRight,
+  pressCtrlA,
+  pressCtrlV,
+  pressCtrlC,
+  enterText,
+  createBlock,
+  hasBlockCount,
+  focusOnListBlock,
+  focusOnTextBlock,
+  initSirTrevor,
+  catchError,
+  completeAlertPopup,
+  browser: browser
+}

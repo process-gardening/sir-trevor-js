@@ -1,7 +1,8 @@
 'use strict';
 
-const helpers = require('./helpers');
-const driver = require('selenium-webdriver');
+import helpers from "./helpers";
+
+import driver from "selenium-webdriver";
 
 const getClipboardData = function () {
   const str = "return document.body.querySelector('.st-copy-area').innerHTML;";

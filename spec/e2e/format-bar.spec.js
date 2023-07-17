@@ -1,7 +1,8 @@
 'use strict';
 
-const helpers = require('./helpers');
-const driver = require('selenium-webdriver');
+import helpers from "./helpers";
+
+import driver from "selenium-webdriver";
 
 describe('Format Bar', function() {
 
