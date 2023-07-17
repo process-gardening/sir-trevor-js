@@ -5,14 +5,17 @@
 *   Generic Upload implementation that can be extended for blocks
 */
 
-const _ = require('../lodash');
-const config = require('../config');
-const utils = require('../utils');
-const Ajax = require('../packages/ajax');
+import _ from "../lodash";
 
-const EventBus = require('../event-bus');
+import config from "../config";
 
-module.exports = function(block, file, success, error) {
+import utils from "../utils";
+
+import Ajax from "../packages/ajax";
+
+import EventBus from "../event-bus";
+
+export default function (block, file, success, error) {
   const uid = [block.blockID, (new Date()).getTime(), 'raw'].join('-');
   const data = new FormData();
   const attachmentName = block.attachmentName || config.defaults.attachmentName;
@@ -63,4 +66,4 @@ module.exports = function(block, file, success, error) {
      .catch(callbackError);
 
   return xhr;
-};
+}

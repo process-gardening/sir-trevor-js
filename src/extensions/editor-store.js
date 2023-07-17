@@ -6,9 +6,9 @@
  * We can easily extend this and store it on some server or something
  */
 
-const _ = require('../lodash');
-const utils = require('../utils');
+import _ from "../lodash";
 
+import utils from "../utils";
 
 const EditorStore = function (data, mediator) {
   this.mediator = mediator;
@@ -66,4 +66,4 @@ Object.assign(EditorStore.prototype, {
 
 });
 
-module.exports = EditorStore;
+export default EditorStore;

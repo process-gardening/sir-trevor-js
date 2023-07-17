@@ -9,9 +9,9 @@
  * This will be triggered *by anything* so it needs to subscribe to events.
  */
 
-const utils = require('../utils');
+import utils from "../utils";
 
-const EventBus = require('../event-bus');
+import EventBus from "../event-bus";
 
 const Submittable = function (form) {
   this.form = form;
@@ -106,5 +106,5 @@ Object.assign(Submittable.prototype, {
 
 });
 
-module.exports = Submittable;
+export default Submittable;
 
