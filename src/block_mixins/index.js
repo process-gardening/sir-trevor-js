@@ -1,12 +1,21 @@
 "use strict";
 
-module.exports = {
-  Ajaxable: require('./ajaxable.js'),
-  Controllable: require('./controllable.js'),
-  Droppable: require('./droppable.js'),
-  Fetchable: require('./fetchable.js'),
-  Pastable: require('./pastable.js'),
-  Uploadable: require('./uploadable.js'),
-  MultiEditable: require('./multi-editable.js'),
-  Textable: require('./textable.js')
+import ajaxable from "./ajaxable";
+import controllable from "./controllable";
+import droppable from "./droppable";
+import fetchable from "./fetchable";
+import pastable from "./pastable";
+import uploadable from "./uploadable";
+import multiEditable from "./multi-editable";
+import textable from "./textable";
+
+export default {
+  Ajaxable: ajaxable,
+  Controllable: controllable,
+  Droppable: droppable,
+  Fetchable: fetchable,
+  Pastable: pastable,
+  Uploadable: uploadable,
+  MultiEditable: multiEditable,
+  Textable: textable
 };

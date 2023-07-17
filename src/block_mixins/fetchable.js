@@ -1,9 +1,10 @@
 "use strict";
 
-const _ = require('../lodash');
-const Ajax = require('../packages/ajax');
+import _ from "../lodash";
 
-module.exports = {
+import Ajax from "../packages/ajax";
+
+export default {
 
   mixinName: "Fetchable",
 

@@ -1,11 +1,14 @@
 "use strict";
 
-const utils = require('../utils');
-const config = require('../config');
-const Dom = require('../packages/dom');
-const Events = require('../packages/events');
+import utils from "../utils";
 
-module.exports = {
+import config from "../config";
+
+import Dom from "../packages/dom";
+
+import Events from "../packages/events";
+
+export default {
 
   mixinName: "Controllable",
 

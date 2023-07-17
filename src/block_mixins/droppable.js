@@ -11,7 +11,7 @@ const dropEvents = require('../helpers/drop-events');
 
 const EventBus = require('../event-bus');
 
-module.exports = {
+export default {
 
   mixinName: "Droppable",
   valid_drop_file_types: ['File', 'Files', 'text/plain', 'text/uri-list'],

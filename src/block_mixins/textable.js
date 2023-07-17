@@ -1,13 +1,11 @@
 "use strict";
 
-const selectionRange = require('selection-range');
+import selectionRange from "selection-range";
 
-let {
-  createBlocksFromParagraphs,
-  getTotalLength
-} = require("../blocks/scribe-plugins/shared");
+import {createBlocksFromParagraphs, getTotalLength} from "../blocks/scribe-plugins/shared";
 
-module.exports = {
+
+export default {
   mixinName: 'Textable',
 
   initializeTextable: function() {

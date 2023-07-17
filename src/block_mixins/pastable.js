@@ -1,10 +1,12 @@
 "use strict";
 
-const _ = require('../lodash');
-const config = require('../config');
-const utils = require('../utils');
+import _ from "../lodash";
 
-module.exports = {
+import config from "../config";
+
+import utils from "../utils";
+
+export default {
 
   mixinName: "Pastable",
   requireInputs: true,

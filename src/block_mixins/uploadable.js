@@ -1,12 +1,14 @@
 "use strict";
 
-const _ = require('../lodash');
-const config = require('../config');
-const utils = require('../utils');
+import _ from "../lodash";
 
-const fileUploader = require('../extensions/file-uploader');
+import config from "../config";
 
-module.exports = {
+import utils from "../utils";
+
+import fileUploader from "../extensions/file-uploader";
+
+export default {
 
   mixinName: "Uploadable",
 

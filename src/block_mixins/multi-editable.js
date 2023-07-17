@@ -1,13 +1,15 @@
 "use strict";
 
-const selectionRange = require('selection-range');
+import selectionRange from "selection-range";
 
-const _ = require('../lodash');
-const ScribeInterface = require('../scribe-interface');
+import _ from "../lodash";
 
-let {trimScribeContent} = require('../blocks/scribe-plugins/shared');
+import ScribeInterface from "../scribe-interface";
 
-module.exports = {
+import {trimScribeContent} from "../blocks/scribe-plugins/shared";
+
+
+export default {
   mixinName: 'MultiEditable',
 
   initializeMultiEditable: function() {

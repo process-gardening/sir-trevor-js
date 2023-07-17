@@ -1,8 +1,8 @@
 "use strict";
 
-const utils = require('../utils');
+import utils from "../utils";
 
-module.exports = {
+export default {
 
   mixinName: "Ajaxable",
 
