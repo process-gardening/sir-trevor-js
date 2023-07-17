@@ -1,13 +1,15 @@
 "use strict";
 
-const config = require('./config');
+import config from "./config";
+
+import function_bind from "./function-bind";
 
 const BlockDeletion = function () {
   this._ensureElement();
   this._bindFunctions();
 };
 
-Object.assign(BlockDeletion.prototype, require('./function-bind'), require('./renderable'), {
+Object.assign(BlockDeletion.prototype, function_bind, require('./renderable'), {
 
   tagName: 'a',
   className: 'st-block-ui-btn__delete',
@@ -21,4 +23,4 @@ Object.assign(BlockDeletion.prototype, require('./function-bind'), require('./re
 
 });
 
-module.exports = BlockDeletion;
+export default BlockDeletion;

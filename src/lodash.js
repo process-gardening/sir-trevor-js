@@ -1,12 +1,15 @@
 "use strict";
 
-exports.debounce = require('lodash.debounce');
-exports.findIndex = require('lodash.findindex');
-exports.isEmpty = require('lodash.isempty');
-exports.isFunction = require('lodash.isfunction');
-exports.isObject = require('lodash.isobject');
-exports.isString = require('lodash.isstring');
-exports.isUndefined = require('lodash.isundefined');
-exports.result = require('lodash.result');
-exports.template = require('lodash.template');
-exports.uniqueId = require('lodash.uniqueid');
+// TODO why??
+export {
+  debounce,
+  findIndex,
+  isEmpty,
+  isFunction,
+  isObject,
+  isString,
+  isUndefined,
+  result,
+  template,
+  uniqueId
+} from "lodash";

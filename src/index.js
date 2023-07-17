@@ -1,19 +1,24 @@
 "use strict";
 
-require("./icons/sir-trevor-icons.svg");
+import "./icons/sir-trevor-icons.svg";
 
 // ES6 shims
-require('object.assign').shim();
-require('array.prototype.find').shim();
-require('./vendor/array-includes'); // shims ES7 Array.prototype.includes
-require('es6-promise').polyfill();
+import {shim as objectAssignShim} from "object.assign";
+objectAssignShim();
 
-// Old IE support
-require('./vendor/custom-event')
-require('./vendor/ie-classlist-toggle');
-require('./vendor/dom-shims');
+import {shim as arrayFindShim} from "array.prototype.find";
+arrayFindShim();
 
-const utils = require('./utils');
+import "./vendor/array-includes";
+
+import es6promisepolyfill from "es6-promise";
+es6promisepolyfill();
+
+import "./vendor/custom-event";
+import "./vendor/ie-classlist-toggle";
+import "./vendor/dom-shims";
+
+import utils from "./utils";
 
 const SirTrevor = {
 
@@ -82,4 +87,4 @@ const SirTrevor = {
 Object.assign(SirTrevor, require('./form-events'));
 
 
-module.exports = SirTrevor;
+export default SirTrevor;

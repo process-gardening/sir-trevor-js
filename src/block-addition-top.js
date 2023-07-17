@@ -6,9 +6,9 @@
  * Gives an interface for adding new Sir Trevor blocks.
  */
 
-const Events = require("./packages/events");
+import Events from "./packages/events";
 
-module.exports.create = function(SirTrevor) {
+export function create(SirTrevor) {
 
   function createBlock(e) {
     // REFACTOR: mediator so that we can trigger events directly on instance?
@@ -37,4 +37,4 @@ module.exports.create = function(SirTrevor) {
   );
 
   return {destroy, hide};
-};
+}

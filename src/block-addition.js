@@ -6,16 +6,17 @@
  * Gives an interface for adding new Sir Trevor blocks.
  */
 
-const dropEvents = require('./helpers/drop-events');
+import dropEvents from "./helpers/drop-events";
 
-const EventBus = require('./event-bus');
+import EventBus from "./event-bus";
 
-const Dom = require('./packages/dom');
-const Events = require("./packages/events");
+import Dom from "./packages/dom";
 
-const TOP_CONTROLS_TEMPLATE = require("./templates/top-controls");
+import Events from "./packages/events";
 
-module.exports.create = function(editor) {
+import TOP_CONTROLS_TEMPLATE from "./templates/top-controls";
+
+export function create(editor) {
 
   function createBlock(e) {
     // REFACTOR: mediator so that we can trigger events directly on instance?
@@ -94,4 +95,4 @@ module.exports.create = function(editor) {
   );
 
   return {destroy, hide};
-};
+}

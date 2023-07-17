@@ -1,6 +1,6 @@
 "use strict";
 
-const _ = require('./lodash');
+import _ from "./lodash";
 
 const drop_options = {
   title: (block) => {
@@ -45,7 +45,7 @@ const upload_options = {
   `
 };
 
-module.exports = {
+export default {
   debug: false,
   scribeDebug: false,
   skipValidation: false,

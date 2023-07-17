@@ -1,13 +1,24 @@
 "use strict";
 
-const _ = require('./lodash');
-const utils = require('./utils');
-const Dom = require('./packages/dom');
-const Events = require('./packages/events');
+import _ from "./lodash";
 
-const BlockReorder = require('./block-reorder');
+import utils from "./utils";
 
-const BLOCK_TEMPLATE = require('./templates/block');
+import Dom from "./packages/dom";
+
+import Events from "./packages/events";
+
+import BlockReorder from "./block-reorder";
+
+import BLOCK_TEMPLATE from "./templates/block";
+
+import function_bind from "./function-bind";
+
+import events from "./events";
+
+import renderable from "./renderable";
+
+import block_store from "./block-store";
 
 const SimpleBlock = function (data, instance_id, mediator, options, editorOptions) {
   this.createStore(data);
@@ -23,7 +34,7 @@ const SimpleBlock = function (data, instance_id, mediator, options, editorOption
   this.initialize.apply(this, arguments);
 };
 
-Object.assign(SimpleBlock.prototype, require('./function-bind'), require('./events'), require('./renderable'), require('./block-store'), {
+Object.assign(SimpleBlock.prototype, function_bind, events, renderable, block_store, {
 
   focus: function () {
   },
@@ -162,4 +173,4 @@ SimpleBlock.fn = SimpleBlock.prototype;
 // Allow our Block to be extended.
 SimpleBlock.extend = require('./helpers/extend');
 
-module.exports = SimpleBlock;
+export default SimpleBlock;

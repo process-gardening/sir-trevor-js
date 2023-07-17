@@ -1,9 +1,10 @@
 "use strict";
 
-const _ = require('./lodash');
-const utils = require('./utils');
+import _ from "./lodash";
 
-module.exports = function(markdown, type) {
+import utils from "./utils";
+
+export default function (markdown, type) {
 
   // Deferring requiring these to sidestep a circular dependency:
   // Block -> this -> Blocks -> Block
@@ -75,4 +76,4 @@ module.exports = function(markdown, type) {
   }
 
   return html;
-};
+}

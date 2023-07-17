@@ -1,6 +1,6 @@
 "use strict";
 
-const Dom = require('./packages/dom');
+import Dom from "./packages/dom";
 
 const template = [
   "<span class='st-block-positioner__selected-value'></span>",
@@ -72,4 +72,4 @@ Object.assign(BlockPositionerSelect.prototype, require('./function-bind'), requi
 
 });
 
-module.exports = BlockPositionerSelect;
+export default BlockPositionerSelect;

@@ -1,15 +1,18 @@
 "use strict";
 
-const selectionRange = require('selection-range');
+import selectionRange from "selection-range";
 
-const _ = require('./lodash');
-const utils = require('./utils');
-const config = require('./config');
+import _ from "./lodash";
 
-const EventBus = require('./event-bus');
-const Blocks = require('./blocks');
+import utils from "./utils";
 
-const Dom = require("./packages/dom");
+import config from "./config";
+
+import EventBus from "./event-bus";
+
+import Blocks from "./blocks";
+
+import Dom from "./packages/dom";
 
 const BLOCK_OPTION_KEYS =
   ['convertToMarkdown', 'convertFromMarkdown', 'formatBar'];
@@ -477,4 +480,4 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
   }
 });
 
-module.exports = BlockManager;
+export default BlockManager;

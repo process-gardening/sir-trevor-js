@@ -8,24 +8,39 @@
  * BlockTypes are global however.
  */
 
-const _ = require('./lodash');
-const config = require('./config');
-const utils = require('./utils');
-const Dom = require('./packages/dom');
+import _ from "./lodash";
 
-const Events = require('./events');
-const EventBus = require('./event-bus');
-const FormEvents = require('./form-events');
-const BlockControls = require('./block-controls');
-const BlockAddition = require('./block-addition');
-const BlockAdditionTop = require('./block-addition-top');
-const BlockAdditionFull = require('./block-addition-full');
-const BlockManager = require('./block-manager');
-const FormatBar = require('./format-bar');
-const EditorStore = require('./extensions/editor-store');
-const ErrorHandler = require('./error-handler');
-const BlockPositionerSelect = require('./block-positioner-select');
-const SelectionHandler = require('./selection-handler');
+import config from "./config";
+
+import utils from "./utils";
+
+import Dom from "./packages/dom";
+
+import Events from "./events";
+
+import EventBus from "./event-bus";
+
+import FormEvents from "./form-events";
+
+import BlockControls from "./block-controls";
+
+import BlockAddition from "./block-addition";
+
+import BlockAdditionTop from "./block-addition-top";
+
+import BlockAdditionFull from "./block-addition-full";
+
+import BlockManager from "./block-manager";
+
+import FormatBar from "./format-bar";
+
+import EditorStore from "./extensions/editor-store";
+
+import ErrorHandler from "./error-handler";
+
+import BlockPositionerSelect from "./block-positioner-select";
+
+import SelectionHandler from "./selection-handler";
 
 const Editor = function (options) {
   this.initialize(options);
@@ -456,4 +471,4 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
 
 });
 
-module.exports = Editor;
+export default Editor;

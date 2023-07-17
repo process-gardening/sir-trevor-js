@@ -1,7 +1,12 @@
 "use strict";
 
-const _ = require('./lodash');
-const Dom = require('./packages/dom');
+import _ from "./lodash";
+
+import Dom from "./packages/dom";
+
+import function_bind from "./function-bind";
+
+import mediated_events from "./mediated-events";
 
 const TYPE = 'application/vnd.sirtrevor+json';
 
@@ -20,7 +25,7 @@ const SelectionHandler = function (wrapper, mediator, editor) {
   this.initialize();
 };
 
-Object.assign(SelectionHandler.prototype, require('./function-bind'), require('./mediated-events'), {
+Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
 
   eventNamespace: 'selection',
 
@@ -381,4 +386,4 @@ Object.assign(SelectionHandler.prototype, require('./function-bind'), require('.
   }
 });
 
-module.exports = SelectionHandler;
+export default SelectionHandler;

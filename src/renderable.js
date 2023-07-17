@@ -1,9 +1,10 @@
 "use strict";
 
-const _ = require('./lodash');
-const Dom = require('./packages/dom');
+import _ from "./lodash";
 
-module.exports = {
+import Dom from "./packages/dom";
+
+export default {
   tagName: 'div',
   className: 'sir-trevor__view',
   attributes: {},

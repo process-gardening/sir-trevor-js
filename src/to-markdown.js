@@ -1,9 +1,10 @@
 "use strict";
 
-const _ = require('./lodash');
-const utils = require('./utils');
+import _ from "./lodash";
 
-module.exports = function(content, type) {
+import utils from "./utils";
+
+export default function (content, type) {
 
   // Deferring requiring these to sidestep a circular dependency:
   // Block -> this -> Blocks -> Block
@@ -92,4 +93,4 @@ module.exports = function(content, type) {
   markdown = markdown.replace(/<\/?[^>]+(>|$)/g, "");
 
   return markdown;
-};
+}

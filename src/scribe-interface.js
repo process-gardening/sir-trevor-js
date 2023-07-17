@@ -1,12 +1,17 @@
 "use strict";
 
-const _ = require('./lodash');
-const Scribe = require('scribe-editor');
-const config = require('./config');
+import _ from "./lodash";
 
-const scribePluginFormatterPlainTextConvertNewLinesToHTML = require('scribe-plugin-formatter-plain-text-convert-new-lines-to-html');
-const scribePluginLinkPromptCommand = require('./blocks/scribe-plugins/scribe-link-prompt-plugin');
-const scribePluginSanitizer = require('scribe-plugin-sanitizer');
+import Scribe from "scribe-editor";
+
+import config from "./config";
+
+import scribePluginFormatterPlainTextConvertNewLinesToHTML
+  from "scribe-plugin-formatter-plain-text-convert-new-lines-to-html";
+
+import scribePluginLinkPromptCommand from "./blocks/scribe-plugins/scribe-link-prompt-plugin";
+
+import scribePluginSanitizer from "scribe-plugin-sanitizer";
 
 const sanitizeDefaults = {
   p: true,
@@ -22,7 +27,7 @@ const sanitizeDefaults = {
   sup: true
 };
 
-module.exports = {
+export default {
 
   initScribeInstance: function(el, scribeOptions, configureScribe, editorOptions) {
 

@@ -6,10 +6,11 @@
  * Gives an interface for adding new Sir Trevor blocks.
  */
 
-const Blocks = require("./blocks");
-const Events = require("./packages/events");
+import Blocks from "./blocks";
 
-const BLOCK_REPLACER_CONTROL_TEMPLATE = require("./templates/block-control");
+import Events from "./packages/events";
+
+import BLOCK_REPLACER_CONTROL_TEMPLATE from "./templates/block-control";
 
 function generateBlocksHTML(Blocks, availableTypes) {
   return availableTypes.reduce((memo, type) => {

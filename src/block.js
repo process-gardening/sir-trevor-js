@@ -1,27 +1,39 @@
 "use strict";
 
-const _ = require('./lodash');
+import _ from "./lodash";
 
-const ScribeInterface = require('./scribe-interface');
+import ScribeInterface from "./scribe-interface";
 
-const config = require('./config');
-const utils = require('./utils');
-const Dom = require('./packages/dom');
-const Events = require('./packages/events');
-const BlockMixins = require('./block_mixins');
+import config from "./config";
 
-const SimpleBlock = require('./simple-block');
-const BlockReorder = require('./block-reorder');
-const BlockDeletion = require('./block-deletion');
-const BlockPositioner = require('./block-positioner');
-const EventBus = require('./event-bus');
+import utils from "./utils";
 
-let {Spinner} = require('spin.js');
+import Dom from "./packages/dom";
 
-let {trimScribeContent} = require('./blocks/scribe-plugins/shared');;
+import Events from "./packages/events";
 
-const DELETE_TEMPLATE = require("./templates/delete");
+import BlockMixins from "./block_mixins";
 
+import SimpleBlock from "./simple-block";
+
+import BlockReorder from "./block-reorder";
+
+import BlockDeletion from "./block-deletion";
+
+import BlockPositioner from "./block-positioner";
+
+import EventBus from "./event-bus";
+
+import {Spinner} from "spin.js";
+
+
+import {trimScribeContent} from "./blocks/scribe-plugins/shared";
+
+import DELETE_TEMPLATE from "./templates/delete";
+
+import helpers from "./helpers/extend";
+
+;
 const Block = function (data, instance_id, mediator, options, editorOptions) {
   SimpleBlock.apply(this, arguments);
 };
@@ -571,6 +583,7 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
 
 });
 
-Block.extend = require('./helpers/extend'); // Allow our Block to be extended.
+Block.extend = helpers;
 
-module.exports = Block;
+ // Allow our Block to be extended.
+export default Block;

@@ -6,13 +6,23 @@
  * Displayed on focus on a text area.
  * Renders with all available options for the editor instance
  */
-const _ = require('./lodash');
+import _ from "./lodash";
 
-const config = require('./config');
-const Dom = require('./packages/dom');
-const Events = require('./packages/events');
+import config from "./config";
 
-const FORMAT_BUTTON_TEMPLATE = require("./templates/format-button");
+import Dom from "./packages/dom";
+
+import Events from "./packages/events";
+
+import FORMAT_BUTTON_TEMPLATE from "./templates/format-button";
+
+import function_bind from "./function-bind";
+
+import mediated_events from "./mediated-events";
+
+import events from "./events";
+
+import renderable from "./renderable";
 
 const FormatBar = function (options, mediator, editor) {
   this.editor = editor;
@@ -28,7 +38,7 @@ const FormatBar = function (options, mediator, editor) {
   this.initialize.apply(this, arguments);
 };
 
-Object.assign(FormatBar.prototype, require('./function-bind'), require('./mediated-events'), require('./events'), require('./renderable'), {
+Object.assign(FormatBar.prototype, function_bind, mediated_events, events, renderable, {
 
   className: 'st-format-bar',
 
@@ -136,4 +146,4 @@ Object.assign(FormatBar.prototype, require('./function-bind'), require('./mediat
 
 });
 
-module.exports = FormatBar;
+export default FormatBar;

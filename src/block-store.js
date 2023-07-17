@@ -1,11 +1,12 @@
 "use strict";
 
-const _ = require('./lodash');
-const utils = require('./utils');
+import _ from "./lodash";
 
-const EventBus = require('./event-bus');
+import utils from "./utils";
 
-module.exports = {
+import EventBus from "./event-bus";
+
+export default {
 
   /**
    * Internal storage object for the block

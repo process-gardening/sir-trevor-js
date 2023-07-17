@@ -1,7 +1,8 @@
 "use strict";
 
-const _ = require('./lodash');
-const utils = require('./utils');
+import _ from "./lodash";
+
+import utils from "./utils";
 
 const bestNameFromField = function (field) {
   let msg = field.getAttribute("data-st-name") || field.getAttribute("name");
@@ -13,7 +14,7 @@ const bestNameFromField = function (field) {
   return utils.capitalize(msg);
 };
 
-module.exports = {
+export default {
 
   errors: [],
 

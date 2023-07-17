@@ -1,8 +1,10 @@
 "use strict";
 
-const _ = require('./lodash');
-const config = require('./config');
-const Dom = require('./packages/dom');
+import _ from "./lodash";
+
+import config from "./config";
+
+import Dom from "./packages/dom";
 
 const urlRegex = /^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;
 
@@ -95,4 +97,4 @@ const utils = {
 
 };
 
-module.exports = utils;
+export default utils;

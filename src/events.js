@@ -1,3 +1,5 @@
 "use strict";
 
-module.exports = require('eventablejs');
+import eventablejs from "eventablejs";
+
+export default eventablejs;

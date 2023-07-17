@@ -1,11 +1,12 @@
 "use strict";
 
-const dropEvents = require('./helpers/drop-events');
+import dropEvents from "./helpers/drop-events";
 
-const EventBus = require('./event-bus');
-const Dom = require('./packages/dom');
+import EventBus from "./event-bus";
 
-const config = require('./config');
+import Dom from "./packages/dom";
+
+import config from "./config";
 
 const BlockReorder = function (block_element, mediator) {
   this.block = block_element;
@@ -149,4 +150,4 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
 
 });
 
-module.exports = BlockReorder;
+export default BlockReorder;

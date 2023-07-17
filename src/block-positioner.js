@@ -1,5 +1,5 @@
 "use strict";
-let _ = require('./lodash');
+import _ from "./lodash";
 
 let template = [
   "<div class='st-block-positioner__inner'>",
@@ -111,4 +111,4 @@ Object.assign(BlockPositioner.prototype, require('./function-bind'), require('./
 
 });
 
-module.exports = BlockPositioner;
+export default BlockPositioner;

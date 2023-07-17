@@ -1,10 +1,12 @@
 "use strict";
 
-const config = require('./config');
-const utils = require('./utils');
+import config from "./config";
 
-const EventBus = require('./event-bus');
-const Submittable = require('./extensions/submittable');
+import utils from "./utils";
+
+import EventBus from "./event-bus";
+
+import Submittable from "./extensions/submittable";
 
 let formBound = false; // Flag to tell us once we've bound our submit event
 
@@ -42,4 +44,4 @@ const FormEvents = {
   },
 };
 
-module.exports = FormEvents;
+export default FormEvents;

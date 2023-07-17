@@ -6,12 +6,13 @@
  * Gives an interface for adding new Sir Trevor blocks.
  */
 
-const Blocks = require("./blocks");
-const Events = require("./packages/events");
-const config = require('./config');
+import Blocks from "./blocks";
 
-const BLOCKS_MENU_BUTTON_TEMPLATE = require("./templates/blocks-menu-button");
+import Events from "./packages/events";
 
+import config from "./config";
+
+import BLOCKS_MENU_BUTTON_TEMPLATE from "./templates/blocks-menu-button";
 // function generateBlocksHTML(Blocks, availableTypes) {
 //   return availableTypes.reduce((memo, type) => {
 //     if (Blocks.hasOwnProperty(type) && Blocks[type].prototype.toolbarEnabled) {

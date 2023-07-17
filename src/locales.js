@@ -1,8 +1,10 @@
 "use strict";
 
-const _ = require('./lodash');
-const config = require('./config');
-const utils = require('./utils');
+import _ from "./lodash";
+
+import config from "./config";
+
+import utils from "./utils";
 
 const Locales = {
   en: {
@@ -201,4 +203,4 @@ if (window.i18n === undefined) {
   });
 }
 
-module.exports = Locales;
+export default Locales;

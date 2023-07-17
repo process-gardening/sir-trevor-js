@@ -1,7 +1,8 @@
 "use strict";
 
-const _ = require('./lodash');
-const Dom = require('./packages/dom');
+import _ from "./lodash";
+
+import Dom from "./packages/dom";
 
 const ErrorHandler = function (wrapper, mediator, container) {
   this.wrapper = wrapper;
@@ -69,5 +70,5 @@ Object.assign(ErrorHandler.prototype, require('./function-bind'), require('./med
 
 });
 
-module.exports = ErrorHandler;
+export default ErrorHandler;
 
