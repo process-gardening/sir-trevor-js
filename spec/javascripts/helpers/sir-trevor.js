@@ -10,10 +10,8 @@ const createBaseElement = function() {
 };
 
 export function setup() {
-  global.SirTrevor = generated;
-  window.SirTrevor = generated;
 
+  global.SirTrevor = generated;
   global.createBaseElement = createBaseElement;
-  window.createBaseElement = createBaseElement;
 }
 

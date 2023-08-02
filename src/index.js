@@ -13,7 +13,7 @@ arrayFindShim();
 import "./vendor/array-includes";
 
 import es6promisepolyfill from "es6-promise";
-es6promisepolyfill();
+es6promisepolyfill.polyfill();
 
 import "./vendor/custom-event";
 import "./vendor/ie-classlist-toggle";

@@ -2,16 +2,13 @@
 
 import _ from "./lodash";
 
-import * as Scribe from "scribe-editor";
+import * as Scribe from "./vendor/scribe-editor";
 
 import config from "./config";
+import {ScribePluginSanitizer} from "./vendor/scribe-plugin-sanitizer";
+import {ScribePluginPlainTextFormatter} from "./vendor/scribe-plugin-new-lines-formatter";
 
-import * as scribePluginFormatterPlainTextConvertNewLinesToHTML
-  from "scribe-plugin-formatter-plain-text-convert-new-lines-to-html";
-
-import * as scribePluginLinkPromptCommand from "./blocks/scribe-plugins/scribe-link-prompt-plugin";
-
-import * as scribePluginSanitizer from "scribe-plugin-sanitizer";
+import scribePluginLinkPromptCommand from "./blocks/scribe-plugins/scribe-link-prompt-plugin";
 
 const sanitizeDefaults = {
   p: true,
@@ -46,9 +43,9 @@ export default {
       tags = Object.assign(sanitizeDefaults, scribeOptions.tags);
     }
 
-    scribe.use(scribePluginFormatterPlainTextConvertNewLinesToHTML());
+    scribe.use(ScribePluginPlainTextFormatter());
     scribe.use(scribePluginLinkPromptCommand({ editorOptions }));
-    scribe.use(scribePluginSanitizer({tags: tags}));
+    scribe.use(ScribePluginSanitizer({tags: tags}));
 
     if (_.isFunction(configureScribe)) {
       configureScribe.call(this, scribe);
