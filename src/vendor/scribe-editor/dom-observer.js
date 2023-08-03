@@ -1,11 +1,11 @@
 import nodeHelpers from './node';
 import mutations from './mutations';
 
-  var maybeWindow = typeof window === 'object' ? window : undefined;
+const maybeWindow = typeof window === 'object' ? window : undefined;
 
-  var MutationObserver = mutations.determineMutationObserver(maybeWindow);
+const MutationObserver = mutations.determineMutationObserver(maybeWindow);
 
-  function hasRealMutation(n) {
+function hasRealMutation(n) {
     return ! nodeHelpers.isEmptyTextNode(n) &&
       ! nodeHelpers.isSelectionMarkerNode(n);
   }
@@ -19,28 +19,28 @@ import mutations from './mutations';
 
   function observeDomChanges(el, callback) {
     // Flag to avoid running recursively
-    var runningPostMutation = false;
+      let runningPostMutation = false;
 
-    var observer = new MutationObserver(function(mutations) {
-      if (! runningPostMutation && includeRealMutations(mutations)) {
-        runningPostMutation = true;
+      const observer = new MutationObserver(function (mutations) {
+          if (!runningPostMutation && includeRealMutations(mutations)) {
+              runningPostMutation = true;
 
-        try {
-          callback();
-        } catch(e) {
-          // The catch block is required but we don't want to swallow the error
-          throw e;
-        } finally {
-          // We must yield to let any mutation we caused be triggered
-          // in the next cycle
-          setTimeout(function() {
-            runningPostMutation = false;
-          }, 0);
-        }
-      }
-    });
+              try {
+                  callback();
+              } catch (e) {
+                  // The catch block is required but we don't want to swallow the error
+                  throw e;
+              } finally {
+                  // We must yield to let any mutation we caused be triggered
+                  // in the next cycle
+                  setTimeout(function () {
+                      runningPostMutation = false;
+                  }, 0);
+              }
+          }
+      });
 
-    observer.observe(el, {
+      observer.observe(el, {
       childList: true,
       subtree: true
     });

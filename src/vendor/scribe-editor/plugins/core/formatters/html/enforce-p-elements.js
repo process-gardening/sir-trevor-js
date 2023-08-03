@@ -19,15 +19,15 @@ import Immutable from 'immutable';
 
   export default function () {
     return function (scribe) {
-      var nodeHelpers = scribe.node;
+        const nodeHelpers = scribe.node;
 
-      /**
+        /**
        * Wrap consecutive inline elements and text nodes in a P element.
        */
       function wrapChildNodes(parentNode) {
-        var index = 0;
+          let index = 0;
 
-        Immutable.List(parentNode.childNodes)
+          Immutable.List(parentNode.childNodes)
           .filterNot(function(node) {
             return nodeHelpers.isWhitespaceOnlyTextNode(Node, node);
           })
@@ -46,9 +46,9 @@ import Immutable from 'immutable';
 
       // Traverse the tree, wrapping child nodes as we go.
       function traverse(parentNode) {
-        var i = 0, node;
+          let i = 0, node;
 
-        while (node = parentNode.children[i++]) {
+          while (node = parentNode.children[i++]) {
           if (node.tagName === 'BLOCKQUOTE') {
             wrapChildNodes(node);
           }
@@ -56,17 +56,13 @@ import Immutable from 'immutable';
       }
 
       scribe.registerHTMLFormatter('normalize', function (html) {
-        /**
-         * Ensure P mode.
-         *
-         * Wrap any orphan text nodes in a P element.
-         */
-        // TODO: This should be configurable and also correct markup such as
-        // `<ul>1</ul>` to <ul><li>2</li></ul>`. See skipped tests.
-        // TODO: This should probably be a part of HTML Janitor, or some other
-        // formatter.
-        var bin = document.createElement('div');
-        bin.innerHTML = html;
+          /**
+           * Ensure P mode.
+           *
+           * Wrap any orphan text nodes in a P element.
+           */
+          const bin = document.createElement('div');
+          bin.innerHTML = html;
 
         wrapChildNodes(bin);
         traverse(bin);

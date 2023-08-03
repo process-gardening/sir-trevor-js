@@ -66,7 +66,7 @@ Dom.matches = (function(proto) {
       while (matches[i] && matches[i] !== element) {
         i++;
       }
-      return matches[i] ? true : false;
+      return !!matches[i];
     };
   return function(el, selector){
     return matcher.call(el, selector);

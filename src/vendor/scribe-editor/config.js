@@ -1,45 +1,45 @@
 import immutable from 'immutable';
 
-  var blockModePlugins = [
-    'setRootPElement',
-    'enforcePElements',
-    'ensureSelectableContainers',
-  ],
-  inlineModePlugins = [
-    'inlineElementsMode'
-  ],
-  defaultOptions = {
-    allowBlockElements: true,
-    debug: false,
-    undo: {
-      manager: false,
-      enabled: true,
-      limit: 100,
-      interval: 250
-    },
-    defaultCommandPatches: [
-      'bold',
-      'indent',
-      'insertHTML',
-      'insertList',
-      'outdent',
-      'createLink'
+const blockModePlugins = [
+        'setRootPElement',
+        'enforcePElements',
+        'ensureSelectableContainers',
     ],
+    inlineModePlugins = [
+        'inlineElementsMode'
+    ],
+    defaultOptions = {
+        allowBlockElements: true,
+        debug: false,
+        undo: {
+            manager: false,
+            enabled: true,
+            limit: 100,
+            interval: 250
+        },
+        defaultCommandPatches: [
+            'bold',
+            'indent',
+            'insertHTML',
+            'insertList',
+            'outdent',
+            'createLink'
+        ],
 
-    defaultPlugins: blockModePlugins.concat(inlineModePlugins),
+        defaultPlugins: blockModePlugins.concat(inlineModePlugins),
 
-    defaultFormatters: [
-      'escapeHtmlCharactersFormatter',
-      'replaceNbspCharsFormatter'
-    ]
-  };
+        defaultFormatters: [
+            'escapeHtmlCharactersFormatter',
+            'replaceNbspCharsFormatter'
+        ]
+    };
 
 
-  function defaults(options, defaultOptions) {
-    var optionsCopy = immutable.fromJS(options);
-    var defaultsCopy = immutable.fromJS(defaultOptions);
-    var mergedOptions = defaultsCopy.merge(optionsCopy);
-    return mergedOptions.toJS();
+function defaults(options, defaultOptions) {
+      const optionsCopy = immutable.fromJS(options);
+      const defaultsCopy = immutable.fromJS(defaultOptions);
+      const mergedOptions = defaultsCopy.merge(optionsCopy);
+      return mergedOptions.toJS();
   }
 
   /**
@@ -49,9 +49,9 @@ import immutable from 'immutable';
    * @return {Object}                     The overridden options
    */
   function checkOptions(userSuppliedOptions) {
-    var options = userSuppliedOptions || {};
+      const options = userSuppliedOptions || {};
 
-    // Remove invalid plugins
+      // Remove invalid plugins
     if (options.defaultPlugins) {
       options.defaultPlugins    = options.defaultPlugins.filter(filterByPluginExists(defaultOptions.defaultPlugins));
     }

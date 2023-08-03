@@ -9,21 +9,21 @@ import Immutable from 'immutable';
 
   export default function () {
     return function (scribe) {
-      var nodeHelpers = scribe.node;
+        const nodeHelpers = scribe.node;
 
-      var InsertListCommand = function (commandName) {
-        scribe.api.Command.call(this, commandName);
-      };
+        const InsertListCommand = function (commandName) {
+            scribe.api.Command.call(this, commandName);
+        };
 
-      InsertListCommand.prototype = Object.create(scribe.api.Command.prototype);
+        InsertListCommand.prototype = Object.create(scribe.api.Command.prototype);
       InsertListCommand.prototype.constructor = InsertListCommand;
 
       InsertListCommand.prototype.execute = function (value) {
         function splitList(listItemElements) {
           if (!!listItemElements.size) {
-            var newListNode = document.createElement(listNode.nodeName);
+              const newListNode = document.createElement(listNode.nodeName);
 
-            while (!!listItemElements.size) {
+              while (!!listItemElements.size) {
               newListNode.appendChild(listItemElements.first());
               listItemElements = listItemElements.shift();
             }
@@ -33,22 +33,22 @@ import Immutable from 'immutable';
         }
 
         if (this.queryState()) {
-          var selection = new scribe.api.Selection();
-          var range = selection.range;
+            const selection = new scribe.api.Selection();
+            const range = selection.range;
 
-          var listNode = selection.getContaining(function (node) {
+            let listNode = selection.getContaining(function (node) {
             return node.nodeName === 'OL' || node.nodeName === 'UL';
           });
 
-          var listItemElement = selection.getContaining(function (node) {
-            return node.nodeName === 'LI';
-          });
+            const listItemElement = selection.getContaining(function (node) {
+                return node.nodeName === 'LI';
+            });
 
-          scribe.transactionManager.run(function () {
+            scribe.transactionManager.run(function () {
             if (listItemElement) {
-              var nextListItemElements = nodeHelpers.nextSiblings(listItemElement);
+                const nextListItemElements = nodeHelpers.nextSiblings(listItemElement);
 
-              /**
+                /**
                * If we are not at the start or end of a UL/OL, we have to
                * split the node and insert the P(s) in the middle.
                */
@@ -60,27 +60,24 @@ import Immutable from 'immutable';
 
               selection.placeMarkers();
 
-              var pNode = document.createElement('p');
-              pNode.innerHTML = listItemElement.innerHTML;
+                const pNode = document.createElement('p');
+                pNode.innerHTML = listItemElement.innerHTML;
 
               listNode.parentNode.insertBefore(pNode, listNode.nextElementSibling);
               listItemElement.parentNode.removeChild(listItemElement);
             } else {
-              /**
-               * When multiple list items are selected, we replace each list
-               * item with a paragraph.
-               */
+                /**
+                 * When multiple list items are selected, we replace each list
+                 * item with a paragraph.
+                 */
+                const selectedListItemElements = Immutable.List(listNode.querySelectorAll('li'))
+                    .filter(function (listItemElement) {
+                        return range.intersectsNode(listItemElement);
+                    });
+                const lastSelectedListItemElement = selectedListItemElements.last();
+                const listItemElementsAfterSelection = nodeHelpers.nextSiblings(lastSelectedListItemElement);
 
-              // We can't query for list items in the selection so we loop
-              // through them all and find the intersection ourselves.
-              var selectedListItemElements = Immutable.List(listNode.querySelectorAll('li'))
-                .filter(function (listItemElement) {
-                  return range.intersectsNode(listItemElement);
-                });
-              var lastSelectedListItemElement = selectedListItemElements.last();
-              var listItemElementsAfterSelection = nodeHelpers.nextSiblings(lastSelectedListItemElement);
-
-              /**
+                /**
                * If we are not at the start or end of a UL/OL, we have to
                * split the node and insert the P(s) in the middle.
                */
@@ -91,10 +88,10 @@ import Immutable from 'immutable';
               // afterwards.
               selection.placeMarkers();
 
-              var documentFragment = document.createDocumentFragment();
-              selectedListItemElements.forEach(function (listItemElement) {
-                var pElement = document.createElement('p');
-                pElement.innerHTML = listItemElement.innerHTML;
+                const documentFragment = document.createDocumentFragment();
+                selectedListItemElements.forEach(function (listItemElement) {
+                  const pElement = document.createElement('p');
+                  pElement.innerHTML = listItemElement.innerHTML;
                 documentFragment.appendChild(pElement);
               });
 

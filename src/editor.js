@@ -334,7 +334,7 @@ Object.assign(Editor.prototype, function_bind, Events, {
     //console.log('editor::updateBlockNumbering()');
 
     // update block position info
-    let i = 0;
+    let i;
     for (i = 0; i < this.blockManager.blocks.length; i++) {
       //console.log(this.blockManager.blocks[i]);
       const currentBlock = this.blockManager.blocks[i]
@@ -348,7 +348,7 @@ Object.assign(Editor.prototype, function_bind, Events, {
    */
   onFormSubmit: function(shouldValidate) {
     // if undefined or null or anything other than false - treat as true
-    shouldValidate = (shouldValidate === false) ? false : true;
+    shouldValidate = (shouldValidate !== false);
 
     utils.log("Handling form submission for Editor " + this.ID);
 

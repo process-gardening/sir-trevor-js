@@ -10,19 +10,19 @@
       //       we know in advance whether there will be a change though?
       // TODO: share somehow with `InsertList` command
 
-      var nodeHelpers = scribe.node;
+        const nodeHelpers = scribe.node;
 
-      if (scribe.allowsBlockElements()) {
+        if (scribe.allowsBlockElements()) {
         scribe.el.addEventListener('keyup', function (event) {
           if (event.keyCode === 8 || event.keyCode === 46) { // backspace or delete
 
-            var selection = new scribe.api.Selection();
+              const selection = new scribe.api.Selection();
 
-            // Note: the range is always collapsed on keyup here
-            var containerPElement = selection.getContaining(function (node) {
-              return node.nodeName === 'P';
-            });
-            if (containerPElement) {
+              // Note: the range is always collapsed on keyup here
+              const containerPElement = selection.getContaining(function (node) {
+                  return node.nodeName === 'P';
+              });
+              if (containerPElement) {
               /**
                * The 'input' event listener has already triggered
                * and recorded the faulty content as an item in the

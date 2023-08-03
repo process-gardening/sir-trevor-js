@@ -2,10 +2,10 @@
   
   export default function () {
     return function (scribe) {
-      var insertHTMLCommandPatch = new scribe.api.CommandPatch('insertHTML');
-      var nodeHelpers = scribe.node;
+        const insertHTMLCommandPatch = new scribe.api.CommandPatch('insertHTML');
+        const nodeHelpers = scribe.node;
 
-      insertHTMLCommandPatch.execute = function (value) {
+        insertHTMLCommandPatch.execute = function (value) {
         scribe.transactionManager.run(function () {
           scribe.api.CommandPatch.prototype.execute.call(this, value);
           nodeHelpers.removeChromeArtifacts(scribe.el);

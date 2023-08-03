@@ -15,7 +15,7 @@ import BLOCK_REPLACER_CONTROL_TEMPLATE from "./templates/block-control";
 function generateBlocksHTML(Blocks, availableTypes) {
   return availableTypes.reduce((memo, type) => {
     if (Blocks.hasOwnProperty(type) && Blocks[type].prototype.toolbarEnabled) {
-      return memo += BLOCK_REPLACER_CONTROL_TEMPLATE(Blocks[type].prototype);
+      return memo + BLOCK_REPLACER_CONTROL_TEMPLATE(Blocks[type].prototype);
     }
     return memo;
   }, "");

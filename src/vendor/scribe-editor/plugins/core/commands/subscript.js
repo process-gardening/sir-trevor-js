@@ -4,9 +4,9 @@
 
   export default function () {
     return function (scribe) {
-      var subscriptCommand = new scribe.api.Command('subscript');
+        const subscriptCommand = new scribe.api.Command('subscript');
 
-      scribe.commands.subscript = subscriptCommand;
+        scribe.commands.subscript = subscriptCommand;
     };
   };
 

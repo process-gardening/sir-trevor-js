@@ -4,13 +4,13 @@
 
   export default function () {
     return function (scribe) {
-      var createLinkCommand = new scribe.api.CommandPatch('createLink');
-      scribe.commandPatches.createLink = createLinkCommand;
+        const createLinkCommand = new scribe.api.CommandPatch('createLink');
+        scribe.commandPatches.createLink = createLinkCommand;
 
       createLinkCommand.execute = function (value) {
-        var selection = new scribe.api.Selection();
+          const selection = new scribe.api.Selection();
 
-        /**
+          /**
          * make sure we're not touching any none Scribe elements
          * in the page
          */
@@ -24,15 +24,15 @@
          */
         // using range.collapsed vs selection.isCollapsed - https://code.google.com/p/chromium/issues/detail?id=447523
         if (selection.range.collapsed) {
-          var aElement = document.createElement('a');
-          aElement.setAttribute('href', value);
+            const aElement = document.createElement('a');
+            aElement.setAttribute('href', value);
           aElement.textContent = value;
 
           selection.range.insertNode(aElement);
 
           // Select the created link
-          var newRange = document.createRange();
-          newRange.setStartBefore(aElement);
+            const newRange = document.createRange();
+            newRange.setStartBefore(aElement);
           newRange.setEndAfter(aElement);
 
           selection.selection.removeAllRanges();

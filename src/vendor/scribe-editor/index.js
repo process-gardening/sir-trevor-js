@@ -22,22 +22,21 @@ import eventNames from './events';
      * With IE, the input event does not trigger on contenteditable element
      * that is why we have to simulate it.
      */
+    const isComposing = false;
+    const self = this;
 
-    var isComposing = false;
-    var self = this;
-
-    var handler = {
-      handleEvent: function(e) {
+    const handler = {
+      handleEvent: function (e) {
         if (isComposing) return;
 
         if (e.type === 'compositionstart') {
-           isComposing = true;
-           return;
+          isComposing = true;
+
         } else if (e.type === 'compositionend') {
-           isComposing = false;
-           self.transactionManager.run();
+          isComposing = false;
+          self.transactionManager.run();
         } else {
-           self.transactionManager.run();
+          self.transactionManager.run();
         }
       }
     };
@@ -63,7 +62,7 @@ import eventNames from './events';
 
     this.Immutable = Immutable;
 
-    var TransactionManager = buildTransactionManager(this);
+    const TransactionManager = buildTransactionManager(this);
     this.transactionManager = new TransactionManager();
 
     //added for explicit checking later eg if (scribe.undoManager) { ... }
@@ -90,40 +89,50 @@ import eventNames from './events';
     /**
      * Core Plugins
      */
-    var corePlugins = Immutable.OrderedSet(this.options.defaultPlugins)
-      .sort(config.sortByPlugin('setRootPElement')) // Ensure `setRootPElement` is always loaded first
-      .filter(config.filterByBlockLevelMode(this.allowsBlockElements()))
-      .map(function (plugin) { return plugins[plugin]; });
+    const corePlugins = Immutable.OrderedSet(this.options.defaultPlugins)
+        .sort(config.sortByPlugin('setRootPElement')) // Ensure `setRootPElement` is always loaded first
+        .filter(config.filterByBlockLevelMode(this.allowsBlockElements()))
+        .map(function (plugin) {
+          return plugins[plugin];
+        });
 
     // Formatters
-    var defaultFormatters = Immutable.List(this.options.defaultFormatters)
-    .filter(function (formatter) { return !!formatters[formatter]; })
-    .map(function (formatter) { return formatters[formatter]; });
+    const defaultFormatters = Immutable.List(this.options.defaultFormatters)
+        .filter(function (formatter) {
+          return !!formatters[formatter];
+        })
+        .map(function (formatter) {
+          return formatters[formatter];
+        });
 
     // Patches
 
-    var defaultPatches = Immutable.List.of(
-      patches.events
+    const defaultPatches = Immutable.List.of(
+        patches.events
     );
 
-    var defaultCommandPatches = Immutable.List(this.options.defaultCommandPatches).map(function(patch) { return patches.commands[patch]; });
+    const defaultCommandPatches = Immutable.List(this.options.defaultCommandPatches).map(function (patch) {
+      return patches.commands[patch];
+    });
 
-    var defaultCommands = Immutable.List.of(
-      'indent',
-      'insertList',
-      'outdent',
-      'redo',
-      'subscript',
-      'superscript',
-      'undo'
-    ).map(function(command) { return commands[command]; });
+    const defaultCommands = Immutable.List.of(
+        'indent',
+        'insertList',
+        'outdent',
+        'redo',
+        'subscript',
+        'superscript',
+        'undo'
+    ).map(function (command) {
+      return commands[command];
+    });
 
-    var allPlugins = Immutable.List().concat(
-      corePlugins,
-      defaultFormatters,
-      defaultPatches,
-      defaultCommandPatches,
-      defaultCommands);
+    const allPlugins = Immutable.List().concat(
+        corePlugins,
+        defaultFormatters,
+        defaultPatches,
+        defaultCommandPatches,
+        defaultCommands);
 
     allPlugins.forEach(function(plugin) {
       this.use(plugin());
@@ -176,25 +185,25 @@ import eventNames from './events';
      * browser magic around `Document.queryCommandState` (http://jsbin.com/eDOxacI/1/edit?js,console,output).
      * This happens when doing any DOM manipulation.
      */
-    var scribe = this;
+    const scribe = this;
 
     if (scribe.options.undo.enabled) {
       // Get scribe previous content, and strip markers.
-      var lastContentNoMarkers = scribe._lastItem.content.replace(/<em [^>]*class="scribe-marker"[^>]*>[^<]*?<\/em>/g, '');
+      const lastContentNoMarkers = scribe._lastItem.content.replace(/<em [^>]*class="scribe-marker"[^>]*>[^<]*?<\/em>/g, '');
 
       // We only want to push the history if the content actually changed.
       if (scribe.getHTML() !== lastContentNoMarkers) {
-        var selection = new scribe.api.Selection();
+        const selection = new scribe.api.Selection();
 
         selection.placeMarkers();
-        var content = scribe.getHTML();
+        const content = scribe.getHTML();
         selection.removeMarkers();
 
         // Checking if there is a need to merge, and that the previous history item
         // is the last history item of the same scribe instance.
         // It is possible the last transaction is not for the same instance, or
         // even not a scribe transaction (e.g. when using a shared undo manager).
-        var previousItem = scribe.undoManager.item(scribe.undoManager.position);
+        const previousItem = scribe.undoManager.item(scribe.undoManager.position);
         if ((scribe._merge || scribe._forceMerge) && previousItem && scribe._lastItem == previousItem[0]) {
           // If so, merge manually with the last item to save more memory space.
           scribe._lastItem.content = content;
@@ -235,7 +244,7 @@ import eventNames from './events';
     this.setHTML(historyItem.content, true);
 
     // Restore the selection
-    var selection = new this.api.Selection();
+    const selection = new this.api.Selection();
     selection.selectMarkers();
 
     // Because we skip the formatters, a transaction is not run, so we have to
@@ -285,7 +294,7 @@ import eventNames from './events';
     // is IE11
     if(Object.hasOwnProperty.call(window, "ActiveXObject") && !window.ActiveXObject) {
 
-      var htmlContent = document.createElement("span");
+      const htmlContent = document.createElement("span");
       htmlContent.innerHTML = html;
       if (htmlContent.children.length === 1 && htmlContent.children[0].tagName === 'P') {
         html = htmlContent.children[0].innerHTML;
@@ -297,9 +306,9 @@ import eventNames from './events';
 
       } else {
 
-        var r = document.getSelection().getRangeAt(0);
-        var n = document.createElement("span");
-        
+        const r = document.getSelection().getRangeAt(0);
+        const n = document.createElement("span");
+
         r.surroundContents(n);
         n.innerHTML = html;
         r.collapse(false);
@@ -345,7 +354,7 @@ import eventNames from './events';
 
   FormatterFactory.prototype.format = function (html) {
     // Map the object to an array: Array[Formatter]
-    var formatted = this.formatters.reduce(function (formattedData, formatter) {
+    const formatted = this.formatters.reduce(function (formattedData, formatter) {
       return formatter(formattedData);
     }, html);
 
@@ -369,9 +378,9 @@ import eventNames from './events';
   HTMLFormatterFactory.prototype.constructor = HTMLFormatterFactory;
 
   HTMLFormatterFactory.prototype.format = function (html) {
-    var formatters = this.formatters.sanitize.concat(this.formatters.normalize);
+    const formatters = this.formatters.sanitize.concat(this.formatters.normalize);
 
-    var formatted = formatters.reduce(function (formattedData, formatter) {
+    const formatted = formatters.reduce(function (formattedData, formatter) {
       return formatter(formattedData);
     }, html);
 

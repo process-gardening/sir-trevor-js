@@ -4,13 +4,13 @@
 
   export default function () {
     return function (scribe) {
-      var nodeHelpers = scribe.node;
+        const nodeHelpers = scribe.node;
 
-      var InsertListCommandPatch = function (commandName) {
-        scribe.api.CommandPatch.call(this, commandName);
-      };
+        const InsertListCommandPatch = function (commandName) {
+            scribe.api.CommandPatch.call(this, commandName);
+        };
 
-      InsertListCommandPatch.prototype = Object.create(scribe.api.CommandPatch.prototype);
+        InsertListCommandPatch.prototype = Object.create(scribe.api.CommandPatch.prototype);
       InsertListCommandPatch.prototype.constructor = InsertListCommandPatch;
 
       InsertListCommandPatch.prototype.execute = function (value) {
@@ -18,13 +18,13 @@
           scribe.api.CommandPatch.prototype.execute.call(this, value);
 
           if (this.queryState()) {
-            var selection = new scribe.api.Selection();
+              const selection = new scribe.api.Selection();
 
-            var listElement = selection.getContaining(function (node) {
-              return node.nodeName === 'OL' || node.nodeName === 'UL';
-            });
+              const listElement = selection.getContaining(function (node) {
+                  return node.nodeName === 'OL' || node.nodeName === 'UL';
+              });
 
-            if (listElement) {
+              if (listElement) {
 
               /**
                * Firefox: If we apply the insertOrderedList or the insertUnorderedList
@@ -37,14 +37,13 @@
                 nodeHelpers.removeNode(listElement.nextElementSibling);
               }
 
-              /**
-               * Chrome: If we apply the insertOrderedList or the insertUnorderedList
-               * command on an empty block, the OL/UL will be nested inside the block.
-               * As per: http://jsbin.com/eFiRedUc/1/edit?html,js,output
-               */
-
-              var listParentNode = listElement.parentNode;
-              // If list is within a text block then split that block
+                /**
+                 * Chrome: If we apply the insertOrderedList or the insertUnorderedList
+                 * command on an empty block, the OL/UL will be nested inside the block.
+                 * As per: http://jsbin.com/eFiRedUc/1/edit?html,js,output
+                 */
+                const listParentNode = listElement.parentNode;
+                // If list is within a text block then split that block
               if (listParentNode && /^(H[1-6]|P)$/.test(listParentNode.nodeName)) {
                 selection.placeMarkers();
                 // Move listElement out of the block

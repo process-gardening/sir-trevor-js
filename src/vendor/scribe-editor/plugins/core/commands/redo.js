@@ -4,9 +4,9 @@ import keystrokes from '../../../keystrokes';
 
   export default function () {
     return function (scribe) {
-      var redoCommand = new scribe.api.Command('redo');
+        const redoCommand = new scribe.api.Command('redo');
 
-      redoCommand.execute = function () {
+        redoCommand.execute = function () {
         scribe.undoManager.redo();
       };
 

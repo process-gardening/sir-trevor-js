@@ -22,7 +22,6 @@ export default {
       target.insertAdjacentHTML("beforeend", _.template(this.paste_options.html)(this));
     } else {
       this.inputs.insertAdjacentHTML("beforeend", _.template(this.paste_options.html)(this));
-      target = this.inputs;
     }
 
     Array.prototype.forEach.call(this.$('.st-paste-block'), (el) => {

@@ -33,7 +33,7 @@ export default (function () {
     // remove all existing items with their editors
     block.removeAllItems();
 
-    if (list_old !== null) {
+    if (true) {
       const list = document.createElement(list_type);
       //list.innerHTML = list_old.innerHTML; set by load data
       list.id = list_old.id;

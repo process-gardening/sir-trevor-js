@@ -4,7 +4,7 @@ import nodeHelpers from '../../node';
 
   // TODO: abstract
   function hasContent(rootNode) {
-    var treeWalker = document.createTreeWalker(rootNode, NodeFilter.SHOW_ALL, null, false);
+    const treeWalker = document.createTreeWalker(rootNode, NodeFilter.SHOW_ALL, null, false);
 
     while (treeWalker.nextNode()) {
       if (treeWalker.currentNode) {
@@ -30,10 +30,10 @@ import nodeHelpers from '../../node';
        */
       scribe.el.addEventListener('keydown', function (event) {
         if (event.keyCode === 13) { // enter
-          var selection = new scribe.api.Selection();
-          var range = selection.range;
+          const selection = new scribe.api.Selection();
+          const range = selection.range;
 
-          var blockNode = selection.getContaining(function (node) {
+          const blockNode = selection.getContaining(function (node) {
             return node.nodeName === 'LI' || (/^(H[1-6])$/).test(node.nodeName);
           });
 
@@ -56,7 +56,7 @@ import nodeHelpers from '../../node';
                 scribe.el.removeChild(scribe.el.lastChild);
               }
 
-              var brNode = document.createElement('br');
+              const brNode = document.createElement('br');
 
               range.insertNode(brNode);
 
@@ -92,23 +92,22 @@ import nodeHelpers from '../../node';
                * whereas Firefox will not. Thus, to satisfy Firefox we have to
                * insert a bogus BR element on initialization (see below).
                */
-
-              var contentToEndRange = range.cloneRange();
+              const contentToEndRange = range.cloneRange();
               if (scribe.el.lastChild) {
                 contentToEndRange.setEndAfter(scribe.el.lastChild);
               }
 
               // Get the content from the range to the end of the heading
-              var contentToEndFragment = contentToEndRange.cloneContents();
+              const contentToEndFragment = contentToEndRange.cloneContents();
 
               // If there is not already a right hand side content we need to
               // insert a bogus BR element.
               if (! hasContent(contentToEndFragment)) {
-                var bogusBrNode = document.createElement('br');
+                const bogusBrNode = document.createElement('br');
                 range.insertNode(bogusBrNode);
               }
 
-              var newRange = range.cloneRange();
+              const newRange = range.cloneRange();
 
               newRange.setStartAfter(brNode);
               newRange.setEndAfter(brNode);

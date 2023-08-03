@@ -337,7 +337,7 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
       window.removeEventListener('mousedown', this.onMouseDown);
       this.mediator.trigger("selection:complete");
       this.mediator.trigger("selection:cancel");
-      return;
+
     }
   },
 

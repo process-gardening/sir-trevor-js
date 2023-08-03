@@ -2,6 +2,8 @@
 
 (function($){
 
+  let count;
+
   $.fn.limit_chars = function() {
 
     if (this.length===0) return;

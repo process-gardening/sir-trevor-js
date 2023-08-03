@@ -8,19 +8,19 @@
 
   export default function () {
     return function (scribe) {
-      var nodeHelpers = scribe.node;
-      var outdentCommand = new scribe.api.CommandPatch('outdent');
+        const nodeHelpers = scribe.node;
+        const outdentCommand = new scribe.api.CommandPatch('outdent');
 
-      outdentCommand.execute = function () {
+        outdentCommand.execute = function () {
         scribe.transactionManager.run(function () {
-          var selection = new scribe.api.Selection();
-          var range = selection.range;
+            const selection = new scribe.api.Selection();
+            const range = selection.range;
 
-          var blockquoteNode = selection.getContaining(function (node) {
-            return node.nodeName === 'BLOCKQUOTE';
-          });
+            const blockquoteNode = selection.getContaining(function (node) {
+                return node.nodeName === 'BLOCKQUOTE';
+            });
 
-          if (range.commonAncestorContainer.nodeName === 'BLOCKQUOTE') {
+            if (range.commonAncestorContainer.nodeName === 'BLOCKQUOTE') {
             /**
              * Chrome: Applying the outdent command when a whole BLOCKQUOTE is
              * selected removes the formatting of its contents.
@@ -32,8 +32,8 @@
             selection.placeMarkers();
             // We want to copy the selected nodes *with* the markers
             selection.selectMarkers(true);
-            var selectedNodes = range.cloneContents();
-            blockquoteNode.parentNode.insertBefore(selectedNodes, blockquoteNode);
+              const selectedNodes = range.cloneContents();
+              blockquoteNode.parentNode.insertBefore(selectedNodes, blockquoteNode);
             range.deleteContents();
             selection.selectMarkers();
 
@@ -42,28 +42,26 @@
               blockquoteNode.parentNode.removeChild(blockquoteNode);
             }
           } else {
-            /**
-             * Chrome: If we apply the outdent command on a P, the contents of the
-             * P will be outdented instead of the whole P element.
-             * As per: http://jsbin.com/IfaRaFO/1/edit?html,js,output
-             */
-
-            var pNode = selection.getContaining(function (node) {
-              return node.nodeName === 'P';
-            });
-
-            if (pNode) {
               /**
-               * If we are not at the start of end of a BLOCKQUOTE, we have to
-               * split the node and insert the P in the middle.
+               * Chrome: If we apply the outdent command on a P, the contents of the
+               * P will be outdented instead of the whole P element.
+               * As per: http://jsbin.com/IfaRaFO/1/edit?html,js,output
                */
+              const pNode = selection.getContaining(function (node) {
+                  return node.nodeName === 'P';
+              });
 
-              var nextSiblingNodes = nodeHelpers.nextSiblings(pNode);
+              if (pNode) {
+                /**
+                 * If we are not at the start of end of a BLOCKQUOTE, we have to
+                 * split the node and insert the P in the middle.
+                 */
+                let nextSiblingNodes = nodeHelpers.nextSiblings(pNode);
 
-              if (!!nextSiblingNodes.size) {
-                var newContainerNode = document.createElement(blockquoteNode.nodeName);
+                if (!!nextSiblingNodes.size) {
+                  const newContainerNode = document.createElement(blockquoteNode.nodeName);
 
-                while (!!nextSiblingNodes.size) {
+                  while (!!nextSiblingNodes.size) {
                   newContainerNode.appendChild(nextSiblingNodes.first());
                   nextSiblingNodes = nextSiblingNodes.shift();
                 }

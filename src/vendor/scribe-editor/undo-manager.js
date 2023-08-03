@@ -22,8 +22,8 @@ import Immutable from 'immutable';
       this.clearRedo();
     }
 
-    var transactions;
-    if (merge && this.length) {
+      let transactions;
+      if (merge && this.length) {
       transactions = this._stack.first().push(transaction);
       this._stack = this._stack.shift().unshift(transactions);
     }
@@ -43,9 +43,9 @@ import Immutable from 'immutable';
   UndoManager.prototype.undo = function () {
     if (this.position >= this.length) { return; }
 
-    var transactions = this._stack.get(this.position);
-    var i = transactions.size;
-    while (i--) {
+      const transactions = this._stack.get(this.position);
+      let i = transactions.size;
+      while (i--) {
       transactions.get(i).undo();
     }
     this.position++;
@@ -57,8 +57,8 @@ import Immutable from 'immutable';
     if (this.position === 0) { return; }
 
     this.position--;
-    var transactions = this._stack.get(this.position);
-    for (var i = 0; i < transactions.size; i++) {
+      const transactions = this._stack.get(this.position);
+      for (let i = 0; i < transactions.size; i++) {
       transactions.get(i).redo();
     }
 

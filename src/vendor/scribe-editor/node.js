@@ -18,10 +18,8 @@ import Immutable from 'immutable';
       return true;
     }
 
-    if(node && node.nodeName === 'BR') {
-      return true;
-    }
-    return false;
+    return node && node.nodeName === 'BR';
+
   }
 
   // return true if nested inline tags ultimately just contain <br> or ""
@@ -37,7 +35,7 @@ import Immutable from 'immutable';
   }
 
   function isEmptyTextNode(node) {
-    var isEmpty = false;
+    let isEmpty = false;
     try {
       isEmpty = isText(node) && node.data === '';
     }
@@ -70,12 +68,10 @@ import Immutable from 'immutable';
   }
 
   function isWhitespaceOnlyTextNode(Node, node) {
-    if(node.nodeType === Node.TEXT_NODE
-      && /^\s*$/.test(node.nodeValue)) {
-      return true;
-    }
+    return node.nodeType === Node.TEXT_NODE
+        && /^\s*$/.test(node.nodeValue);
 
-    return false;
+
 
   }
 
@@ -84,7 +80,7 @@ import Immutable from 'immutable';
   }
 
   function firstDeepestChild(node) {
-    var fs = node.firstChild;
+    const fs = node.firstChild;
     return !fs || fs.nodeName === 'BR' ?
       node :
       firstDeepestChild(fs);
@@ -107,7 +103,7 @@ import Immutable from 'immutable';
       return;
     }
 
-    var currentNode = node.parentNode;
+    let currentNode = node.parentNode;
 
     // If it's a `contenteditable` then it's likely going to be the Scribe
     // instance, so stop traversing there.
@@ -120,7 +116,7 @@ import Immutable from 'immutable';
   }
 
   function nextSiblings(node) {
-    var all = Immutable.List();
+    let all = Immutable.List();
     while (node = node.nextSibling) {
       all = all.push(node);
     }
@@ -156,13 +152,15 @@ import Immutable from 'immutable';
       return window.getComputedStyle(element).lineHeight === parentStyle.lineHeight;
     }
 
-    var nodes = Immutable.List(parentElement.querySelectorAll(inlineElementNames
-      .map(function(elName) { return elName + '[style*="line-height"]' })
-      .join(',')
-      ));
+    let nodes = Immutable.List(parentElement.querySelectorAll(inlineElementNames
+        .map(function (elName) {
+          return elName + '[style*="line-height"]'
+        })
+        .join(',')
+    ));
     nodes = nodes.filter(isInlineWithStyle.bind(null, window.getComputedStyle(parentElement)));
 
-    var emptySpans = Immutable.List();
+    let emptySpans = Immutable.List();
 
     nodes.forEach(function(node) {
       node.style.lineHeight = null;

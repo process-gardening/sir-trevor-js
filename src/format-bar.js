@@ -55,7 +55,7 @@ Object.assign(FormatBar.prototype, function_bind, mediated_events, events, rende
   initialize: function() {
 
     const buttons = this.commands.reduce(function (memo, format) {
-      return memo += FORMAT_BUTTON_TEMPLATE(format);
+      return memo + FORMAT_BUTTON_TEMPLATE(format);
     }, "");
 
     this.el.insertAdjacentHTML("beforeend", buttons);

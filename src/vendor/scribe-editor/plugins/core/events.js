@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 
   export default function () {
     return function (scribe) {
-      var nodeHelpers = scribe.node;
+      const nodeHelpers = scribe.node;
 
       /**
        * Firefox: Giving focus to a `contenteditable` will place the caret
@@ -16,18 +16,18 @@ import Immutable from 'immutable';
        * We detect when this occurs and fix it by placing the caret ourselves.
        */
       scribe.el.addEventListener('focus', function placeCaretOnFocus() {
-        var selection = new scribe.api.Selection();
+        const selection = new scribe.api.Selection();
         // In Chrome, the range is not created on or before this event loop.
         // It doesn’t matter because this is a fix for Firefox.
         if (selection.range) {
 
-          var isFirefoxBug = scribe.allowsBlockElements() &&
-                  selection.range.startContainer === scribe.el;
+          const isFirefoxBug = scribe.allowsBlockElements() &&
+            selection.range.startContainer === scribe.el;
 
           if (isFirefoxBug) {
-            var focusElement = nodeHelpers.firstDeepestChild(scribe.el);
+            const focusElement = nodeHelpers.firstDeepestChild(scribe.el);
 
-            var range = selection.range;
+            const range = selection.range;
 
             range.setStart(focusElement, 0);
             range.setEnd(focusElement, 0);
@@ -41,12 +41,12 @@ import Immutable from 'immutable';
       /**
        * Apply the formatters when there is a DOM mutation.
        */
-      var applyFormatters = function() {
+      const applyFormatters = function () {
         if (!scribe._skipFormatters) {
-          var selection = new scribe.api.Selection();
-          var isEditorActive = selection.range;
+          const selection = new scribe.api.Selection();
+          const isEditorActive = selection.range;
 
-          var runFormatters = function () {
+          const runFormatters = function () {
             if (isEditorActive) {
               selection.placeMarkers();
             }
@@ -84,10 +84,10 @@ import Immutable from 'immutable';
         scribe.el.addEventListener('keydown', function (event) {
           if (event.keyCode === 13) { // enter
 
-            var selection = new scribe.api.Selection();
-            var range = selection.range;
+            const selection = new scribe.api.Selection();
+            const range = selection.range;
 
-            var headingNode = selection.getContaining(function (node) {
+            const headingNode = selection.getContaining(function (node) {
               return (/^(H[1-6])$/).test(node.nodeName);
             });
 
@@ -96,11 +96,11 @@ import Immutable from 'immutable';
              * natively.
              */
             if (headingNode && range.collapsed) {
-              var contentToEndRange = range.cloneRange();
+              const contentToEndRange = range.cloneRange();
               contentToEndRange.setEndAfter(headingNode);
 
               // Get the content from the range to the end of the heading
-              var contentToEndFragment = contentToEndRange.cloneContents();
+              const contentToEndFragment = contentToEndRange.cloneContents();
 
               if (contentToEndFragment.firstChild.textContent === '') {
                 event.preventDefault();
@@ -108,8 +108,8 @@ import Immutable from 'immutable';
                 scribe.transactionManager.run(function () {
                   // Default P
                   // TODO: Abstract somewhere
-                  var pNode = document.createElement('p');
-                  var brNode = document.createElement('br');
+                  const pNode = document.createElement('p');
+                  const brNode = document.createElement('br');
                   pNode.appendChild(brNode);
 
                   headingNode.parentNode.insertBefore(pNode, headingNode.nextElementSibling);
@@ -135,11 +135,11 @@ import Immutable from 'immutable';
         scribe.el.addEventListener('keydown', function (event) {
           if (event.keyCode === 13 || event.keyCode === 8) { // enter || backspace
 
-            var selection = new scribe.api.Selection();
-            var range = selection.range;
+            const selection = new scribe.api.Selection();
+            const range = selection.range;
 
             if (range.collapsed) {
-              var containerLIElement = selection.getContaining(function (node) {
+              const containerLIElement = selection.getContaining(function (node) {
                 return node.nodeName === 'LI';
               });
               if (containerLIElement && containerLIElement.textContent.trim() === '') {
@@ -149,11 +149,11 @@ import Immutable from 'immutable';
 
                 event.preventDefault();
 
-                var listNode = selection.getContaining(function (node) {
+                const listNode = selection.getContaining(function (node) {
                   return node.nodeName === 'UL' || node.nodeName === 'OL';
                 });
 
-                var command = scribe.getCommand(listNode.nodeName === 'OL' ? 'insertOrderedList' : 'insertUnorderedList');
+                const command = scribe.getCommand(listNode.nodeName === 'OL' ? 'insertOrderedList' : 'insertUnorderedList');
 
                 command.event = event;
 
@@ -208,13 +208,12 @@ import Immutable from 'immutable';
            * Firefox <= 21
            * https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent.clipboardData
            */
-
-          var selection = new scribe.api.Selection();
+          const selection = new scribe.api.Selection();
 
           // Store the caret position
           selection.placeMarkers();
 
-          var bin = document.createElement('div');
+          const bin = document.createElement('div');
           bin.style.height = 0;
           bin.style.opacity = 0;
           bin.style.overflow = 'hidden';
@@ -224,7 +223,7 @@ import Immutable from 'immutable';
 
           // Wait for the paste to happen (next loop?)
           setTimeout(function () {
-            var data = bin.innerHTML;
+            const data = bin.innerHTML;
             bin.parentNode.removeChild(bin);
 
             // Restore the caret position

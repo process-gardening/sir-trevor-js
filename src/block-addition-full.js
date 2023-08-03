@@ -24,11 +24,8 @@ import BLOCKS_MENU_BUTTON_TEMPLATE from "./templates/blocks-menu-button";
 
 function generateBlocksHTML(Blocks, availableTypes) {
   return availableTypes.reduce((memo, type) => {
-    if (true) {
-      //console.log('type: ' + type);
-      return memo += BLOCKS_MENU_BUTTON_TEMPLATE(Blocks[type].prototype);
-    }
-    return memo;
+     //console.log('type: ' + type);
+    return memo += BLOCKS_MENU_BUTTON_TEMPLATE(Blocks[type].prototype);
   }, "");
 }
 
