@@ -72,3 +72,5 @@ export function escapeHtmlCharactersFormatter(){
     scribe.registerPlainTextFormatter(escape);
   };
 }
+
+export default escapeHtmlCharactersFormatter;
