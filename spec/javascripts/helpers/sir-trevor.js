@@ -1,6 +1,5 @@
 "use strict";
 
-import generated from "../../../src/index";
 import { afterAll, beforeAll} from "vitest";
 
 
@@ -13,12 +12,11 @@ const createBaseElement = function() {
 };
 
 beforeAll(() => {
-  global.SirTrevor = generated;
   global.createBaseElement = createBaseElement;
 })
 
 afterAll(() => {
-  delete global.SirTrevor;
-  delete global.createBaseElement;
+  //delete global.SirTrevor;
+  //delete global.createBaseElement;
 })
 

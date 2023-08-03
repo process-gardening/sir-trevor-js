@@ -1,5 +1,7 @@
 "use strict";
-
+import { vitest} from "vitest";
+import SirTrevor from "../../../../src";
+const spyOn = vi.spyOn;
 describe("Controllable Block", function(){
 
   let element, editor, block, testHandler;
@@ -11,7 +13,7 @@ describe("Controllable Block", function(){
       blockTypes: ["Text"]
     });
 
-    testHandler = jasmine.createSpy();
+    testHandler = vi.fn();
 
     SirTrevor.Blocks.ControllableBlock = SirTrevor.Block.extend({
       controllable: true,
@@ -30,7 +32,7 @@ describe("Controllable Block", function(){
   describe("render", function(){
 
     beforeEach(function(){
-      spyOn(block, 'withMixin').and.callThrough();
+      spyOn(block, 'withMixin');
       block.render();
     });
 
@@ -44,14 +46,19 @@ describe("Controllable Block", function(){
         .toBe(1);
     });
 
-    xit("runs the handler on click", function(){
+    /**
+     TODO: This doesn't work
+    it("runs the handler on click", function(){
       const event = new MouseEvent("click");
-
-      block.control_ui.querySelector('.st-block-control-ui-btn').dispatchEvent(event);
+      const blk = SirTrevor.Blocks;
+      const ctrl = block.control_ui.querySelector('.st-block-control-ui-btn');
+      ctrl.dispatchEvent(event);
       expect(testHandler)
         .toHaveBeenCalled();
     });
 
+     *
+     */
   });
 
 });

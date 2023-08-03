@@ -1,4 +1,7 @@
 "use strict";
+import { vi } from "vitest";
+const spyOn = vi.spyOn;
+import SirTrevor from "../../../../src";
 
 describe("Editor:Submission", function(){
 
@@ -10,6 +13,7 @@ describe("Editor:Submission", function(){
     editor = new SirTrevor.Editor({
       el: element, defaultType: false
     });
+    console.log(element)
   });
 
   it("calls reset and save on the store", function(){

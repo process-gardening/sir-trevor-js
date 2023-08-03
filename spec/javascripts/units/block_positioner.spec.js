@@ -1,5 +1,10 @@
 "use strict";
 
+import SirTrevor from "../../../src";
+import {vi} from "vitest";
+
+const spyOn = vi.spyOn;
+
 describe("BlockPositioner", function(){
 
   let positioner, positionerSelect, el, mediator;

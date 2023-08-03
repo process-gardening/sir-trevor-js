@@ -1,5 +1,5 @@
 "use strict";
-
+import SirTrevor from "../../../src";
 describe("SirTrevor", function(){
 
   describe("setBlockOptions", function(){

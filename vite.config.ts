@@ -19,6 +19,6 @@ export default defineConfig({
       "./javascripts/helpers/sir-trevor.js",
     ],
     root: "./spec",
-    environment: "happy-dom",
+    environment: "jsdom",
   }
 })

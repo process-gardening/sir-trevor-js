@@ -1,5 +1,7 @@
 "use strict";
 
+import SirTrevor from "../../../../src";
+
 describe("Blocks: Heading block", function() {
   let block;
 

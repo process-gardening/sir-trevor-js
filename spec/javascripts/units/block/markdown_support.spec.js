@@ -1,6 +1,11 @@
 "use strict";
 
+import {vi} from "vitest";
+
+const spyOn = vi.spyOn;
+
 import utils from "../../../../src/utils";
+import SirTrevor from "../../../../src";
 
 describe('Blocks: Markdown support', function() {
   let data, block;
@@ -23,7 +28,7 @@ describe('Blocks: Markdown support', function() {
 
     describe('convertFromMarkdown', function() {
       beforeEach(function() {
-        spyOn(SirTrevor.Blocks.Text.prototype, 'toHTML').and.callThrough();
+        spyOn(SirTrevor.Blocks.Text.prototype, 'toHTML');
       });
 
       describe('turned on', function() {
@@ -91,7 +96,7 @@ describe('Blocks: Markdown support', function() {
 
     describe('convertFromMarkdown', function() {
       beforeEach(function() {
-        spyOn(SirTrevor.Blocks.Quote.prototype, 'toHTML').and.callThrough();
+        spyOn(SirTrevor.Blocks.Quote.prototype, 'toHTML');
       });
 
       describe('turned on', function() {

@@ -1,5 +1,5 @@
 "use strict";
-
+import SirTrevor from "../../../../src";
 describe("Editor", function(){
 
   let element, editor;

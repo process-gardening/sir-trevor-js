@@ -337,8 +337,8 @@ Object.assign(Editor.prototype, function_bind, Events, {
     let i = 0;
     for (i = 0; i < this.blockManager.blocks.length; i++) {
       //console.log(this.blockManager.blocks[i]);
-      this.blockManager.blocks[i]
-        ._currentPositionUpdated(this.blockManager.getBlockPosition(this.blockManager.blocks[i].el) + 1);
+      const currentBlock = this.blockManager.blocks[i]
+      currentBlock?._currentPositionUpdated?.(this.blockManager.getBlockPosition(this.blockManager.blocks[i].el) + 1);
     }
   },
 

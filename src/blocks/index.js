@@ -24,7 +24,7 @@ export default {
   Image: image,
   Heading: heading,
   List: list,
-  ListExtended: list_extended,
+  List_Extended: list_extended,
   Box: box,
   Tweet: tweet,
   Video: video,

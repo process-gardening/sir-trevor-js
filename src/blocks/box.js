@@ -129,7 +129,7 @@ export default (function () {
         this._nested_editor = new SirTrevor.Editor({
           el: editor_area,
           defaultType: false,
-          blockTypes: config.defaults.BoxBlockTypes  // ["Text", "ListExtended"] // <%#= block_types_content %>
+          blockTypes: config.defaults.BoxBlockTypes  // ["Text", "List_Extended"] // <%#= block_types_content %>
         });
         //console.log('this._nested_editor: ');
         //console.log(this._nested_editor);

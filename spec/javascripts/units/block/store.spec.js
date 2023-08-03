@@ -1,5 +1,9 @@
 "use strict";
 
+import { vitest} from "vitest";
+import SirTrevor from "../../../../src";
+const spyOn = vi.spyOn;
+
 describe("Block:Store", function(){
 
   let element, editor, block;

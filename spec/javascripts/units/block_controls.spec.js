@@ -1,5 +1,7 @@
 "use strict";
 
+import SirTrevor from "../../../src";
+
 describe("BlockControls", function(){
 
   describe("creating a new instance", function(){
@@ -25,6 +27,9 @@ describe("BlockControls", function(){
     it("sets the available types", function(){
 
       editor.blockManager.blockTypes.forEach(function(blockType){
+
+        const deb = blockControls.el.querySelector("[data-type=" + blockType.toLowerCase() + "]")
+        const st = SirTrevor.Blocks[blockType].prototype;
 
         if (SirTrevor.Blocks[blockType].prototype.toolbarEnabled) {
           expect(

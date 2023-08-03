@@ -1,5 +1,9 @@
 "use strict";
 
+import {vi} from "vitest";
+
+const spyOn = vi.spyOn;
+import SirTrevor from "../../../../src";
 describe("Editor:Editor with options", function(){
 
   let element, editor;
@@ -41,7 +45,10 @@ describe("Editor:Editor with options", function(){
     it("creates a default block of a type specified", function(){
       editor.createBlocks();
       expect(editor.mediator.trigger).toHaveBeenCalledWith(
-        'block:create', 'Text', {});
+        'block:create', 'Text', {
+          "text": "<p><br></p>",
+          "format": "html"
+        });
     });
 
   });

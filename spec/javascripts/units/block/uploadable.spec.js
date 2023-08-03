@@ -1,5 +1,9 @@
 "use strict";
 
+import { vitest} from "vitest";
+import SirTrevor from "../../../../src";
+const spyOn = vi.spyOn;
+
 describe("Block:Uploadable Block", function(){
 
   let element, editor, block;
@@ -22,7 +26,7 @@ describe("Block:Uploadable Block", function(){
   describe("render", function(){
 
     beforeEach(function(){
-      spyOn(block, 'withMixin').and.callThrough();
+      spyOn(block, 'withMixin');
 
       block = block.render();
     });

@@ -1,69 +1,73 @@
-SirTrevor.Locales.cn = {
-  general: {
-    'delete': '删除',
-    'drop': '把目标__block__拖拽到这里',
-    'paste': '或者粘贴一个URL',
-    'upload': '...或者点击上传',
-    'close': '关闭',
-    'position': '位置',
-    'wait': '处理中，请稍候...'
-  },
-  errors: {
-    'title': "发生了以下的错误:",
-    'validation_fail': "__type__ 模块不是有效模块",
-    'block_empty': "__name__ 不能为空",
-    'type_missing': "你必须至少有一个 __type__ 类型的模块",
-    'required_type_empty': "一个必须不为空的模块 __type__ 目前为空",
-    'load_fail': "载入文档内容失败",
-    'link_empty': "This link appears to be empty",
-    'link_invalid': "The link is not valid"
-  },
-  formatters: {
-    link: {
-      'prompt': "请填写要插入的链接",
-      'new_tab': "Opens in a new tab",
-      'message': "The URL you entered appears to be __type__. Do you want to add the required “__prefix__” prefix?",
-      types: {
-        'email': 'an email address',
-        'telephone': 'a telephone number',
-        'url': 'a link'
+export default function addLocale(sirTrevorInstance) {
+  sirTrevorInstance.Locales = sirTrevorInstance.Locales || {};
+  sirTrevorInstance.Locales.cn = {
+    general: {
+      'delete': '删除',
+      'drop': '把目标__block__拖拽到这里',
+      'paste': '或者粘贴一个URL',
+      'upload': '...或者点击上传',
+      'close': '关闭',
+      'position': '位置',
+      'wait': '处理中，请稍候...'
+    },
+    errors: {
+      'title': "发生了以下的错误:",
+      'validation_fail': "__type__ 模块不是有效模块",
+      'block_empty': "__name__ 不能为空",
+      'type_missing': "你必须至少有一个 __type__ 类型的模块",
+      'required_type_empty': "一个必须不为空的模块 __type__ 目前为空",
+      'load_fail': "载入文档内容失败",
+      'link_empty': "This link appears to be empty",
+      'link_invalid': "The link is not valid"
+    },
+    formatters: {
+      link: {
+        'prompt': "请填写要插入的链接",
+        'new_tab': "Opens in a new tab",
+        'message': "The URL you entered appears to be __type__. Do you want to add the required “__prefix__” prefix?",
+        types: {
+          'email': 'an email address',
+          'telephone': 'a telephone number',
+          'url': 'a link'
+        }
+      },
+      superscript: {
+        prompt: "标题属性（可选）"
       }
     },
-    superscript: {
-      prompt: "标题属性（可选）"
-    }
-  },
-  blocks: {
-    text: {
-      'title': "文字"
-    },
-    list: {
-      'title': "列表"
-    },
-    quote: {
-      'title': "引用",
-      'credit_field': "出处"
-    },
-    image: {
-      'title': "图片",
-      'upload_error': "载入图片失败"
-    },
-    video: {
-      'title': "视频",
-      'drop_title': "影片网址"
-    },
-    tweet: {
-      'title': "Tweet",
-      'drop_title': "鸣叫网址",
-      'fetch_error': "获取tweet失败"
-    },
-    embedly: {
-      'title': "内嵌内容",
-      'fetch_error': "内嵌内容载入失败",
-      'key_missing': "嵌入内容的API没有合法的Key"
-    },
-    heading: {
-      'title': '标题'
+    blocks: {
+      text: {
+        'title': "文字"
+      },
+      list: {
+        'title': "列表"
+      },
+      quote: {
+        'title': "引用",
+        'credit_field': "出处"
+      },
+      image: {
+        'title': "图片",
+        'upload_error': "载入图片失败"
+      },
+      video: {
+        'title': "视频",
+        'drop_title': "影片网址"
+      },
+      tweet: {
+        'title': "Tweet",
+        'drop_title': "鸣叫网址",
+        'fetch_error': "获取tweet失败"
+      },
+      embedly: {
+        'title': "内嵌内容",
+        'fetch_error': "内嵌内容载入失败",
+        'key_missing': "嵌入内容的API没有合法的Key"
+      },
+      heading: {
+        'title': '标题'
+      }
     }
   }
+
 }

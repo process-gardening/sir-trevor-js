@@ -1,13 +1,18 @@
 "use strict";
 
-import locales from "../../../../locales/fr";
+import { vitest} from "vitest";
 import SirTrevor from "../../../../src";
+const spyOn = vi.spyOn;
+import initializeLocale from "../../../../locales/fr";
+
 
 describe("Block", function(){
 
   let element, editor, block, block_two, block_three;
 
   beforeEach(function(){
+
+    initializeLocale(SirTrevor);
 
     SirTrevor.Blocks.ComplexType = SirTrevor.Block.extend({
       type: "complex_type"
@@ -18,6 +23,7 @@ describe("Block", function(){
       el: element,
       blockTypes: ["Text"]
     });
+
     block = new SirTrevor.Blocks.Text({}, editor.ID, editor.mediator, {}, editor.options);
     block_two = new SirTrevor.Blocks.Text({}, editor.ID, editor.mediator, {}, editor.options);
     block_three = new SirTrevor.Blocks.ComplexType({}, editor.ID, editor.mediator, {}, editor.options);

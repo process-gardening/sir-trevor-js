@@ -42,7 +42,7 @@ Object.assign(Modal.prototype, {
     this.el = document.getElementById(this.id);
 
     if (!this.el) {
-      let element = _.template(template, {id: this.id});
+      let element = _.template(template)({id: this.id});
       element = Dom.createElementFromString(element);
       document.body.appendChild(element);
       this.el = element;

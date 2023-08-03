@@ -1,5 +1,10 @@
 "use strict";
 
+import { vitest} from "vitest";
+const spyOn = vi.spyOn;
+
+import SirTrevor from "../../../../src";
+
 describe("BlockManager::Validations", function(){
 
   let manager;
@@ -24,7 +29,7 @@ describe("BlockManager::Validations", function(){
         { text : i18n.t("errors:type_missing", { type: "Text" }) });
     });
 
-    xit("will error if a required block is empty", function(){
+    it("will error if a required block is empty", function(){
       createBlock();
       manager.validateBlockTypesExist(true);
       expect(manager.mediator.trigger).toHaveBeenCalledWith('errors:add',

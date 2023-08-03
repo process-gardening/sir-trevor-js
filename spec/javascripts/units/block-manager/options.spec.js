@@ -1,5 +1,5 @@
 "use strict";
-
+import SirTrevor from "../../../../src";
 describe("BlockManager::Options", function(){
 
   let manager, mediator;

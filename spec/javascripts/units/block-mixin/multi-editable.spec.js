@@ -1,5 +1,10 @@
 "use strict";
 
+import {vi} from "vitest";
+
+const spyOn = vi.spyOn;
+import SirTrevor from "../../../../src";
+
 describe("Block Mixin: MultiEditable", function() {
   let element, editor, block;
   const tpl = '<div class="st-block__editor"></div>';
@@ -22,7 +27,7 @@ describe("Block Mixin: MultiEditable", function() {
                                                 editor.mediator,
                                                 options);
 
-    spyOn(block, 'withMixin').and.callThrough();
+    spyOn(block, 'withMixin')
     editor.blockManager.renderBlock(block);
   });
 
@@ -58,7 +63,7 @@ describe("Block Mixin: MultiEditable", function() {
         const editorObj = block.newTextEditor(tpl, '');
         const editor = editorObj.el;
 
-        expect(editor.contentEditable).toEqual('true');
+        expect(editor.getAttribute("contenteditable")).toEqual('true');
       });
 
       it('returns scribe instance', function() {
