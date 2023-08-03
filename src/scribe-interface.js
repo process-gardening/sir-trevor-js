@@ -2,7 +2,7 @@
 
 import _ from "./lodash";
 
-import * as Scribe from "./vendor/scribe-editor";
+import Scribe from "./vendor/scribe-editor";
 
 import config from "./config";
 import {ScribePluginSanitizer} from "./vendor/scribe-plugin-sanitizer";
