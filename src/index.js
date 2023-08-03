@@ -3,17 +3,7 @@
 import "./icons/sir-trevor-icons.svg";
 import "./sass/main.scss";
 
-// ES6 shims
-import {shim as objectAssignShim} from "object.assign";
-objectAssignShim();
-
-import {shim as arrayFindShim} from "array.prototype.find";
-arrayFindShim();
-
 import "./vendor/array-includes";
-
-import es6promisepolyfill from "es6-promise";
-es6promisepolyfill.polyfill();
 
 import "./vendor/custom-event";
 import "./vendor/ie-classlist-toggle";
