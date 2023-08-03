@@ -21,7 +21,6 @@
   },
   "devDependencies": {
     "eventablejs": "^1.0.5",
-    "grunt-svgstore": "^2.0.0",
     "html-janitor": "github:guardian/html-janitor#v2.0.4",
     "jsdom": "^22.1.0",
     "jsonp-promise": "^0.1.2",
@@ -38,14 +37,12 @@
     "lodash.uniqueid": "^4.0.1",
     "micromodal": "https://github.com/madebymany/Micromodal/tarball/patch-1",
     "morgan": "^1.10.0",
-    "mversion": "2.0.1",
     "sass": "^1.63.6",
     "selection-range": "^1.1.0",
     "selenium-webdriver": "4.10.0",
     "spin.js": "^4.1.1",
     "typescript": "^5.1.6",
     "vite": "^4.4.4",
-    "vitest": "^0.33.0",
-    "whatwg-fetch": "^3.6.2"
+    "vitest": "^0.33.0"
   }
 }
