@@ -1,7 +1,7 @@
 "use strict";
 
 import { vitest} from "vitest";
-import SirTrevor from "../../../../src";
+import SirTrevor from "../../../../lib";
 const spyOn = vi.spyOn;
 import initializeLocale from "../../../../locales/fr";
 

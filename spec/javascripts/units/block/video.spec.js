@@ -1,7 +1,7 @@
 "use strict";
 
-import utils from "../../../../src/utils";
-import SirTrevor from "../../../../src";
+import utils from "../../../../lib/utils";
+import SirTrevor from "../../../../lib";
 
 describe('Blocks: Video block', function() {
 

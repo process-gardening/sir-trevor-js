@@ -3,7 +3,7 @@
 import {vi} from "vitest";
 
 const spyOn = vi.spyOn;
-import SirTrevor from "../../../../src";
+import SirTrevor from "../../../../lib";
 describe("Editor:Editor with options", function(){
 
   let element, editor;

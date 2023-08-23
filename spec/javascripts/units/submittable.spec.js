@@ -1,6 +1,6 @@
 "use strict";
-import SirTrevor from "../../../src";
-import utils from "../../../src/packages/dom";
+import SirTrevor from "../../../lib";
+import utils from "../../../lib/packages/dom";
 
 describe("SirTrevor.Submittable", function() {
 

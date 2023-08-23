@@ -4,8 +4,8 @@ import {vi} from "vitest";
 
 const spyOn = vi.spyOn;
 
-import utils from "../../../../src/utils";
-import SirTrevor from "../../../../src";
+import utils from "../../../../lib/utils";
+import SirTrevor from "../../../../lib";
 
 describe('Blocks: Markdown support', function() {
   let data, block;

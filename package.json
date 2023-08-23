@@ -7,7 +7,7 @@
     "url": "git@github.com:madebymany/sir-trevor-js.git"
   },
   "scripts": {
-    "dev-vite": "vite",
+    "dev": "vite serve",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest"

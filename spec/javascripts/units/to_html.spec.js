@@ -1,5 +1,5 @@
 "use strict";
-import SirTrevor from "../../../src";
+import SirTrevor from "../../../lib";
 describe("toHTML", function(){
 
   it("converts links to HTML", function(){

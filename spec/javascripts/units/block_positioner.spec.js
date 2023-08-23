@@ -1,6 +1,6 @@
 "use strict";
 
-import SirTrevor from "../../../src";
+import SirTrevor from "../../../lib";
 import {vi} from "vitest";
 
 const spyOn = vi.spyOn;

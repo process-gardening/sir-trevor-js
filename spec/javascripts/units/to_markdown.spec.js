@@ -1,5 +1,5 @@
 "use strict";
-import SirTrevor from "../../../src";
+import SirTrevor from "../../../lib";
 describe("toMarkdown", function(){
 
   it("converts links to markdown", function(){

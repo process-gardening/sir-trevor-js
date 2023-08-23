@@ -1,7 +1,7 @@
 "use strict";
 import { vi } from "vitest";
 const spyOn = vi.spyOn;
-import SirTrevor from "../../../../src";
+import SirTrevor from "../../../../lib";
 
 describe("Editor:Submission", function(){
 
