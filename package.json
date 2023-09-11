@@ -10,7 +10,8 @@
     "dev": "vite serve",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "cypress:open": "cypress open"
   },
   "jest": {
     "verbose": true
@@ -20,6 +21,7 @@
     "svg4everybody": "^2.1.9"
   },
   "devDependencies": {
+    "cypress": "^13.1.0",
     "eventablejs": "^1.0.5",
     "html-janitor": "github:guardian/html-janitor#v2.0.4",
     "jsdom": "^22.1.0",

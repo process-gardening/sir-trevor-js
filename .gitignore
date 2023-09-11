@@ -17,3 +17,6 @@ build/**/*.debug.*
 build/**/*.test.*
 .vscode
 dist
+/test-results/
+/playwright-report/
+/playwright/.cache/

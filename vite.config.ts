@@ -5,13 +5,16 @@ import {defineConfig} from 'vitest/config'
 export default defineConfig(({command, mode, ssrBuild}) => {
 
   const testConfig = {
+    server: {
+      strictPort: true
+    },
     test: {
       globals: true,
       setupFiles: [
-        "./javascripts/helpers/shims.js",
-        "./javascripts/helpers/sir-trevor.js",
+        "./helpers/shims.js",
+        "./helpers/sir-trevor.js",
       ],
-      root: "./spec",
+      root: "./spec/javascripts",
       environment: "jsdom",
     }
   }
