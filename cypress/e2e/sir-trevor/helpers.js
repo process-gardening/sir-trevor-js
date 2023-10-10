@@ -64,8 +64,8 @@ export function initSirTrevor(data) {
 export function createBlock(blockType, cb) {
 
     function createBlock(parent) {
-        findElementByCss('.st-block-replacer', parent).click().then( function() {
-            return findElementByCss('.st-block-controls__button[data-type="'+blockType+'"]', parent).click();
+        findElementByCss('.st-block-addition-element', parent).click().then( function() {
+            return findElementByCss('.st-block-button[data-type="'+blockType+'"]', parent).click();
         }).then( function() {
             return findElementByCss('.st-block[data-type="'+blockType+'"]');
         }).then(cb);
