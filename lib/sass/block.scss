@@ -472,6 +472,12 @@ ol .st-list-block__item {
   display: block;
 }
 
+.st-block--is-selected {
+  .st-block--text {
+    border-color: blue;
+  }
+}
+
 .st-block--with-errors .st-block__messages {
   border-color: $error-color;
 }
