@@ -43,7 +43,7 @@
     "selection-range": "^1.1.0",
     "selenium-webdriver": "4.10.0",
     "spin.js": "^4.1.1",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "vite": "^4.4.4",
     "vitest": "^0.33.0"
   }
