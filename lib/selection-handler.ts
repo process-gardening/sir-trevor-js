@@ -8,42 +8,84 @@ import function_bind from "./function-bind";
 
 import mediated_events from "./mediated-events";
 
+import type { MediatedEventableInterface } from "./hofs/bind-mediated-events";
+
+import { BindMediatedEvents } from "./hofs/bind-mediated-events";
+
+import { boundMethod } from "autobind-decorator";
+
 const TYPE = 'application/vnd.sirtrevor+json';
 
-const SelectionHandler = function (wrapper, mediator, editor) {
-  this.wrapper = wrapper;
-  this.mediator = mediator;
-  this.editor = editor;
-  this.options = editor.options;
+class BaseSelectionHandler implements MediatedEventableInterface {
 
-  this.startIndex = this.endIndex = 0;
-  this.selecting = false;
+  wrapper: any;
+  mediator: any;
+  editor: any;
+  options: any;
 
-  this._bindFunctions();
-  this._bindMediatedEvents();
+  eventNamespace: string;
+  mediatedEvents: {};
 
-  this.initialize();
-};
+  bound: string[];
 
-Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
+  startIndex; number;
+  endIndex: number;
+  selecting: boolean;
 
-  eventNamespace: 'selection',
 
-  bound: ['onCopy', 'onCut', 'onKeyDown', 'onMouseUp', 'onMouseDown', 'onPaste'],
+  constructor(wrapper, mediator, editor) {
+    this.wrapper = wrapper;
+    this.mediator = mediator;
+    this.editor = editor;
+    this.options = editor.options;
 
-  mediatedEvents: {
-    'start': 'start',
-    'render': 'render',
-    'complete': 'complete',
-    'all': 'all',
-    'copy': 'copy',
-    'update': 'update',
-    'delete': 'delete',
-    'cancel': 'cancel',
-    'block': 'block'
-  },
+    this.eventNamespace = 'selection';
 
-  canSelect: function() {
+    this.mediatedEvents = {
+      'start': 'start',
+      'render': 'render',
+      'complete': 'complete',
+      'all': 'all',
+      'copy': 'copy',
+      'update': 'update',
+      'delete': 'delete',
+      'cancel': 'cancel',
+      'block': 'block'
+    },
+
+    this.bound = ['onCopy', 'onCut', 'onKeyDown', 'onMouseUp', 'onMouseDown', 'onPaste']
+
+    this.startIndex = this.endIndex = 0;
+    this.selecting = false;
+
+    this.initialize();
+  }
+  
+  /**
+   * Initializes the selection handler by adding event listeners for keydown, mouseup, copy, cut, and paste events.
+   * If the selection handler is not enabled, no event listeners will be added.
+   */
+  initialize() {
+    if (!this.enabled()) return;
+
+    window.addEventListener("keydown", this.onKeyDown, false);
+    window.addEventListener('mouseup', this.onMouseUp, false);
+    document.addEventListener('copy', this.onCopy, false);
+
+    if (this.options.selectionCut) {
+      document.addEventListener('cut', this.onCut, false);
+    }
+
+    if (this.options.selectionPaste) {
+      document.addEventListener('paste', this.onPaste, true);
+    }
+  }
+
+  /**
+   * Determines whether the user can select text within the editor.
+   * @returns {boolean} True if the user can select text, false otherwise.
+   */
+  canSelect() {
     // Don't select if within an input field
     const editorEl1 = Dom.getClosest(document.activeElement, 'input');
 
@@ -57,29 +99,23 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
     }
 
     return true;
-  },
+  }
 
-  initialize: function() {
-    if (!this.enabled()) return false;
-
-    window.addEventListener("keydown", this.onKeyDown, false);
-    window.addEventListener('mouseup', this.onMouseUp, false);
-    document.addEventListener('copy', this.onCopy, false);
-
-    if (this.options.selectionCut) {
-      document.addEventListener('cut', this.onCut, false);
-    }
-
-    if (this.options.selectionPaste) {
-      document.addEventListener('paste', this.onPaste, true);
-    }
-  },
-
-  enabled: function() {
+  /**
+   * Returns a boolean indicating whether the selectionCopy option is enabled.
+   * @returns {boolean} Whether the selectionCopy option is enabled.
+   */
+  enabled() {
     return !!this.options.selectionCopy;
-  },
+  }
 
-  start: function(index, options = {}) {
+  /**
+   * Starts the selection process.
+   * @param index - The index to start the selection from.
+   * @param options - Optional settings for the selection process.
+   * @returns Returns false if selection is not enabled, otherwise returns true.
+   */
+  start(index, options = {}) {
     if (!this.enabled()) return false;
 
     options = Object.assign({
@@ -101,48 +137,48 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
     }
 
     this.mediator.trigger("selection:render");
-  },
+  }
 
-  startAtEnd: function() {
+  startAtEnd() {
     this.start(this.editor.getBlocks().length - 1);
-  },
+  }
 
-  move: function(offset) {
+  move(offset) {
     this.start(this.endIndex + offset);
-  },
+  }
 
-  onMouseMove: function() {},
+  onMouseMove() {}
 
-  update: function(index) {
+  update(index) {
     if (index < 0 || index >= this.editor.getBlocks().length) return;
     this.endIndex = index;
     if (this.startIndex !== this.endIndex) this.selecting = true;
     this.removeNativeSelection();
     this.mediator.trigger("selection:render");
-  },
+  }
 
   expand(offset) {
     this.update(this.endIndex + offset);
-  },
+  }
 
   expandToStart() {
     this.update(0);
-  },
+  }
 
   expandToEnd() {
     this.update(this.editor.getBlocks().length - 1);
-  },
+  }
 
   focusAtEnd() {
     const block = this.editor.getBlocks()[this.endIndex];
     block.el.scrollIntoView({ behavior: "smooth" });
-  },
+  }
 
-  complete: function() {
+  complete() {
     window.removeEventListener("mousemove", this.onMouseMove);
-  },
+  }
 
-  all: function() {
+  all() {
     if (!this.enabled()) return false;
 
     this.removeNativeSelection();
@@ -152,15 +188,15 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
     this.startIndex = 0;
     this.endIndex = blocks.length - 1;
     this.mediator.trigger("selection:render");
-  },
+  }
 
-  cancel: function() {
+  cancel() {
     this.editor.mouseDown = false;
     this.selecting = false;
     this.render();
-  },
+  }
 
-  removeNativeSelection: function() {
+  removeNativeSelection() {
     const sel = window.getSelection ? window.getSelection() : document.selection;
     if (sel) {
       if (sel.removeAllRanges) {
@@ -170,17 +206,17 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
       }
     }
     document.activeElement && document.activeElement.blur();
-  },
+  }
 
-  render: function() {
+  render() {
     const visible = this.selecting;
 
     this.editor.getBlocks().forEach((block, idx) => {
       block.select(visible && this.indexSelected(idx));
     });
-  },
+  }
 
-  getClipboardData: function() {
+  getClipboardData() {
     this.editor.getData();
 
     const htmlOutput = [];
@@ -202,9 +238,9 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
       text: textOutput.join("\n\n"),
       data: dataOutput
     };
-  },
+  }
 
-  copy: function() {
+  copy() {
     const copyArea = this.createFakeCopyArea();
     copyArea.innerHTML = this.getClipboardData().html;
 
@@ -221,9 +257,9 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
     catch (err) {
       console.log("Copy could not be performed");
     }
-  },
+  }
 
-  createFakeCopyArea: function() {
+  createFakeCopyArea() {
     let copyArea = document.body.querySelector(".st-copy-area");
     if (!copyArea) {
       copyArea = Dom.createElement("div", {
@@ -233,9 +269,9 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
       document.body.appendChild(copyArea);
     }
     return copyArea;
-  },
+  }
 
-  delete: function(options = {}) {
+  delete(options = {}) {
     options = Object.assign({ createNextBlock: true }, options);
 
     this.editor.getBlocks().forEach((block, idx) => {
@@ -249,38 +285,40 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
       );
     });
     this.cancel();
-  },
+  }
 
-  indexSelected: function(index) {
+  indexSelected(index) {
     return index >= this.getStartIndex() && index <= this.getEndIndex();
-  },
+  }
 
-  block: function(block) {
+  block(block) {
     const blockPosition = this.editor.blockManager.getBlockPosition(block.el);
 
     this.mediator.trigger("formatter:hide");
     this.removeNativeSelection();
     this.start(blockPosition);
-  },
+  }
 
-  getStartIndex: function() {
+  getStartIndex() {
     return Math.min(this.startIndex, this.endIndex);
-  },
+  }
 
 
-  getEndIndex: function() {
+  getEndIndex() {
     return Math.max(this.startIndex, this.endIndex);
-  },
+  }
 
-  getStartBlock: function() {
+  getStartBlock() {
     return this.editor.getBlocks()[this.getStartIndex()];
-  },
+  }
 
-  getEndBlock: function() {
+  getEndBlock() {
     return this.editor.getBlocks()[this.getEndIndex()];
-  },
+  }
 
-  onKeyDown: function(ev) {
+
+  @boundMethod
+  onKeyDown(ev) {
     ev = ev || window.event;
     const ctrlKey = ev.ctrlKey || ev.metaKey;
     const key = ev.key;
@@ -317,9 +355,10 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
         this.focusAtEnd();
       }
     }
-  },
+  }
 
-  onMouseUp: function() {
+  @boundMethod
+  onMouseUp(ev) {
     if (!this.editor.mouseDown) {
       window.addEventListener('mousedown', this.onMouseDown);
       this.mediator.trigger("selection:complete");
@@ -330,40 +369,44 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
     this.editor.mouseDown = false;
     this.mediator.trigger("selection:complete");
     this.mediator.trigger("selection:render");
-  },
+  }
 
-  onMouseDown: function(ev) {
+  @boundMethod
+  onMouseDown(ev) {
     if (!this.editor.mouseDown) {
       window.removeEventListener('mousedown', this.onMouseDown);
       this.mediator.trigger("selection:complete");
       this.mediator.trigger("selection:cancel");
 
     }
-  },
+  }
 
-  copySelection: function(ev) {
+  copySelection(ev) {
     const content = this.getClipboardData();
 
     ev.clipboardData.setData(TYPE, JSON.stringify(content.data));
     ev.clipboardData.setData('text/html', content.html);
     ev.clipboardData.setData('text/plain', content.text);
     ev.preventDefault();
-  },
+  }
 
-  onCopy: function(ev) {
+  @boundMethod
+  onCopy(ev) {
     if (!this.selecting) return;
 
     this.copySelection(ev);
-  },
+  }
 
-  onCut: function(ev) {
+  @boundMethod
+  onCut(ev) {
     if (!this.selecting) return;
 
     this.copySelection(ev);
     this.delete();
-  },
+  }
 
-  onPaste: function(ev) {
+  @boundMethod
+  onPaste(ev) {
     // Fix Edge types DomStringList.
     const types = [].slice.call(ev.clipboardData.types);
     if (types.includes(TYPE)) {
@@ -384,6 +427,6 @@ Object.assign(SelectionHandler.prototype, function_bind, mediated_events, {
       this.mediator.trigger("block:paste", data);
     }
   }
-});
+}
 
-export default SelectionHandler;
+export default BindMediatedEvents(BaseSelectionHandler);
