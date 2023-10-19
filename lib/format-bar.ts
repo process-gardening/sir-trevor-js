@@ -16,43 +16,59 @@ import Events from "./packages/events";
 
 import FORMAT_BUTTON_TEMPLATE from "./templates/format-button";
 
-import function_bind from "./function-bind";
+import { boundMethod } from "autobind-decorator";
+import { MediatedEventable, MediatedEventableInterface } from "./hofs/mediated-eventable";
+import { Renderable, RenderableInterface } from "./hofs/renderable";
+import { Eventable } from "./hofs/eventable";
+import { Initializeable, InitializeableInterface } from "./hofs/initializeable";
 
-import mediated_events from "./mediated-events";
+@Initializeable
+@Eventable
+@Renderable
+@MediatedEventable
+class FormatBar implements RenderableInterface, MediatedEventableInterface, InitializeableInterface {
 
-import events from "./events";
+  commands: any;
+  mediator: any;
+  editor: any;
+  options: any;
 
-import renderable from "./renderable";
+  className: string;
 
-const FormatBar = function (options, mediator, editor) {
-  this.editor = editor;
-  this.options = Object.assign({}, config.defaults.formatBar, options || {});
-  this.commands = this.options.commands;
-  this.mediator = mediator;
-  this.isShown = false;
+  eventNamespace: string;
+  mediatedEvents: {};
 
-  this._ensureElement();
-  this._bindFunctions();
-  this._bindMediatedEvents();
+  bound: string[];
 
-  this.initialize.apply(this, arguments);
-};
+  startIndex; number;
+  endIndex: number;
+  isShown: boolean;
 
-Object.assign(FormatBar.prototype, function_bind, mediated_events, events, renderable, {
+  // from RenderableInterface
+  el: any;
+  id: any;
+  block: any;
 
-  className: 'st-format-bar',
+  constructor(options, mediator, editor) {
+    this.editor = editor;
+    this.options = Object.assign({}, config.defaults.formatBar, options || {});
+    this.commands = this.options.commands;
+    this.mediator = mediator;
+    this.isShown = false;
 
-  bound: ["onFormatButtonClick", "renderBySelection", "hide"],
+    this.className = 'st-format-bar';
 
-  eventNamespace: 'formatter',
+    this.eventNamespace = "formatter";
 
-  mediatedEvents: {
-    'position': 'renderBySelection',
-    'show': 'show',
-    'hide': 'hide'
-  },
+    this.mediatedEvents = {
+      'position': 'renderBySelection',
+      'show': 'show',
+      'hide': 'hide'
+    };
 
-  initialize: function() {
+  }
+
+  initialize() {
 
     const buttons = this.commands.reduce(function (memo, format) {
       return memo + FORMAT_BUTTON_TEMPLATE(format);
@@ -62,17 +78,18 @@ Object.assign(FormatBar.prototype, function_bind, mediated_events, events, rende
 
     // We use mousedown rather than click as that allows us to keep focus on the contenteditable field.
     Events.delegate(this.el, '.st-format-btn', 'mousedown', this.onFormatButtonClick);
-  },
+  }
 
-  hide: function() {
+  @boundMethod
+  hide() {
     this.block = undefined;
     this.isShown = false;
 
     this.el.classList.remove('st-format-bar--is-ready');
     Dom.remove(this.el);
-  },
+  }
 
-  show: function() {
+  show() {
     if(this.isShown){
       return;
     }
@@ -81,18 +98,19 @@ Object.assign(FormatBar.prototype, function_bind, mediated_events, events, rende
 
     this.editor.outer.appendChild(this.el);
     this.el.classList.add('st-format-bar--is-ready');
-  },
+  }
 
-  remove: function(){ Dom.remove(this.el); },
+  remove(){ Dom.remove(this.el); }
 
-  renderBySelection: function(block) {
+  @boundMethod
+  renderBySelection(block) {
     this.block = block;
     this.highlightSelectedButtons();
     this.show();
     this.calculatePosition();
-  },
+  }
 
-  calculatePosition: function() {
+  calculatePosition() {
     const selection = window.getSelection(),
       range = selection.getRangeAt(0),
       boundary = range.getBoundingClientRect(),
@@ -106,9 +124,9 @@ Object.assign(FormatBar.prototype, function_bind, mediated_events, events, rende
 
     this.el.style.top = coords.top;
     this.el.style.left = coords.left;
-  },
+  }
 
-  highlightSelectedButtons: function() {
+  highlightSelectedButtons() {
     [].forEach.call(this.el.querySelectorAll(".st-format-btn"), (btn) => {
       const cmd = btn.getAttribute('data-cmd');
       const state = this.block.queryTextBlockCommandState(cmd);
@@ -117,9 +135,10 @@ Object.assign(FormatBar.prototype, function_bind, mediated_events, events, rende
 
       btn = null;
     });
-  },
+  }
 
-  onFormatButtonClick: function(ev) {
+  @boundMethod
+  onFormatButtonClick(ev) {
     ev.preventDefault();
     ev.stopPropagation();
 
@@ -143,7 +162,6 @@ Object.assign(FormatBar.prototype, function_bind, mediated_events, events, rende
 
     return false;
   }
-
-});
+}
 
 export default FormatBar;
