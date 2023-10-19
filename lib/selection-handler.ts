@@ -4,18 +4,15 @@ import _ from "./lodash";
 
 import Dom from "./packages/dom";
 
-import function_bind from "./function-bind";
+import type { MediatedEventableInterface } from "./hofs/mediated-eventable";
 
-import mediated_events from "./mediated-events";
-
-import type { MediatedEventableInterface } from "./hofs/bind-mediated-events";
-
-import { BindMediatedEvents } from "./hofs/bind-mediated-events";
+import { MediatedEventable } from "./hofs/mediated-eventable";
 
 import { boundMethod } from "autobind-decorator";
 
 const TYPE = 'application/vnd.sirtrevor+json';
 
+@MediatedEventable
 class BaseSelectionHandler implements MediatedEventableInterface {
 
   wrapper: any;
@@ -429,4 +426,4 @@ class BaseSelectionHandler implements MediatedEventableInterface {
   }
 }
 
-export default BindMediatedEvents(BaseSelectionHandler);
+export default BaseSelectionHandler;

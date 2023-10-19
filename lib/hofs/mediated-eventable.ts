@@ -7,9 +7,9 @@ export interface MediatedEventableInterface {
     mediatedEvents: {};
 }
 
-type MediatedEventable = GConstructor<MediatedEventableInterface>;
+type MediatedEventableConstructor = GConstructor<MediatedEventableInterface>;
 
-export function BindMediatedEvents<TBase extends MediatedEventable>(Base: TBase) {
+export function MediatedEventable<TBase extends MediatedEventableConstructor>(Base: TBase) {
     return class BoundMediatedEvents extends Base {
         // Mixins may not declare private/protected properties
         // however, you can use ES2020 private fields
