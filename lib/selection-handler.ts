@@ -9,6 +9,7 @@ import type { MediatedEventableInterface } from "./hofs/mediated-eventable";
 import { MediatedEventable } from "./hofs/mediated-eventable";
 
 import { boundMethod } from "autobind-decorator";
+import { EventableClassType } from "./hofs/eventable";
 
 const TYPE = 'application/vnd.sirtrevor+json';
 
@@ -16,7 +17,7 @@ const TYPE = 'application/vnd.sirtrevor+json';
 class BaseSelectionHandler implements MediatedEventableInterface {
 
   wrapper: any;
-  mediator: any;
+  mediator: EventableClassType<this>;
   editor: any;
   options: any;
 

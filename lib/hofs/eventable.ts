@@ -34,7 +34,7 @@ type EventableConstructor = GConstructor<EventableInterface>;
 
 export function Eventable<TBase extends EventableConstructor>(Base: TBase) {
 
-    return class extends Base {
+    return class EventableClass extends Base {
 
         _events: any;
         _listeners: any;
@@ -170,6 +170,7 @@ export function Eventable<TBase extends EventableConstructor>(Base: TBase) {
                 default: while (++i < l) (ev = events[i]).callback.apply(ev.ctx, args);
             }
         }
+
     }
 
 }
@@ -190,3 +191,5 @@ function addListenMethod(method: string, implementation: string) {
 
 addListenMethod('listenTo', 'on');
 addListenMethod('listenToOnce', 'once');
+
+export type EventableClassType<T> = InstanceType<ReturnType<typeof Eventable>> & T;
