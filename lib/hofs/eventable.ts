@@ -105,7 +105,7 @@ export function Eventable<TBase extends EventableConstructor>(Base: TBase) {
         // passed the same arguments as `trigger` is, apart from the event name
         // (unless you're listening on `"all"`, which will cause your callback to
         // receive the true name of the event as the first argument).
-        trigger(name: string) {
+        trigger(name: string, ...restArgs: any[]) {
             if (!this._events) return this;
             const args = Array.prototype.slice.call(arguments, 1);
             if (!this.eventsApi(this, 'trigger', name, args)) return this;
@@ -192,4 +192,5 @@ function addListenMethod(method: string, implementation: string) {
 addListenMethod('listenTo', 'on');
 addListenMethod('listenToOnce', 'once');
 
-export type EventableClassType<T> = InstanceType<ReturnType<typeof Eventable>> & T;
+//export type EventableClassType<T> = InstanceType<ReturnType<typeof Eventable>> & T;
+export type MediatorInstanceType = InstanceType<ReturnType<typeof Eventable>>;
