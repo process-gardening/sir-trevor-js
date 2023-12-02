@@ -20,6 +20,7 @@ import { boundMethod } from "autobind-decorator";
 import { MediatedEventable, MediatedEventableInterface } from "./hofs/mediated-eventable";
 import { Renderable, RenderableInterface } from "./hofs/renderable";
 import { Eventable } from "./hofs/eventable";
+import type { MediatorInstanceType } from './hofs/eventable';
 import { Initializeable, InitializeableInterface } from "./hofs/initializeable";
 
 @Initializeable
@@ -49,7 +50,7 @@ class FormatBar implements RenderableInterface, MediatedEventableInterface, Init
   id: any;
   block: any;
 
-  constructor(options, mediator, editor) {
+  constructor(options: typeof config.defaults.formatBar, mediator: MediatorInstanceType, editor) {
     this.editor = editor;
     this.options = Object.assign({}, config.defaults.formatBar, options || {});
     this.commands = this.options.commands;

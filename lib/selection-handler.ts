@@ -13,6 +13,16 @@ import { MediatorInstanceType } from "./hofs/eventable";
 
 const TYPE = 'application/vnd.sirtrevor+json';
 
+interface StartOptions {
+  expand?: boolean;
+  mouseEnabled?: boolean;
+}
+
+interface DeleteOptions {
+  createNextBlock?: boolean;
+
+}
+
 @MediatedEventable
 class BaseSelectionHandler implements MediatedEventableInterface {
 
@@ -84,7 +94,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
    * Determines whether the user can select text within the editor.
    * @returns {boolean} True if the user can select text, false otherwise.
    */
-  canSelect() {
+  canSelect(): boolean {
     // Don't select if within an input field
     const editorEl1 = Dom.getClosest(document.activeElement, 'input');
 
@@ -104,7 +114,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
    * Returns a boolean indicating whether the selectionCopy option is enabled.
    * @returns {boolean} Whether the selectionCopy option is enabled.
    */
-  enabled() {
+  enabled(): boolean {
     return !!this.options.selectionCopy;
   }
 
@@ -114,7 +124,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
    * @param options - Optional settings for the selection process.
    * @returns Returns false if selection is not enabled, otherwise returns true.
    */
-  start(index, options = {}) {
+  start(index: number, options: StartOptions = {}) {
     if (!this.enabled()) return false;
 
     options = Object.assign({
@@ -156,7 +166,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
     this.mediator.trigger("selection:render");
   }
 
-  expand(offset) {
+  expand(offset: number) {
     this.update(this.endIndex + offset);
   }
 
@@ -196,7 +206,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
   }
 
   removeNativeSelection() {
-    const sel = window.getSelection ? window.getSelection() : document.selection;
+    const sel = window.getSelection ? window.getSelection() : document.getSelection();
     if (sel) {
       if (sel.removeAllRanges) {
         sel.removeAllRanges();
@@ -204,7 +214,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
         sel.empty();
       }
     }
-    document.activeElement && document.activeElement.blur();
+    document.activeElement && (document.activeElement as HTMLElement).blur();
   }
 
   render() {
@@ -258,7 +268,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
     }
   }
 
-  createFakeCopyArea() {
+  createFakeCopyArea(): HTMLDivElement {
     let copyArea = document.body.querySelector(".st-copy-area");
     if (!copyArea) {
       copyArea = Dom.createElement("div", {
@@ -267,10 +277,10 @@ class BaseSelectionHandler implements MediatedEventableInterface {
       });
       document.body.appendChild(copyArea);
     }
-    return copyArea;
+    return copyArea as HTMLDivElement;
   }
 
-  delete(options = {}) {
+  delete(options: DeleteOptions = {}) {
     options = Object.assign({ createNextBlock: true }, options);
 
     this.editor.getBlocks().forEach((block, idx) => {
@@ -317,8 +327,8 @@ class BaseSelectionHandler implements MediatedEventableInterface {
 
 
   @boundMethod
-  onKeyDown(ev) {
-    ev = ev || window.event;
+  onKeyDown(ev: KeyboardEvent) {
+    
     const ctrlKey = ev.ctrlKey || ev.metaKey;
     const key = ev.key;
 
@@ -357,7 +367,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
   }
 
   @boundMethod
-  onMouseUp(ev) {
+  onMouseUp(ev: MouseEvent) {
     if (!this.editor.mouseDown) {
       window.addEventListener('mousedown', this.onMouseDown);
       this.mediator.trigger("selection:complete");
@@ -371,7 +381,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
   }
 
   @boundMethod
-  onMouseDown(ev) {
+  onMouseDown(ev: MouseEvent) {
     if (!this.editor.mouseDown) {
       window.removeEventListener('mousedown', this.onMouseDown);
       this.mediator.trigger("selection:complete");
@@ -380,7 +390,7 @@ class BaseSelectionHandler implements MediatedEventableInterface {
     }
   }
 
-  copySelection(ev) {
+  copySelection(ev: ClipboardEvent) {
     const content = this.getClipboardData();
 
     ev.clipboardData.setData(TYPE, JSON.stringify(content.data));
@@ -390,14 +400,14 @@ class BaseSelectionHandler implements MediatedEventableInterface {
   }
 
   @boundMethod
-  onCopy(ev) {
+  onCopy(ev: ClipboardEvent) {
     if (!this.selecting) return;
 
     this.copySelection(ev);
   }
 
   @boundMethod
-  onCut(ev) {
+  onCut(ev: ClipboardEvent) {
     if (!this.selecting) return;
 
     this.copySelection(ev);
@@ -405,10 +415,11 @@ class BaseSelectionHandler implements MediatedEventableInterface {
   }
 
   @boundMethod
-  onPaste(ev) {
+  onPaste(ev: ClipboardEvent) {
     // Fix Edge types DomStringList.
+    
     const types = [].slice.call(ev.clipboardData.types);
-    if (types.includes(TYPE)) {
+    if (types.includes(TYPE) && ev.clipboardData.getData(TYPE) !== null) {
       if (!this.selecting && !this.canSelect()) return;
 
       ev.preventDefault();
