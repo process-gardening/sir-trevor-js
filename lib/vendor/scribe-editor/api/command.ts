@@ -1,8 +1,9 @@
+import Scribe from "..";
 
 
   
 
-  export default function (scribe) {
+  export default function (scribe: Scribe) {
     function Command(commandName) {
       this.commandName = commandName;
       this.patch = scribe.commandPatches[this.commandName];

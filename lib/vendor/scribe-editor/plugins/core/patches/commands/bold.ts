@@ -1,9 +1,10 @@
+import Scribe from "../../../..";
 
 
   
 
   export default function () {
-    return function (scribe) {
+    return function (scribe: Scribe) {
         const boldCommand = new scribe.api.CommandPatch('bold');
 
         /**

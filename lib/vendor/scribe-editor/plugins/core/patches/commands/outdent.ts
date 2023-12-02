@@ -4,10 +4,12 @@
    * Prevent Chrome from removing formatting of BLOCKQUOTE contents.
    */
 
+import Scribe from "../../../..";
+
   
 
   export default function () {
-    return function (scribe) {
+    return function (scribe: Scribe) {
         const nodeHelpers = scribe.node;
         const outdentCommand = new scribe.api.CommandPatch('outdent');
 

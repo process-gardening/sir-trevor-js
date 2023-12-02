@@ -1,9 +1,10 @@
+import Scribe from '../../..';
 import keystrokes from '../../../keystrokes';
 
   
 
   export default function () {
-    return function (scribe) {
+    return function (scribe: Scribe) {
         const undoCommand = new scribe.api.Command('undo');
 
         undoCommand.execute = function () {

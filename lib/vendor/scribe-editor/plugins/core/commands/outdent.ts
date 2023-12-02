@@ -1,9 +1,10 @@
+import Scribe from "../../..";
 
 
   
 
   export default function () {
-    return function (scribe) {
+    return function (scribe: Scribe) {
         const outdentCommand = new scribe.api.Command('outdent');
 
         outdentCommand.queryEnabled = function () {

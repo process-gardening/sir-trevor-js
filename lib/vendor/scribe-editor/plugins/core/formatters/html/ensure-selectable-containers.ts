@@ -1,3 +1,4 @@
+import Scribe from '../../../..';
 import nodeHelpers from '../../../../node';
 import Immutable from 'immutable';
 
@@ -56,7 +57,7 @@ function parentHasNoTextContent(node) {
   }
 
   export default function () {
-    return function (scribe) {
+    return function (scribe: Scribe) {
 
       scribe.registerHTMLFormatter('normalize', function (html) {
           const bin = document.createElement('div');

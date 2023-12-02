@@ -1,7 +1,8 @@
+import Scribe from "../../../..";
 
   
   export default function () {
-    return function (scribe) {
+    return function (scribe: Scribe) {
         const insertHTMLCommandPatch = new scribe.api.CommandPatch('insertHTML');
         const nodeHelpers = scribe.node;
 

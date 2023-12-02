@@ -1,8 +1,9 @@
+import Scribe from '.';
 import events from './events';
 
   
 
-  export default function (scribe) {
+  export default function (scribe: Scribe) {
     function TransactionManager() {
       this.history = [];
     }

@@ -1,8 +1,9 @@
+import Scribe from "..";
 
 
   
 
-  export default function (scribe) {
+  export default function (scribe: Scribe) {
     let rootDoc = scribe.el.ownerDocument;
     const nodeHelpers = scribe.node;
 

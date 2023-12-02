@@ -1,3 +1,4 @@
+import Scribe from '../..';
 import nodeHelpers from '../../node';
 
   
@@ -20,7 +21,7 @@ import nodeHelpers from '../../node';
   }
 
   export default function () {
-    return function (scribe) {
+    return function (scribe: Scribe) {
       /**
        * Firefox has a `insertBrOnReturn` command, but this is not a part of
        * any standard. One day we might have an `insertLineBreak` command,

@@ -3,8 +3,9 @@
 import selectionRange from "selection-range";
 
 import utils from "../../utils";
+import Scribe from "../../vendor/scribe-editor";
 
-const selectToEnd = function (scribe) {
+const selectToEnd = function (scribe: Scribe) {
   const selection = new scribe.api.Selection();
   const range = selection.range.cloneRange();
   range.setEndAfter(scribe.el.lastChild, 0);
@@ -12,7 +13,7 @@ const selectToEnd = function (scribe) {
   return range;
 };
 
-const isAtStart = function (scribe) {
+const isAtStart = function (scribe: Scribe) {
   const currentRange = selectionRange(scribe.el);
 
   return (
@@ -22,7 +23,7 @@ const isAtStart = function (scribe) {
   );
 };
 
-const getTotalLength = function (scribe) {
+const getTotalLength = function (scribe: Scribe) {
   const selection = new scribe.api.Selection();
   const range = selection.range.cloneRange();
   range.selectNodeContents(scribe.el);
@@ -30,26 +31,26 @@ const getTotalLength = function (scribe) {
   return range.toString().length;
 };
 
-const isAtEnd = function (scribe) {
+const isAtEnd = function (scribe: Scribe) {
   const currentRange = selectionRange(scribe.el);
 
   return (getTotalLength(scribe) === currentRange.end) && (currentRange.start === currentRange.end);
 };
 
-const isSelectedToEnd = function (scribe) {
+const isSelectedToEnd = function (scribe: Scribe) {
   const currentRange = selectionRange(scribe.el);
 
   return (getTotalLength(scribe) === currentRange.end);
 };
 
-const isSelectedFromStart = function (scribe) {
+const isSelectedFromStart = function (scribe: Scribe) {
   const currentRange = selectionRange(scribe.el);
 
   return currentRange.atStart && currentRange.start === 0;
 };
 
 // Remove any empty elements at the start of the range.
-const stripFirstEmptyElement = function (div) {
+const stripFirstEmptyElement = function (div: HTMLDivElement) {
   if (div.firstChild === null) {
     return;
   }
@@ -62,7 +63,7 @@ const stripFirstEmptyElement = function (div) {
   }
 };
 
-const createBlocksFromParagraphs = function (block, scribe) {
+const createBlocksFromParagraphs = function (block: any, scribe: Scribe) {
   let fakeContent = document.createElement('div');
   fakeContent.appendChild(selectToEnd(scribe).extractContents());
 
@@ -90,14 +91,14 @@ const createBlocksFromParagraphs = function (block, scribe) {
   }
 };
 
-const rangeToHTML = function (range) {
+const rangeToHTML = function (range: Range) {
   const div = document.createElement('div');
   div.appendChild(range.extractContents());
 
   return div.innerHTML;
 };
 
-const trimScribeContent = function (scribe) {
+const trimScribeContent = function (scribe: Scribe) {
   // Remove any whitespace in the first node, otherwise selections won't work.
   const firstNode = scribe.node.firstDeepestChild(scribe.el);
   if (firstNode.nodeName === '#text') {

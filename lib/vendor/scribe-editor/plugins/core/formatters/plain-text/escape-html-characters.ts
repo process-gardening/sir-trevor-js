@@ -1,3 +1,5 @@
+import Scribe from "../../../..";
+
 function baseToString(value) {
   if (typeof value == 'string') {
     return value;
@@ -68,7 +70,7 @@ function escape(string){
 
 
 export function escapeHtmlCharactersFormatter(){
-  return function (scribe) {
+  return function (scribe: Scribe) {
     scribe.registerPlainTextFormatter(escape);
   };
 }
