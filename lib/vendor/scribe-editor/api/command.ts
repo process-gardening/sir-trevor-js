@@ -4,12 +4,12 @@ import Scribe from "..";
   
 
   export default function (scribe: Scribe) {
-    function Command(commandName) {
+    function Command(commandName: string) {
       this.commandName = commandName;
       this.patch = scribe.commandPatches[this.commandName];
     }
 
-    Command.prototype.execute = function (value) {
+    Command.prototype.execute = function (value: any) {
       if (this.patch) {
         this.patch.execute(value);
       } else {
